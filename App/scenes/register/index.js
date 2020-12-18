@@ -1,11 +1,11 @@
 import React from 'react';
 import {SafeAreaView, Text, TouchableHighlight} from 'react-native';
 
-const RegisterScreen = () => (
+const RegisterScreen = ({navigation}) => (
   <SafeAreaView>
     <Text>Screen: Register</Text>
 
-    <TouchableHighlight>
+    <TouchableHighlight onPress={() => navigation.navigate('Login')}>
       <Text>Go to Log-In Screen</Text>
     </TouchableHighlight>
   </SafeAreaView>

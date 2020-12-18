@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-import {Mixins} from '../styles';
+import {Mixins} from '../../styles';
 
 const FormButton = ({buttonTitle, ...rest}) => (
   <TouchableOpacity style={styles.buttonContainer} {...rest}>

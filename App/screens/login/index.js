@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,24 +9,56 @@ import {
 } from 'react-native';
 
 import {Routes} from '../../config';
+import {FormInput} from '../../components';
 
-const LoginScreen = ({navigation}) => (
-  <SafeAreaView style={styles.formView}>
-    <Text>Screen: Login</Text>
+const LoginScreen = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    <TextInput placeholder="Email" keyboardType="email-address" />
+  const onSubmit = () => {
+    console.log(email, password);
+    navigation.navigate(Routes.DASHBOARD);
+  };
 
-    <TextInput placeholder="Password" secureTextEntry={true} />
+  return (
+    <SafeAreaView style={styles.formView}>
+      <Text>Screen: Login</Text>
 
-    <TouchableOpacity onPress={() => navigation.navigate(Routes.REGISTER)}>
-      <Text>Testing</Text>
-    </TouchableOpacity>
+      <FormInput
+        value={email}
+        placeholderText="Email"
+        onChangeText={(uEm) => setEmail(uEm)}
+        autoCapitalize="none"
+        keyboardType="email-address"
+        autoCorrect={false}
+      />
 
-    <TouchableHighlight onPress={() => navigation.navigate(Routes.REGISTER)}>
-      <Text>Go to Sign-Up Screen</Text>
-    </TouchableHighlight>
-  </SafeAreaView>
-);
+      {/* <TextInput
+        autoCapitalize="none"
+        autoCorrect={false}
+        keyboardType="email-address"
+        onChangeText={(userEmail) => setEmail(userEmail)}
+        placeholder="Email"
+        value={email}
+      /> */}
+
+      <TextInput
+        onChangeText={(userPassword) => setPassword(userPassword)}
+        placeholder="Password"
+        secureTextEntry={true}
+        value={password}
+      />
+
+      <TouchableOpacity onPress={onSubmit}>
+        <Text>Submit</Text>
+      </TouchableOpacity>
+
+      <TouchableHighlight onPress={() => navigation.navigate(Routes.REGISTER)}>
+        <Text>Go to Sign-Up Screen</Text>
+      </TouchableHighlight>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   formView: {

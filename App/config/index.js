@@ -1,1 +1,1 @@
-export {Routes} from './constants';
+export {default as Routes} from './Routes';

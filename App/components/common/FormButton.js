@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
-import {Mixins} from '../../styles';
+import {Colors} from '../../styles';
+import {Dimensions} from '../../utils';
 
 const FormButton = ({buttonTitle, ...rest}) => (
   <TouchableOpacity style={styles.buttonContainer} {...rest}>
@@ -12,9 +13,9 @@ const FormButton = ({buttonTitle, ...rest}) => (
 const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 10,
-    width: Mixins.WINDOW_WIDTH / 2,
-    height: Mixins.WINDOW_HEIGHT / 15,
-    backgroundColor: '#6646ee',
+    width: Dimensions.WINDOW_WIDTH / 2,
+    height: Dimensions.WINDOW_HEIGHT / 15,
+    backgroundColor: Colors.SECONDARY,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',

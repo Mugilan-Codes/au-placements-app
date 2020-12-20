@@ -12,12 +12,14 @@ import {Routes} from '../../config';
 import {FormInput} from '../../components';
 
 const LoginScreen = ({navigation}) => {
+  const {navigate: navigateTo} = navigation;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const onSubmit = () => {
     console.log(email, password);
-    navigation.navigate(Routes.DASHBOARD);
+    navigateTo(Routes.DASHBOARD);
   };
 
   return (
@@ -53,7 +55,7 @@ const LoginScreen = ({navigation}) => {
         <Text>Submit</Text>
       </TouchableOpacity>
 
-      <TouchableHighlight onPress={() => navigation.navigate(Routes.REGISTER)}>
+      <TouchableHighlight onPress={() => navigateTo(Routes.REGISTER)}>
         <Text>Go to Sign-Up Screen</Text>
       </TouchableHighlight>
     </SafeAreaView>

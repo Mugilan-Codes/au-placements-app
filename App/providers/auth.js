@@ -1,11 +1,23 @@
-import React, {createContext, useContext} from 'react';
+import React, {createContext, useContext, useMemo, useState} from 'react';
 
-const AuthContext = createContext();
+const StudentContext = createContext();
 
-const AuthProvider = ({children}) => {
-  return <AuthContext.Provider>{children}</AuthContext.Provider>;
+const StudentProvider = ({children}) => {
+  const [state] = useState('');
+
+  const login = () => {
+    console.log('testing');
+  };
+
+  const value = useMemo(() => {
+    return {state, login};
+  }, [state]);
+
+  return (
+    <StudentContext.Provider value={value}>{children}</StudentContext.Provider>
+  );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useStudent = () => useContext(StudentContext);
 
-export default AuthProvider;
+export default StudentProvider;

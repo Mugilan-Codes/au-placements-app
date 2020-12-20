@@ -1,1 +1,1 @@
-export {useAuth, default as AuthProvider} from './auth';
+export {useStudent, default as StudentProvider} from './auth';

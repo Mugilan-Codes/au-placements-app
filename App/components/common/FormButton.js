@@ -4,14 +4,14 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Colors} from '../../styles';
 import {Dimensions} from '../../utils';
 
-const FormButton = ({buttonTitle, ...rest}) => (
-  <TouchableOpacity style={styles.buttonContainer} {...rest}>
-    <Text style={styles.buttonText}>{buttonTitle}</Text>
+const FormButton = ({label, ...props}) => (
+  <TouchableOpacity style={styles.button} {...props}>
+    <Text style={styles.buttonLabel}>{label}</Text>
   </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  button: {
     marginTop: 10,
     width: Dimensions.WINDOW_WIDTH / 2,
     height: Dimensions.WINDOW_HEIGHT / 15,
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 8,
   },
-  buttonText: {
+  buttonLabel: {
     fontSize: 28,
     color: '#ffffff',
   },

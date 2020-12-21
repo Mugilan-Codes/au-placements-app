@@ -14,11 +14,7 @@ import {FormInput} from '../../components';
 const LoginScreen = ({navigation}) => {
   const {navigate: navigateTo} = navigation;
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
   const onSubmit = () => {
-    console.log(email, password);
     navigateTo(Routes.DASHBOARD);
   };
 

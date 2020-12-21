@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {DashboardScreen, LoginScreen, RegisterScreen} from '../screens';
 import {Routes} from '../config';
+import HomeNavigator from './HomeNavigator';
 
 const Stack = createStackNavigator();
 
@@ -15,7 +16,7 @@ const AppNavigator = () => {
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={Routes.LOGIN} component={LoginScreen} />
         <Stack.Screen name={Routes.REGISTER} component={RegisterScreen} />
-        <Stack.Screen name={Routes.DASHBOARD} component={DashboardScreen} />
+        <Stack.Screen name={Routes.HOME} component={HomeNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

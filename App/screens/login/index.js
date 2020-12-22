@@ -12,10 +12,13 @@ import {Routes} from '../../config';
 import {FormInput} from '../../components';
 
 const LoginScreen = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const {navigate: navigateTo} = navigation;
 
   const onSubmit = () => {
-    navigateTo(Routes.DASHBOARD);
+    navigateTo(Routes.HOME);
   };
 
   return (

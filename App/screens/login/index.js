@@ -10,14 +10,19 @@ import {
 
 import {Routes} from '../../config';
 import {FormInput} from '../../components';
+import {useAuth} from '../../state/providers/auth';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {
+    authActions: {loginStudent},
+  } = useAuth();
 
   const {navigate: navigateTo} = navigation;
 
   const onSubmit = () => {
+    loginStudent(email, password);
     navigateTo(Routes.HOME);
   };
 

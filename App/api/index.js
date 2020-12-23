@@ -1,1 +1,1 @@
-export {Auth} from './constants';
+export {Student} from './helper';

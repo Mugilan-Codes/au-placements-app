@@ -6,7 +6,7 @@ import {Routes} from '../../config';
 import {FormButton, FormInput} from '../../components';
 
 const LoginScreen = ({navigation}) => {
-  const {handleSubmit, control} = useForm();
+  const {handleSubmit, control, errors} = useForm();
   const {navigate: navigateTo} = navigation;
 
   const onSubmit = (data) => {
@@ -22,9 +22,12 @@ const LoginScreen = ({navigation}) => {
         defaultValue=""
         name="email"
         control={control}
+        rules={{required: {value: true, message: 'E-Mail is required'}}}
         render={({onChange, value}) => (
           <FormInput
             placeholder="E-Mail Address"
+            error={errors.email}
+            errorText={errors?.email?.message}
             onChangeText={(text) => onChange(text)}
             value={value}
             keyboardType="email-address"
@@ -38,9 +41,12 @@ const LoginScreen = ({navigation}) => {
         defaultValue=""
         name="password"
         control={control}
+        rules={{required: {value: true, message: 'Password is required'}}}
         render={({onChange, value}) => (
           <FormInput
             placeholder="Password"
+            error={errors.password}
+            errorText={errors?.password?.message}
             onChangeText={(text) => onChange(text)}
             value={value}
             secureTextEntry={true}

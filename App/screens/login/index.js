@@ -1,43 +1,54 @@
-import React, {useState} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import {SafeAreaView, StyleSheet, Text, TouchableHighlight} from 'react-native';
+import {useForm, Controller} from 'react-hook-form';
 
 import {Routes} from '../../config';
-import {FormInput} from '../../components';
+import {FormButton, FormInput} from '../../components';
 
 const LoginScreen = ({navigation}) => {
+  const {handleSubmit, control} = useForm();
   const {navigate: navigateTo} = navigation;
 
-  const onSubmit = () => {
-    navigateTo(Routes.HOME);
+  const onSubmit = (data) => {
+    console.log('data =', data);
+    // navigateTo(Routes.HOME);
   };
 
   return (
     <SafeAreaView style={styles.formView}>
       <Text>Student Login</Text>
 
-      <FormInput
-        label="email"
-        placeholder="Enter your E-mail Address"
-        autoCapitalize="none"
-        keyboardType="email-address"
-        autoCorrect={false}
+      <Controller
+        defaultValue=""
+        name="email"
+        control={control}
+        render={({onChange, value}) => (
+          <FormInput
+            placeholder="E-Mail Address"
+            onChangeText={(text) => onChange(text)}
+            value={value}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        )}
       />
 
-      <FormInput
-        label="password"
-        placeholder="Enter your password"
-        secureTextEntry={true}
+      <Controller
+        defaultValue=""
+        name="password"
+        control={control}
+        render={({onChange, value}) => (
+          <FormInput
+            placeholder="Password"
+            onChangeText={(text) => onChange(text)}
+            value={value}
+            secureTextEntry={true}
+          />
+        )}
       />
 
-      <TouchableOpacity onPress={onSubmit}>
-        <Text>Submit</Text>
-      </TouchableOpacity>
+      <FormButton label="Submit" onPress={handleSubmit(onSubmit)} />
 
       <TouchableHighlight onPress={() => navigateTo(Routes.REGISTER)}>
         <Text>Go to Sign-Up Screen</Text>

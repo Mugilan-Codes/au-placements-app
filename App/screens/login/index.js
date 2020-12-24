@@ -3,56 +3,36 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableHighlight,
   TouchableOpacity,
 } from 'react-native';
 
 import {Routes} from '../../config';
 import {FormInput} from '../../components';
-import {useAuth} from '../../state/providers/auth';
 
 const LoginScreen = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const {
-    authActions: {loginStudent},
-  } = useAuth();
-
   const {navigate: navigateTo} = navigation;
 
   const onSubmit = () => {
-    loginStudent(email, password);
     navigateTo(Routes.HOME);
   };
 
   return (
     <SafeAreaView style={styles.formView}>
-      <Text>Screen: Login</Text>
+      <Text>Student Login</Text>
 
       <FormInput
-        value={email}
-        placeholderText="Email"
-        onChangeText={(uEm) => setEmail(uEm)}
+        label="email"
+        placeholder="Enter your E-mail Address"
         autoCapitalize="none"
         keyboardType="email-address"
         autoCorrect={false}
       />
 
-      {/* <TextInput
-        autoCapitalize="none"
-        autoCorrect={false}
-        keyboardType="email-address"
-        onChangeText={(userEmail) => setEmail(userEmail)}
-        placeholder="Email"
-        value={email}
-      /> */}
-
-      <TextInput
-        onChangeText={(userPassword) => setPassword(userPassword)}
-        placeholder="Password"
+      <FormInput
+        label="password"
+        placeholder="Enter your password"
         secureTextEntry={true}
-        value={password}
       />
 
       <TouchableOpacity onPress={onSubmit}>

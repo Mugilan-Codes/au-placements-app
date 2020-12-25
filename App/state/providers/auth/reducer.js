@@ -1,9 +1,11 @@
-import {USER_LOADED, LOGIN_SUCCESS, LOGIN_FAIL} from './types';
+import {USER_LOADED, LOGIN_SUCCESS, LOGIN_FAIL, AUTH_ERROR} from './types';
 
 export const initialState = {
+  loading: true,
   user: null,
   isAuthenticated: false,
-  loading: true,
+  accessToken: null,
+  restoreToken: null, //todo: Implement this is Backend API
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,23 +15,26 @@ const reducer = (state = initialState, action) => {
     case USER_LOADED:
       return {
         ...state,
-        isAuthenticated: true,
         loading: false,
         user: payload,
+        isAuthenticated: true,
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         ...payload,
-        isAuthenticated: true,
         loading: false,
+        isAuthenticated: true,
       };
+    case AUTH_ERROR:
     case LOGIN_FAIL:
       return {
         ...state,
-        isAuthenticated: false,
         loading: false,
         user: null,
+        isAuthenticated: false,
+        accessToken: null,
+        restoreToken: null,
       };
     default:
       return state;

@@ -1,48 +1,66 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const KEY = '@';
+
+const ACCESS_TOKEN = `${KEY}access_token`;
+const STUDENT_INFO = `${KEY}student_info`;
+
 //! Set this properly
 const storage = {
-  setString: async (value) => {
-    try {
-      await AsyncStorage.setItem('@storage_key', value);
-    } catch (e) {
-      console.log(e);
-    }
-  },
-  setObject: async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('@storage_key', jsonValue);
-    } catch (e) {
-      console.log(e);
-    }
-  },
-  getString: async () => {
-    try {
-      const value = await AsyncStorage.getItem('@storage_Key');
-      if (value !== null) {
-        // value previously stored
+  accessToken: {
+    set: async (token) => {
+      try {
+        await AsyncStorage.setItem(`${ACCESS_TOKEN}`, token);
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      // error reading value
-    }
-  },
-  getObject: async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@storage_Key');
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      // error reading value
-    }
-  },
-  removeItem: async () => {
-    try {
-      await AsyncStorage.removeItem('@MyApp_key');
-    } catch (e) {
-      // remove error
-    }
+    },
+    get: async () => {
+      try {
+        const value = await AsyncStorage.getItem(`${ACCESS_TOKEN}`);
+        if (value !== null) {
+          return value;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    remove: async () => {
+      try {
+        await AsyncStorage.removeItem(`${ACCESS_TOKEN}`);
+      } catch (e) {
+        console.log(e);
+      }
 
-    console.log('Done.');
+      console.log(`Removed ${ACCESS_TOKEN} from AsyncStorage`);
+    },
+  },
+  studentInfo: {
+    set: async (value) => {
+      try {
+        const jsonValue = JSON.stringify(value);
+        await AsyncStorage.setItem(`${STUDENT_INFO}`, jsonValue);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    get: async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem(`${STUDENT_INFO}`);
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    remove: async () => {
+      try {
+        await AsyncStorage.removeItem(`${STUDENT_INFO}`);
+      } catch (e) {
+        console.log(e);
+      }
+
+      console.log(`Removed ${STUDENT_INFO} from AsyncStorage`);
+    },
   },
   getAllKeys: async () => {
     let keys = [];

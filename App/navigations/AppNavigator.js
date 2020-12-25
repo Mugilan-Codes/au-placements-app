@@ -2,22 +2,26 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {LoginScreen, RegisterScreen} from '../screens';
 import {Routes} from '../config';
+import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
+import {useAuth} from '../state/providers/auth';
 
-const Stack = createStackNavigator();
+const Main = createStackNavigator();
 
 const AppNavigator = () => {
+  const {
+    state: {isAuthenticated},
+  } = useAuth();
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={Routes.LOGIN}
-        screenOptions={{headerShown: false}}>
-        <Stack.Screen name={Routes.LOGIN} component={LoginScreen} />
-        <Stack.Screen name={Routes.REGISTER} component={RegisterScreen} />
-        <Stack.Screen name={Routes.HOME} component={HomeNavigator} />
-      </Stack.Navigator>
+      <Main.Navigator screenOptions={{headerShown: false}}>
+        {isAuthenticated ? (
+          <Main.Screen name={Routes.HOME} component={HomeNavigator} />
+        ) : (
+          <Main.Screen name={Routes.AUTH} component={AuthNavigator} />
+        )}
+      </Main.Navigator>
     </NavigationContainer>
   );
 };

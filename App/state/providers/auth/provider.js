@@ -1,4 +1,10 @@
-import React, {createContext, useContext, useMemo, useReducer} from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useReducer,
+} from 'react';
 
 import reducer, {initialState} from './reducer';
 import {useAuthActions} from './action';
@@ -10,9 +16,13 @@ const AuthProvider = ({children}) => {
 
   const authActions = useAuthActions(state, dispatch);
 
+  const login = useCallback(authActions.loginStudent, []);
+
+  const loadUser = useCallback(authActions.loadUser, []);
+
   const value = useMemo(() => {
-    return {state, authActions};
-  }, [state, authActions]);
+    return {state, login, loadUser};
+  }, [state, login, loadUser]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

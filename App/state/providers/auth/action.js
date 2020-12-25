@@ -8,16 +8,19 @@ export const useAuthActions = (authState, dispatch) => {
       const res = await Student.get();
       dispatch({type: USER_LOADED, payload: res.data});
     } catch (err) {
+      console.log(err);
       dispatch({type: AUTH_ERROR});
     }
   };
 
-  const loginStudent = async (email, password) => {
+  const loginStudent = async ({email, password}) => {
     try {
       const res = await Student.login(email, password);
+      console.log(res);
       dispatch({type: LOGIN_SUCCESS, payload: res.data});
       dispatch(loadUser());
     } catch (err) {
+      console.log(`loginStudent Action = ${err}`);
       dispatch({type: LOGIN_FAIL});
     }
   };

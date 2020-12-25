@@ -8,7 +8,9 @@ const Stack = createStackNavigator();
 
 const AuthNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={Routes.LOGIN}>
+    <Stack.Navigator
+      initialRouteName={Routes.LOGIN}
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name={Routes.LOGIN} component={LoginScreen} />
       <Stack.Screen name={Routes.REGISTER} component={RegisterScreen} />
     </Stack.Navigator>

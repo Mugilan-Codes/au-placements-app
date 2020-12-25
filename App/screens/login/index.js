@@ -4,14 +4,16 @@ import {useForm, Controller} from 'react-hook-form';
 
 import {Routes} from '../../config';
 import {FormButton, FormInput} from '../../components';
+import {useAuth} from '../../state/providers/auth';
 
 const LoginScreen = ({navigation}) => {
   const {handleSubmit, control, errors} = useForm();
   const {navigate: navigateTo} = navigation;
+  const {login} = useAuth();
 
   const onSubmit = (data) => {
     console.log('data =', data);
-    // navigateTo(Routes.HOME);
+    login(data);
   };
 
   return (

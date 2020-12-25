@@ -9,7 +9,6 @@ export const Student = {
   login: async (email, password) => {
     const body = JSON.stringify({email, password});
 
-    // return await axios.post('/student/login', body, config);
     return await axios.post(Auth.LOGIN, body, config);
   },
   register: async ({register_no, name, email, password, confirm_password}) => {
@@ -22,5 +21,8 @@ export const Student = {
     });
 
     return await axios.post(Auth.REGISTER, body, config);
+  },
+  get: async () => {
+    return await axios.get(Auth.GET);
   },
 };

@@ -2,7 +2,7 @@ import {Student} from '../../../api';
 import {LOGIN_FAIL, LOGIN_SUCCESS, USER_LOADED, AUTH_ERROR} from './types';
 
 export const useAuthActions = (authState, dispatch) => {
-  const loadUser = async () => {
+  const loadStudent = async () => {
     try {
       // check and store token in AsyncStorage
       const res = await Student.get();
@@ -15,10 +15,8 @@ export const useAuthActions = (authState, dispatch) => {
 
   const loginStudent = async ({email, password}) => {
     try {
-      const res = await Student.login(email, password);
-      console.log(res);
-      dispatch({type: LOGIN_SUCCESS, payload: res.data});
-      dispatch(loadUser());
+      const {data} = await Student.login(email, password);
+      dispatch({type: LOGIN_SUCCESS, payload: data});
     } catch (err) {
       console.log(`loginStudent Action = ${err}`);
       dispatch({type: LOGIN_FAIL});
@@ -26,7 +24,7 @@ export const useAuthActions = (authState, dispatch) => {
   };
 
   return {
-    loadUser,
+    loadStudent,
     loginStudent,
   };
 };

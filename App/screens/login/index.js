@@ -12,7 +12,6 @@ const LoginScreen = ({navigation}) => {
   const {login} = useAuth();
 
   const onSubmit = (data) => {
-    console.log('data =', data);
     login(data);
   };
 

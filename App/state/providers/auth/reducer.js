@@ -4,7 +4,7 @@ export const initialState = {
   loading: true,
   user: null,
   isAuthenticated: false,
-  accessToken: null,
+  token: null,
   restoreToken: null, //todo: Implement this is Backend API
 };
 
@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
         loading: false,
         user: null,
         isAuthenticated: false,
-        accessToken: null,
+        token: null,
         restoreToken: null,
       };
     default:

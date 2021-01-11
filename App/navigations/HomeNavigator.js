@@ -4,7 +4,7 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {Routes} from '../config';
-import {DashboardScreen} from '../screens';
+import {DashboardScreen, ProfileScreen} from '../screens';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -22,6 +22,16 @@ const HomeNavigator = () => {
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={Routes.PROFILE}
+        component={ProfileScreen}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="account" color={color} size={26} />
           ),
         }}
       />

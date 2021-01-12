@@ -5,8 +5,6 @@ import {Routes} from '../../config';
 import {useAuth} from '../../state/providers/auth/provider';
 
 const ProfleScreen = ({navigation}) => {
-  const {navigate: navigateTo} = navigation;
-
   const {state, loadUser, logout} = useAuth();
 
   useEffect(() => {

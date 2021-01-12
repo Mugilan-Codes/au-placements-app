@@ -11,6 +11,7 @@ const Main = createStackNavigator();
 
 const AppNavigator = () => {
   const {state} = useAuth();
+  console.log('isAuthenticated = ', state.isAuthenticated);
   return (
     <NavigationContainer>
       <Main.Navigator screenOptions={{headerShown: false}}>

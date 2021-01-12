@@ -5,7 +5,7 @@ export const initialState = {
   user: null,
   isAuthenticated: false,
   token: null,
-  restoreToken: null, //todo: Implement this is Backend API
+  refreshToken: null, //todo: Implement this is Backend API
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,7 +24,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         ...payload,
         loading: false,
-        isAuthenticated: true,
+        // isAuthenticated: true,
       };
     case AUTH_ERROR:
     case LOGIN_FAIL:
@@ -34,7 +34,7 @@ const reducer = (state = initialState, action) => {
         user: null,
         isAuthenticated: false,
         token: null,
-        restoreToken: null,
+        refreshToken: null,
       };
     default:
       return state;

@@ -7,7 +7,7 @@ import {useAuth} from '../../state/providers/auth/provider';
 const ProfleScreen = ({navigation}) => {
   const {navigate: navigateTo} = navigation;
 
-  const {state, loadUser} = useAuth();
+  const {state, loadUser, logout} = useAuth();
 
   useEffect(() => {
     loadUser();
@@ -16,9 +16,9 @@ const ProfleScreen = ({navigation}) => {
   return (
     <View>
       <Text>ProfleScreen</Text>
-      <Text>{state.user}</Text>
-      <TouchableHighlight onPress={() => navigateTo(Routes.LOGIN)}>
-        <Text>Back to Log-In</Text>
+      <Text>{state.user.email}</Text>
+      <TouchableHighlight onPress={() => logout()}>
+        <Text>LOGOUT</Text>
       </TouchableHighlight>
     </View>
   );

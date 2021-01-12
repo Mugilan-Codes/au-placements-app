@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
+import {View, Text} from 'react-native';
 
 import {Routes} from '../../config';
 import {useAuth} from '../../state/providers/auth/provider';
@@ -13,15 +13,13 @@ const DashboardScreen = ({navigation}) => {
     loadUser();
   }, [loadUser]);
 
-  console.log('Dashboard =', state);
+  console.log({state});
 
   return (
     <View>
       <Text>DashboardScreen</Text>
-      <Text>{state.user}</Text>
-      <TouchableHighlight onPress={() => navigateTo(Routes.LOGIN)}>
-        <Text>Back to Log-In</Text>
-      </TouchableHighlight>
+      <Text>{state.user.email}</Text>
+      <Text>Get All Listings here</Text>
     </View>
   );
 };

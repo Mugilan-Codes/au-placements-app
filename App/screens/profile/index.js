@@ -13,11 +13,16 @@ const ProfleScreen = ({navigation}) => {
     loadUser();
   }, [loadUser]);
 
+  const onLogout = () => {
+    navigation.replace(Routes.AUTH);
+    logout();
+  };
+
   return (
     <View>
       <Text>ProfleScreen</Text>
       <Text>{state.user.email}</Text>
-      <TouchableHighlight onPress={() => logout()}>
+      <TouchableHighlight onPress={onLogout}>
         <Text>LOGOUT</Text>
       </TouchableHighlight>
     </View>

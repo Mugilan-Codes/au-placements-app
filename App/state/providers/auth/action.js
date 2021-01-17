@@ -1,5 +1,5 @@
 import {Student} from '../../../api';
-import {setAuthToken} from '../../../utils';
+import {setAuthToken, storage} from '../../../utils';
 import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
@@ -26,7 +26,9 @@ export const useAuthActions = (authState, dispatch) => {
   const loginStudent = async ({email, password}) => {
     try {
       const {data} = await Student.login(email, password);
-      setAuthToken(data.token);
+      setAuthToken(data.accessToken);
+      await storage.accessToken.set(data.accessToken);
+      // await storage.refreshToken.set(data.refreshToken);
       dispatch({type: LOGIN_SUCCESS, payload: data});
       dispatch(loadStudent());
     } catch (err) {

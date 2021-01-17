@@ -22,8 +22,6 @@ const reducer = (state = initialState, action) => {
   const {type, payload} = action;
 
   switch (type) {
-    case RESTORE_TOKEN:
-      return {...state, ...payload, isLoading: false, isAuthenticated: true};
     case USER_LOADED:
       return {
         ...state,
@@ -31,6 +29,7 @@ const reducer = (state = initialState, action) => {
         user: payload,
         isAuthenticated: true,
       };
+    case RESTORE_TOKEN:
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       return {

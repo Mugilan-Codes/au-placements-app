@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -10,9 +10,12 @@ import {useAuth} from '../state/providers/auth';
 const Main = createStackNavigator();
 
 const AppNavigator = () => {
-  const {state} = useAuth();
-  console.log(state);
-  console.log('isAuthenticated = ', state.isAuthenticated);
+  const {state, restoreToken} = useAuth();
+
+  useEffect(() => {
+    restoreToken();
+  }, [restoreToken]);
+
   return (
     <NavigationContainer>
       <Main.Navigator screenOptions={{headerShown: false}}>

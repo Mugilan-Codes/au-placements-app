@@ -14,7 +14,6 @@ export const useAuthActions = (authState, dispatch) => {
   const loadStudent = async () => {
     try {
       const {data} = await Student.get();
-      console.log('loadStudent = ', data);
       dispatch({type: USER_LOADED, payload: data});
     } catch (err) {
       console.log(`loadStudent Action = ${err}`);
@@ -25,10 +24,9 @@ export const useAuthActions = (authState, dispatch) => {
   const loginStudent = async ({email, password}) => {
     try {
       const {data} = await Student.login(email, password);
-      console.log('loginStudent = ', data);
       setAuthToken(data.accessToken);
       await storage.accessToken.set(data.accessToken);
-      // await storage.refreshToken.set(data.refreshToken);
+      await storage.refreshToken.set(data.refreshToken);
       dispatch({type: LOGIN_SUCCESS, payload: data});
       dispatch(loadStudent());
     } catch (err) {
@@ -43,7 +41,12 @@ export const useAuthActions = (authState, dispatch) => {
 
   const restoreTokenFromStorage = async () => {
     try {
-      dispatch({type: RESTORE_TOKEN});
+      const accessToken = await storage.accessToken.get();
+      setAuthToken(accessToken);
+      const refreshToken = await storage.refreshToken.get();
+      const data = {accessToken, refreshToken};
+      dispatch({type: RESTORE_TOKEN, payload: data});
+      dispatch(loadStudent());
     } catch (err) {
       console.log(`restoreTokenFromStorage Action = ${err}`);
       dispatch({type: RESTORE_TOKEN_FAIL});

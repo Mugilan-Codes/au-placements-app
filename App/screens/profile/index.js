@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {View, Text, TouchableHighlight} from 'react-native';
 
-import {Routes} from '../../config';
 import {useAuth} from '../../state/providers/auth/provider';
 
 const ProfleScreen = ({navigation}) => {
@@ -12,8 +11,6 @@ const ProfleScreen = ({navigation}) => {
   }, [loadUser]);
 
   const onLogout = async () => {
-    // todo: https://reactnavigation.org/docs/nesting-navigators#best-practices-when-nesting
-    await navigation.replace(Routes.AUTH);
     logout();
   };
 

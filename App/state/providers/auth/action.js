@@ -1,6 +1,14 @@
 import {Student} from '../../../api';
 import {setAuthToken} from '../../../utils';
-import {LOGIN_FAIL, LOGIN_SUCCESS, USER_LOADED, AUTH_ERROR} from './types';
+import {
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGOUT,
+  RESTORE_TOKEN_FAIL,
+  RESTORE_TOKEN,
+} from './types';
 
 export const useAuthActions = (authState, dispatch) => {
   const loadStudent = async () => {
@@ -27,14 +35,23 @@ export const useAuthActions = (authState, dispatch) => {
     }
   };
 
-  //! Just testing logout feature
   const logoutStudent = async () => {
-    dispatch({type: LOGIN_FAIL});
+    dispatch({type: LOGOUT});
+  };
+
+  const restoreTokenFromStorage = async () => {
+    try {
+      dispatch({type: RESTORE_TOKEN});
+    } catch (err) {
+      console.log(`restoreTokenFromStorage Action = ${err}`);
+      dispatch({type: RESTORE_TOKEN_FAIL});
+    }
   };
 
   return {
     loadStudent,
     loginStudent,
     logoutStudent,
+    restoreTokenFromStorage,
   };
 };

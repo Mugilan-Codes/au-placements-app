@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const KEY = '@';
 
 const ACCESS_TOKEN = `${KEY}access_token`;
+const REFRESH_TOKEN = `${KEY}refresh_token`;
 const STUDENT_INFO = `${KEY}student_info`;
 
 //! Set this properly
@@ -33,6 +34,34 @@ const storage = {
       }
 
       console.log(`Removed ${ACCESS_TOKEN} from AsyncStorage`);
+    },
+  },
+  refreshToken: {
+    set: async (token) => {
+      try {
+        await AsyncStorage.setItem(`${REFRESH_TOKEN}`, token);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    get: async () => {
+      try {
+        const value = await AsyncStorage.getItem(`${REFRESH_TOKEN}`);
+        if (value !== null) {
+          return value;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    remove: async () => {
+      try {
+        await AsyncStorage.removeItem(`${REFRESH_TOKEN}`);
+      } catch (e) {
+        console.log(e);
+      }
+
+      console.log(`Removed ${REFRESH_TOKEN} from AsyncStorage`);
     },
   },
   studentInfo: {

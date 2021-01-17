@@ -14,10 +14,12 @@ const AuthContext = createContext();
 const AuthProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState || {});
 
-  const {loginStudent, loadStudent, logoutStudent} = useAuthActions(
-    state,
-    dispatch,
-  );
+  const {
+    loginStudent,
+    loadStudent,
+    logoutStudent,
+    restoreTokenFromStorage,
+  } = useAuthActions(state, dispatch);
 
   const login = useCallback(loginStudent, []);
 
@@ -25,9 +27,11 @@ const AuthProvider = ({children}) => {
 
   const logout = useCallback(logoutStudent, []);
 
+  const restoreToken = useCallback(restoreTokenFromStorage, []);
+
   const value = useMemo(() => {
-    return {state, login, loadUser, logout};
-  }, [state, login, loadUser, logout]);
+    return {state, login, loadUser, logout, restoreToken};
+  }, [state, login, loadUser, logout, restoreToken]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

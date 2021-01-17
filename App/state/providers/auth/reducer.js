@@ -1,4 +1,3 @@
-import {storage} from '../../../utils';
 import {
   USER_LOADED,
   LOGIN_SUCCESS,
@@ -18,11 +17,6 @@ const initialState = {
   accessToken: null,
   refreshToken: null, //todo: Implement this is Backend API
 };
-
-(async () => {
-  initialState.accessToken = await storage.accessToken.get();
-  initialState.refreshToken = await storage.refreshToken.get();
-})();
 
 const reducer = (state = initialState, action) => {
   const {type, payload} = action;

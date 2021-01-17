@@ -13,12 +13,11 @@ import {
 export const useAuthActions = (authState, dispatch) => {
   const loadStudent = async () => {
     try {
-      // check and store token in AsyncStorage
-      const res = await Student.get();
-      console.log('res = ', res.data);
-      dispatch({type: USER_LOADED, payload: res.data});
+      const {data} = await Student.get();
+      console.log('loadStudent = ', data);
+      dispatch({type: USER_LOADED, payload: data});
     } catch (err) {
-      console.log(`loadStudent Action =${err}`);
+      console.log(`loadStudent Action = ${err}`);
       dispatch({type: AUTH_ERROR});
     }
   };
@@ -26,6 +25,7 @@ export const useAuthActions = (authState, dispatch) => {
   const loginStudent = async ({email, password}) => {
     try {
       const {data} = await Student.login(email, password);
+      console.log('loginStudent = ', data);
       setAuthToken(data.accessToken);
       await storage.accessToken.set(data.accessToken);
       // await storage.refreshToken.set(data.refreshToken);

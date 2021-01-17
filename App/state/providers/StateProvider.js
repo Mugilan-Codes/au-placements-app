@@ -2,6 +2,7 @@
 
 import React, {cloneElement} from 'react';
 import {AuthProvider} from './auth';
+import {ListProvider} from './listing';
 
 // reduceRight works in reverse as opposed to reduce
 // kids = accumulator, parent = currentValue
@@ -14,7 +15,7 @@ const ProviderComposer = ({contexts, children}) => {
 
 const StateProvider = ({children}) => {
   return (
-    <ProviderComposer contexts={[<AuthProvider />]}>
+    <ProviderComposer contexts={[<AuthProvider />, <ListProvider />]}>
       {children}
     </ProviderComposer>
   );

@@ -9,6 +9,9 @@ export const Auth = {
   COURSES: `${API_URL}/student/courses`,
   MARKS: `${API_URL}/student/marks`,
   EDUCATION: `${API_URL}/student/education`,
-  LISTINGS: `${API_URL}/student/listing`,
-  LISTING: (list_id) => `${API_URL}/student/listing/${list_id}`,
+};
+
+export const Listing = {
+  GET_ALL: `${API_URL}/student/listing`,
+  GET: (list_id) => `${API_URL}/student/listing/${list_id}`,
 };

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // axios.defaults.baseURL = 'http://localhost:5000/api';
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
-import {Auth} from './constants';
+import {Auth, Listing} from './constants';
 
 const config = {headers: {'Content-Type': 'application/json'}};
 
@@ -30,5 +30,8 @@ export const Student = {
   },
   getCourses: async () => {
     return await axios.get(Auth.COURSES);
+  },
+  getAllListings: async () => {
+    return await axios.get(Listing.GET_ALL);
   },
 };

@@ -10,7 +10,7 @@ import {
   RESTORE_TOKEN_FAIL,
 } from './types';
 
-const initialState = {
+export const initialState = {
   isLoading: true,
   user: null,
   isAuthenticated: false,

@@ -12,6 +12,7 @@ const ProfleScreen = ({navigation}) => {
   }, [loadUser]);
 
   const onLogout = async () => {
+    // todo: https://reactnavigation.org/docs/nesting-navigators#best-practices-when-nesting
     await navigation.replace(Routes.AUTH);
     logout();
   };

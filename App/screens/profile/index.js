@@ -15,7 +15,7 @@ const ProfleScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <Text>ProfleScreen</Text>
       <Text>{state?.user?.email}</Text>
       <TouchableHighlight onPress={onLogout}>

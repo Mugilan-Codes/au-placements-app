@@ -43,12 +43,13 @@ const DashboardScreen = ({navigation}) => {
   console.log(state.listings);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <Text>DashboardScreen</Text>
       <FlatList
         data={state.listings}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        // keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         onRefresh={onRefresh}
         refreshing={isRefreshing}
       />

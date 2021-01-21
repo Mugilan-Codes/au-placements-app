@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
+import {SafeAreaView, Text, TouchableHighlight} from 'react-native';
 
 import {useAuth} from '../../state/providers/auth/provider';
 
@@ -15,13 +15,13 @@ const ProfleScreen = ({navigation}) => {
   };
 
   return (
-    <View>
+    <SafeAreaView>
       <Text>ProfleScreen</Text>
       <Text>{state?.user?.email}</Text>
       <TouchableHighlight onPress={onLogout}>
         <Text>LOGOUT</Text>
       </TouchableHighlight>
-    </View>
+    </SafeAreaView>
   );
 };
 

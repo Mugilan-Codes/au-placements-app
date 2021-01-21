@@ -1,7 +1,7 @@
 import {LISTING_LOADED, LISTING_LOAD_ERROR} from './types';
 
 export const initialState = {
-  isLoading: true,
+  // isLoading: true,
   listings: null,
 };
 
@@ -13,13 +13,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         listings: payload,
-        isLoading: false,
+        // isLoading: false,
       };
     case LISTING_LOAD_ERROR:
       return {
         ...state,
         listings: null,
-        isLoading: false,
+        // isLoading: false,
       };
     default:
       return state;

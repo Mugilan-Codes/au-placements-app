@@ -40,8 +40,6 @@ const DashboardScreen = ({navigation}) => {
     />
   );
 
-  console.log(state.listings);
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <Text>DashboardScreen</Text>

@@ -16,7 +16,7 @@ export const initialState = {
   user: null,
   isAuthenticated: false,
   accessToken: null,
-  refreshToken: null, //todo: Implement this is Backend API
+  refreshToken: null,
 };
 
 const reducer = (state = initialState, action) => {

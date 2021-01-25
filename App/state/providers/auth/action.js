@@ -27,8 +27,6 @@ export const useAuthActions = (authState, dispatch) => {
   const loginStudent = async ({email, password}) => {
     try {
       const {data} = await Student.login(email, password);
-      // await storage.accessToken.set(data.accessToken);
-      // await storage.refreshToken.set(data.refreshToken);
       dispatch({type: LOGIN_SUCCESS, payload: data});
       dispatch(loadStudent());
     } catch (err) {
@@ -52,8 +50,6 @@ export const useAuthActions = (authState, dispatch) => {
         password,
         confirm_password,
       });
-      // await storage.accessToken.set(data.accessToken);
-      // await storage.refreshToken.set(data.refreshToken);
       dispatch({type: REGISTER_SUCCESS, payload: data});
       dispatch(loadStudent());
     } catch (err) {

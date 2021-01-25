@@ -9,6 +9,7 @@ import {
   LOGOUT,
   RESTORE_TOKEN_FAIL,
 } from './types';
+import {setAuthToken, storage} from '../../../utils';
 
 export const initialState = {
   isLoading: true,
@@ -32,6 +33,9 @@ const reducer = (state = initialState, action) => {
     case RESTORE_TOKEN:
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
+      setAuthToken(payload.accessToken);
+      storage.accessToken.set(payload.accessToken);
+      storage.refreshToken.set(payload.refreshToken);
       return {
         ...state,
         ...payload,
@@ -43,6 +47,9 @@ const reducer = (state = initialState, action) => {
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT:
+      setAuthToken();
+      storage.accessToken.remove();
+      storage.refreshToken.remove();
       return {
         ...state,
         isLoading: false,

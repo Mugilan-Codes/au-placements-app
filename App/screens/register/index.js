@@ -4,17 +4,19 @@ import {SafeAreaView, StyleSheet, Text, TouchableHighlight} from 'react-native';
 
 import {FormButton, FormInput} from '../../components';
 import {Routes} from '../../config';
+import {useAuth} from '../../state/providers/auth';
+import {validators} from '../../utils';
 
 const RegisterScreen = ({navigation}) => {
   const {handleSubmit, control, errors, watch} = useForm();
   const {navigate: navigateTo} = navigation;
+  const {register} = useAuth();
 
   const password = useRef({});
   password.current = watch('password', '');
 
   const onSubmit = (data) => {
-    console.log('register data =', data);
-    // navigateTo(Routes.HOME);
+    register(data);
   };
 
   return (
@@ -76,7 +78,13 @@ const RegisterScreen = ({navigation}) => {
           />
         )}
         rules={{
-          required: {value: true, message: 'E-Mail is required'},
+          // required: {value: true, message: 'E-Mail is required'},
+          required: 'Enter your e-mail',
+          pattern: {
+            // value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+            value: validators.isEmailRegex,
+            message: 'Enter a valid e-mail address',
+          },
         }}
       />
 

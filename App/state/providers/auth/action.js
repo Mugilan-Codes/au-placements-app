@@ -8,11 +8,14 @@ import {
   LOGOUT,
   RESTORE_TOKEN_FAIL,
   RESTORE_TOKEN,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
 } from './types';
 
 export const useAuthActions = (authState, dispatch) => {
   const loadStudent = async () => {
     try {
+      // todo: Check if the token exists and is that token a valid one
       const {data} = await Student.get();
       dispatch({type: USER_LOADED, payload: data});
     } catch (err) {
@@ -24,9 +27,8 @@ export const useAuthActions = (authState, dispatch) => {
   const loginStudent = async ({email, password}) => {
     try {
       const {data} = await Student.login(email, password);
-      setAuthToken(data.accessToken);
-      await storage.accessToken.set(data.accessToken);
-      await storage.refreshToken.set(data.refreshToken);
+      // await storage.accessToken.set(data.accessToken);
+      // await storage.refreshToken.set(data.refreshToken);
       dispatch({type: LOGIN_SUCCESS, payload: data});
       dispatch(loadStudent());
     } catch (err) {
@@ -35,10 +37,37 @@ export const useAuthActions = (authState, dispatch) => {
     }
   };
 
+  const registerStudent = async ({
+    register_no,
+    name,
+    email,
+    password,
+    confirm_password,
+  }) => {
+    try {
+      const {data} = await Student.register({
+        register_no,
+        name,
+        email,
+        password,
+        confirm_password,
+      });
+      // await storage.accessToken.set(data.accessToken);
+      // await storage.refreshToken.set(data.refreshToken);
+      dispatch({type: REGISTER_SUCCESS, payload: data});
+      dispatch(loadStudent());
+    } catch (err) {
+      console.log(`registerStudent Action = ${err}`);
+      console.log(err);
+      dispatch({type: REGISTER_FAIL});
+    }
+  };
+
   const logoutStudent = async () => {
     dispatch({type: LOGOUT});
   };
 
+  // todo: Modify this
   const restoreTokenFromStorage = async () => {
     try {
       const accessToken = await storage.accessToken.get();
@@ -56,6 +85,7 @@ export const useAuthActions = (authState, dispatch) => {
   return {
     loadStudent,
     loginStudent,
+    registerStudent,
     logoutStudent,
     restoreTokenFromStorage,
   };

@@ -78,11 +78,9 @@ const RegisterScreen = ({navigation}) => {
           />
         )}
         rules={{
-          // required: {value: true, message: 'E-Mail is required'},
           required: 'Enter your e-mail',
           pattern: {
-            // value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-            value: validators.isEmailRegex,
+            value: validators.EMAIL_REGEX,
             message: 'Enter a valid e-mail address',
           },
         }}

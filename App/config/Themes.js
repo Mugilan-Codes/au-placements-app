@@ -1,3 +1,4 @@
+// todo: Design Color Pallete here
 const Themes = {
   DARK: {
     background: '#2E3440',

@@ -1,29 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Text, SafeAreaView, FlatList} from 'react-native';
-import styled from 'styled-components/native';
 
 import {useList} from '../../state/providers/listing';
-
-const StyledView = styled.View`
-  background-color: ${({eligible}) => (eligible ? 'green' : 'red')};
-`;
-
-const StyledText = styled.Text`
-  font-size: 20px;
-  font-style: italic;
-`;
-
-// todo: Make this a separate component, a beautifull card perhaps
-// todo: Use Styled Components
-// id, title, description, company_name, start_date, tenth_percentage, twelfth_percentage, grad_percentage, cgpa, active_backlog, backlog_history, created_on, updated_on
-const Listing = ({title, description, eligible}) => {
-  return (
-    <StyledView eligible={eligible}>
-      <StyledText>{title}</StyledText>
-      <StyledText>{description}</StyledText>
-    </StyledView>
-  );
-};
+import {List} from '../../components';
 
 const DashboardScreen = ({navigation}) => {
   const {state, loadListings} = useList();
@@ -43,7 +22,7 @@ const DashboardScreen = ({navigation}) => {
   // todo: Make the item clickable and display individual listing
   // ? https://reactnavigation.org/docs/params
   const renderItem = ({item}) => (
-    <Listing
+    <List
       title={item.title}
       description={item.description}
       eligible={item.eligible}

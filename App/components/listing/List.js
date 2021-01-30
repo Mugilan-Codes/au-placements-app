@@ -6,7 +6,7 @@ const StyledButton = styled.Button`
   color: ${({eligible}) => (eligible ? 'green' : 'red')};
 `;
 
-// todo: Use Styled Components
+// TODO: Use Styled Components
 // id, title, description, company_name, start_date, tenth_percentage, twelfth_percentage, grad_percentage, cgpa, active_backlog, backlog_history, created_on, updated_on
 const List = ({title, description, eligible}) => {
   return (

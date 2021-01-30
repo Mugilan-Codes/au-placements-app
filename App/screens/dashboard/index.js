@@ -4,7 +4,7 @@ import {Text, SafeAreaView, FlatList} from 'react-native';
 import {useList} from '../../state/providers/listing';
 import {List} from '../../components';
 
-const DashboardScreen = ({navigation}) => {
+const DashboardScreen = () => {
   const {state, loadListings} = useList();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -35,7 +35,6 @@ const DashboardScreen = ({navigation}) => {
       <FlatList
         data={state.listings}
         renderItem={renderItem}
-        // keyExtractor={(item) => item.id}
         keyExtractor={(item) => item.id.toString()}
         onRefresh={onRefresh}
         refreshing={isRefreshing}

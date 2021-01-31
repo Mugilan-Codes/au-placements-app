@@ -3,7 +3,10 @@ import {StyleSheet, Text, View} from 'react-native';
 import styled from 'styled-components/native';
 
 const StyledButton = styled.Button`
-  color: ${({eligible}) => (eligible ? 'green' : 'red')};
+  background-color: ${({eligible}) => (eligible ? 'green' : 'red')};
+  color: ${({eligible}) => {
+    eligible ? 'red' : 'green';
+  }};
 `;
 
 // TODO: Use Styled Components
@@ -13,7 +16,7 @@ const List = ({title, description, eligible}) => {
     <View style={styles.container}>
       <Text>{title}</Text>
       <Text>{description}</Text>
-      <StyledButton disabled={true} title="hi" />
+      <StyledButton title="hi" eligible={eligible} />
     </View>
   );
 };

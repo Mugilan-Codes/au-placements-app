@@ -22,6 +22,7 @@ const DashboardScreen = () => {
   // todo: Make the item clickable and display individual listing
   // ? https://reactnavigation.org/docs/params
   const renderItem = ({item}) => (
+    // TODO: Pass in ID to display the Listing as a modal
     <List
       title={item.title}
       description={item.description}

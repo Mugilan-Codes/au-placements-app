@@ -16,7 +16,7 @@ const List = ({title, description, eligible}) => {
     <View style={styles.container}>
       <Text>{title}</Text>
       <Text>{description}</Text>
-      <StyledButton title="hi" eligible={eligible} />
+      <StyledButton title={eligible ? 'Yes' : 'No'} eligible={eligible} />
     </View>
   );
 };

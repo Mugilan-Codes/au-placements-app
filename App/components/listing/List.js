@@ -9,14 +9,16 @@ const StyledButton = styled.Button`
   }};
 `;
 
-// TODO: Use Styled Components
 // id, title, description, company_name, start_date, tenth_percentage, twelfth_percentage, grad_percentage, cgpa, active_backlog, backlog_history, created_on, updated_on
 const List = ({title, description, eligible}) => {
   return (
     <View style={styles.container}>
       <Text>{title}</Text>
       <Text>{description}</Text>
-      <StyledButton title={eligible ? 'Yes' : 'No'} eligible={eligible} />
+      <StyledButton
+        title={eligible ? 'Eligible' : 'Not Eligible'}
+        eligible={eligible}
+      />
     </View>
   );
 };

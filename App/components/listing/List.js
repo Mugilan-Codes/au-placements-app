@@ -12,6 +12,7 @@ const StyledButton = styled.Button`
 // id, title, description, company_name, start_date, tenth_percentage, twelfth_percentage, grad_percentage, cgpa, active_backlog, backlog_history, created_on, updated_on
 const List = ({title, description, eligible}) => {
   return (
+    // TODO: Wrap this as a Touchable
     <View style={styles.container}>
       <Text>{title}</Text>
       <Text>{description}</Text>

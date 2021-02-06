@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   line: {
     height: 1,
     width: '100%',
-    backgroundColor: '#000',
+    backgroundColor: '#000', // TODO: change according to the theme
   },
 });
 

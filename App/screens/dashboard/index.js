@@ -30,6 +30,10 @@ const DashboardScreen = () => {
     />
   );
 
+  //? https://www.reddit.com/r/reactnative/comments/g1y0s8/loading_data_from_api_best_practice/
+
+  // TODO: Make a bookmark to save listings
+  // TODO: Move the bookmarked listings to top of the flatlist
   return (
     <SafeAreaView>
       <Text>DashboardScreen</Text>

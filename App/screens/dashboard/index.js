@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Text, SafeAreaView, FlatList} from 'react-native';
 
 import {useList} from '../../state/providers/listing';
-import {List} from '../../components';
+import {List, ListSeparator} from '../../components';
 
 const DashboardScreen = () => {
   const {state, loadListings} = useList();
@@ -39,6 +39,7 @@ const DashboardScreen = () => {
         keyExtractor={(item) => item.id.toString()}
         onRefresh={onRefresh}
         refreshing={isRefreshing}
+        ItemSeparatorComponent={ListSeparator}
       />
     </SafeAreaView>
   );

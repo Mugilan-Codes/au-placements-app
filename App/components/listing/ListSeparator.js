@@ -7,9 +7,9 @@ const ListSeparator = () => {
 
 const styles = StyleSheet.create({
   line: {
-    height: 1,
-    width: '100%',
-    backgroundColor: '#000', // TODO: change according to the theme
+    height: 2,
+    marginHorizontal: 10,
+    backgroundColor: 'rgba(0,0,0,0.5)', // TODO: change according to the theme
   },
 });
 

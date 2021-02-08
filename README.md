@@ -8,6 +8,8 @@
   - [How to Easily Configure Launch Icons in React Native — Android & iOS](https://medium.com/react-native-training/how-to-easily-configure-launch-icons-in-react-native-android-ios-2e1f351496ed)
   - [react-native-make](https://github.com/bamlab/react-native-make)
   - [Designing Adaptive Icons](https://medium.com/google-design/designing-adaptive-icons-515af294c783)
+- Setup Themes
+  - [React-Navigation Themes](https://reactnavigation.org/docs/themes/)
 
 ## DOCS
 

@@ -10,6 +10,8 @@
   - [Designing Adaptive Icons](https://medium.com/google-design/designing-adaptive-icons-515af294c783)
 - Setup Themes
   - [React-Navigation Themes](https://reactnavigation.org/docs/themes/)
+- Display Error Messages from the Backend
+- Add a bookmark feature to save listings
 
 ## DOCS
 

@@ -6,8 +6,10 @@ import {AppNavigator} from './navigations';
 import {StateProvider} from './state';
 
 const App = () => {
+  // TODO: move the colorScheme to change the Theme of the app
   const colorScheme = useColorScheme();
   console.log({colorScheme});
+
   return (
     <StateProvider>
       <AppNavigator />

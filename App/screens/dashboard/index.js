@@ -34,6 +34,7 @@ const DashboardScreen = () => {
 
   // TODO: Make a bookmark to save listings
   // TODO: Move the bookmarked listings to top of the flatlist
+  //? Learn about Flatlist refreshing and other attributes
   return (
     <SafeAreaView>
       <Text>DashboardScreen</Text>

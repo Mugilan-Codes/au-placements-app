@@ -29,11 +29,10 @@ const storage = {
     remove: async () => {
       try {
         await AsyncStorage.removeItem(`${ACCESS_TOKEN}`);
+        console.log(`Removed ${ACCESS_TOKEN} from AsyncStorage`);
       } catch (e) {
-        console.log(e);
+        console.log(`Error in removing ${ACCESS_TOKEN} from AsyncStorage =`, e);
       }
-
-      console.log(`Removed ${ACCESS_TOKEN} from AsyncStorage`);
     },
   },
   refreshToken: {
@@ -57,11 +56,13 @@ const storage = {
     remove: async () => {
       try {
         await AsyncStorage.removeItem(`${REFRESH_TOKEN}`);
+        console.log(`Removed ${REFRESH_TOKEN} from AsyncStorage`);
       } catch (e) {
-        console.log(e);
+        console.log(
+          `Error in removing ${REFRESH_TOKEN} from AsyncStorage =`,
+          e,
+        );
       }
-
-      console.log(`Removed ${REFRESH_TOKEN} from AsyncStorage`);
     },
   },
   studentInfo: {

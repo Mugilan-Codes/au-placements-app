@@ -5,6 +5,7 @@ import {useList} from '../../state/providers/listing';
 import {List, ListSeparator} from '../../components';
 
 const DashboardScreen = () => {
+  // ! Listings call to API must happen here.
   const {state, loadListings} = useList();
   const [isRefreshing, setIsRefreshing] = useState(false);
 

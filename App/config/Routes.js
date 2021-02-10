@@ -5,6 +5,8 @@ const Routes = {
   HOME: 'Home',
   DASHBOARD: 'Dashboard',
   PROFILE: 'Profile',
+  MAIN: 'Main',
+  MODAL: 'MyModal',
 };
 
 export default Routes;

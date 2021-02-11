@@ -4,6 +4,7 @@
 
 - Remove Listing Provider and use it directly on the dashboard useEffect() to reduce API Calls and Re-Renders.
 - Think about what should happen in the event of no network or api error
+- Use Refresh Tokens to stop logging out often
 - Add App Icon and Splash Screen
   - [How to Easily Configure Launch Icons in React Native — Android & iOS](https://medium.com/react-native-training/how-to-easily-configure-launch-icons-in-react-native-android-ios-2e1f351496ed)
   - [react-native-make](https://github.com/bamlab/react-native-make)

@@ -40,6 +40,19 @@ const MainStackNavigator = () => {
     </Tab.Navigator>
   );
 };
+
+const transitonConfig = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
+
 const HomeNavigator = () => {
   return (
     <HomeStack.Navigator
@@ -63,6 +76,10 @@ const HomeNavigator = () => {
             }),
           },
         }),
+        gestureEnabled: true,
+        gestureResponseDistance: {horizontal: 150, vertical: 150},
+        gestureDirection: 'vertical-inverted',
+        transitionSpec: {open: transitonConfig, close: transitonConfig},
       }}>
       <HomeStack.Screen name={Routes.MAIN} component={MainStackNavigator} />
       <HomeStack.Screen name={Routes.MODAL} component={ModalScreen} />

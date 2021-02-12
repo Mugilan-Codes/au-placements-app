@@ -13,6 +13,7 @@
   - [React-Navigation Themes](https://reactnavigation.org/docs/themes/)
 - Display Error Messages from the Backend
 - Add a bookmark feature to save listings
+- Make Modal as a Component instead of a screen covering the whole page.
 
 ## DOCS
 

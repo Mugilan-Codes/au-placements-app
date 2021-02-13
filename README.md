@@ -14,6 +14,7 @@
 - Display Error Messages from the Backend
 - Add a bookmark feature to save listings
 - Make Modal as a Component instead of a screen covering the whole page.
+- Reduce Load Time and add Loading Screens
 
 ## DOCS
 

@@ -15,7 +15,6 @@
 - Add a bookmark feature to save listings
 - Make Modal as a Component instead of a screen covering the whole page.
 - Reduce Load Time and add Loading Screens
-- Complete The App before 1st Week of March
 
 ## DOCS
 

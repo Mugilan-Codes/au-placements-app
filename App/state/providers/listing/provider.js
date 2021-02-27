@@ -16,7 +16,8 @@ const ListProvider = ({children}) => {
 
   const {loadAllListings} = useListActions(state, dispatch);
 
-  const loadListings = useCallback(loadAllListings, []);
+  // ! This almost works like socket constanly making a call to the server, because of the dependency
+  const loadListings = useCallback(loadAllListings, [loadAllListings]);
 
   const value = useMemo(() => {
     return {state, loadListings};

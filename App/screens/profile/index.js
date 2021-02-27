@@ -12,7 +12,7 @@ import {useAuth} from '../../state/providers/auth/provider';
 const ProfleScreen = ({navigation}) => {
   const {state, loadUser, logout} = useAuth();
 
-  // todo: Add Buttons to Add/Edit Marks and Education
+  // TODO: Add/Edit Marks & Education
 
   useEffect(() => {
     loadUser();

@@ -1,22 +1,34 @@
 import React, {useEffect, useState} from 'react';
-import {Text, SafeAreaView, FlatList} from 'react-native';
+import {Text, SafeAreaView, FlatList, View} from 'react-native';
+import dayjs from 'dayjs';
+import localIn from 'dayjs/locale/en-in';
 
-import {useList} from '../../state/providers/listing';
 import {List, ListSeparator} from '../../components';
+import {Student} from '../../api';
 
 const DashboardScreen = () => {
-  // ! Listings call to API must happen here.
-  const {state, loadListings} = useList();
+  const [listings, setListings] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState(null);
 
   useEffect(() => {
-    loadListings();
-  }, [loadListings]);
+    getListings();
+  }, []);
+
+  const getListings = async () => {
+    const {data} = await Student.getAllListings();
+    // const time = new Date().toString();
+    const time = dayjs()
+      .locale(localIn)
+      .format('hh:mm:ss A --> ddd DD/MM/YYYY');
+    setListings(data);
+    setLastUpdated(time);
+  };
 
   // todo: also note and display the last refreshed on time for listings
   const onRefresh = () => {
     setIsRefreshing(true);
-    loadListings();
+    getListings();
     setIsRefreshing(false);
   };
 
@@ -38,9 +50,12 @@ const DashboardScreen = () => {
   //? Learn about Flatlist refreshing and other attributes
   return (
     <SafeAreaView>
-      <Text>DashboardScreen</Text>
+      <View>
+        <Text>DashboardScreen</Text>
+        <Text>Last Updated: {lastUpdated}</Text>
+      </View>
       <FlatList
-        data={state.listings}
+        data={listings}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         onRefresh={onRefresh}

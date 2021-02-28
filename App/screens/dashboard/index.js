@@ -6,6 +6,7 @@ import localIn from 'dayjs/locale/en-in';
 import {List, ListSeparator} from '../../components';
 import {Student} from '../../api';
 
+// TODO: Store listings and lastUpdated values in AsyncStorage for Offline Viewing
 const DashboardScreen = () => {
   const [listings, setListings] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -24,7 +25,6 @@ const DashboardScreen = () => {
     setLastUpdated(time);
   };
 
-  // todo: also note and display the last refreshed on time for listings
   const onRefresh = () => {
     setIsRefreshing(true);
     getListings();
@@ -36,9 +36,13 @@ const DashboardScreen = () => {
   const renderItem = ({item}) => (
     // TODO: Pass in ID to display the Listing as a modal
     <List
+      id={item.id}
       title={item.title}
       description={item.description}
+      company_name={item.company_name}
+      start_date={item.start_date}
       eligible={item.eligible}
+      updated_on={item.updated_on}
     />
   );
 

@@ -53,34 +53,34 @@ const transitonConfig = {
   },
 };
 
+const screenOptions = {
+  headerShown: false,
+  cardStyle: {backgroundColor: 'transparent'},
+  cardOverlayEnabled: true,
+  cardStyleInterpolator: ({current: {progress}}) => ({
+    cardStyle: {
+      opacity: progress.interpolate({
+        inputRange: [0, 0.5, 0.9, 1],
+        outputRange: [0, 0.25, 0.7, 1],
+      }),
+    },
+    overlayStyle: {
+      opacity: progress.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 0.5],
+        extrapolate: 'clamp',
+      }),
+    },
+  }),
+  gestureEnabled: true,
+  gestureResponseDistance: {horizontal: 150, vertical: 150},
+  gestureDirection: 'vertical-inverted',
+  transitionSpec: {open: transitonConfig, close: transitonConfig},
+};
+
 const HomeNavigator = () => {
   return (
-    <HomeStack.Navigator
-      mode="modal"
-      screenOptions={{
-        headerShown: false,
-        cardStyle: {backgroundColor: 'transparent'},
-        cardOverlayEnabled: true,
-        cardStyleInterpolator: ({current: {progress}}) => ({
-          cardStyle: {
-            opacity: progress.interpolate({
-              inputRange: [0, 0.5, 0.9, 1],
-              outputRange: [0, 0.25, 0.7, 1],
-            }),
-          },
-          overlayStyle: {
-            opacity: progress.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, 0.5],
-              extrapolate: 'clamp',
-            }),
-          },
-        }),
-        gestureEnabled: true,
-        gestureResponseDistance: {horizontal: 150, vertical: 150},
-        gestureDirection: 'vertical-inverted',
-        transitionSpec: {open: transitonConfig, close: transitonConfig},
-      }}>
+    <HomeStack.Navigator mode="modal" screenOptions={screenOptions}>
       <HomeStack.Screen name={Routes.MAIN} component={MainStackNavigator} />
       <HomeStack.Screen name={Routes.MODAL} component={ModalScreen} />
     </HomeStack.Navigator>

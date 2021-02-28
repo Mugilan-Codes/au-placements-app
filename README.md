@@ -2,7 +2,6 @@
 
 ## TODO
 
-- Remove Listing Provider Context and make API calls directly from the screen
 - Think about what should happen in the event of no network or api error
 - Use Refresh Tokens to stop logging out often
 - Add App Icon and Splash Screen

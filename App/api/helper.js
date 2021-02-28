@@ -34,4 +34,7 @@ export const Student = {
   getAllListings: async () => {
     return await axios.get(Listing.GET_ALL);
   },
+  getOneListing: async (list_id) => {
+    return list_id && (await axios.get(Listing.GET(list_id)));
+  },
 };

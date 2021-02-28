@@ -17,7 +17,6 @@ const DashboardScreen = () => {
 
   const getListings = async () => {
     const {data} = await Student.getAllListings();
-    // const time = new Date().toString();
     const time = dayjs()
       .locale(localIn)
       .format('hh:mm:ss A --> ddd DD/MM/YYYY');

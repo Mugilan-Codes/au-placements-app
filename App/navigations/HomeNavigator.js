@@ -82,7 +82,11 @@ const HomeNavigator = () => {
   return (
     <HomeStack.Navigator mode="modal" screenOptions={screenOptions}>
       <HomeStack.Screen name={Routes.MAIN} component={MainStackNavigator} />
-      <HomeStack.Screen name={Routes.MODAL} component={ModalScreen} />
+      <HomeStack.Screen
+        name={Routes.MODAL}
+        component={ModalScreen}
+        options={{headerShown: true, headerTitle: 'Modal'}}
+      />
     </HomeStack.Navigator>
   );
 };

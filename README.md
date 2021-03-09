@@ -13,7 +13,8 @@
 - Display Error Messages from the Backend
 - Add a bookmark feature to save listings
 - Use Modal to add Marks and Education.
-- Reduce Load Time and add Loading Screens
+- Reduce Load Time and add Loading Screens.
+- Make the Listing Screen work properly.
 
 ## DOCS
 

@@ -7,7 +7,7 @@ import {Loading} from '../../components';
 // TODO: Build this to get ID and call API to fetch listings.
 const ModalScreen = ({route, navigation}) => {
   const {id} = route.params;
-  const [listing, setListing] = useState(null);
+  const [listing, setListing] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,11 +22,13 @@ const ModalScreen = ({route, navigation}) => {
   };
 
   const dismissList = () => {
-    setListing(null);
+    // setListing({});
     navigation.goBack();
   };
 
   console.log(listing);
+  // TODO: Style the View
+  // TODO: Make the Modal not Transparent
   return (
     <>
       {loading ? (
@@ -36,6 +38,16 @@ const ModalScreen = ({route, navigation}) => {
           <Text style={styles.titleStyle}>
             This is a modal! for {listing.title}
           </Text>
+          <Text>{listing.description}</Text>
+          <Text>{listing.company_name}</Text>
+          <Text>{listing.start_date}</Text>
+          <Text>{listing.tenth_percentage}</Text>
+          <Text>{listing.twelfth_percentage}</Text>
+          <Text>{listing.grad_percentage}</Text>
+          <Text>{listing.cgpa}</Text>
+          <Text>{listing.active_backlog}</Text>
+          <Text>{listing.backlog_history}</Text>
+          <Text>{listing.eligible}</Text>
           <Button onPress={dismissList} title="Dismiss" />
         </View>
       )}

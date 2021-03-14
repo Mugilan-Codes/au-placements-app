@@ -15,6 +15,7 @@
 - Use Modal to add Marks and Education.
 - Reduce Load Time and add Loading Screens.
 - Make the Listing Screen work properly.
+- Make a better way to handle the providers.
 
 ## DOCS
 

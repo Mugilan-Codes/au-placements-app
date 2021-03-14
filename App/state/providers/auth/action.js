@@ -63,12 +63,14 @@ export const useAuthActions = (authState, dispatch) => {
     dispatch({type: LOGOUT});
   };
 
-  // todo: Modify this
+  // TODO: Modify this so that it does not throw any errors
   const restoreTokenFromStorage = async () => {
     try {
       const accessToken = await storage.accessToken.get();
-      setAuthToken(accessToken);
       const refreshToken = await storage.refreshToken.get();
+      if (!accessToken && !refreshToken) {
+        throw new Error('No Tokens in Storage');
+      }
       const data = {accessToken, refreshToken};
       dispatch({type: RESTORE_TOKEN, payload: data});
       dispatch(loadStudent());

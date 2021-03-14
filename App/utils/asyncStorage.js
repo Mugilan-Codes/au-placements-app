@@ -28,8 +28,12 @@ const storage = {
     },
     remove: async () => {
       try {
-        await AsyncStorage.removeItem(`${ACCESS_TOKEN}`);
-        console.log(`Removed ${ACCESS_TOKEN} from AsyncStorage`);
+        const value = await AsyncStorage.getItem(`${ACCESS_TOKEN}`);
+        if (value !== null) {
+          await AsyncStorage.removeItem(`${ACCESS_TOKEN}`);
+          console.log(`Removed ${ACCESS_TOKEN} from AsyncStorage`);
+        }
+        console.log(`No ${ACCESS_TOKEN} in AsyncStorage`);
       } catch (e) {
         console.log(`Error in removing ${ACCESS_TOKEN} from AsyncStorage =`, e);
       }
@@ -55,8 +59,12 @@ const storage = {
     },
     remove: async () => {
       try {
-        await AsyncStorage.removeItem(`${REFRESH_TOKEN}`);
-        console.log(`Removed ${REFRESH_TOKEN} from AsyncStorage`);
+        const value = await AsyncStorage.getItem(`${REFRESH_TOKEN}`);
+        if (value !== null) {
+          await AsyncStorage.removeItem(`${REFRESH_TOKEN}`);
+          console.log(`Removed ${REFRESH_TOKEN} from AsyncStorage`);
+        }
+        console.log(`No ${REFRESH_TOKEN} in AsyncStorage`);
       } catch (e) {
         console.log(
           `Error in removing ${REFRESH_TOKEN} from AsyncStorage =`,

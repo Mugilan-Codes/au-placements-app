@@ -1,5 +1,5 @@
 import {Student} from '../../../api';
-import {setAuthToken, storage} from '../../../utils';
+import {storage} from '../../../utils';
 import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
@@ -54,7 +54,6 @@ export const useAuthActions = (authState, dispatch) => {
       dispatch(loadStudent());
     } catch (err) {
       console.log(`registerStudent Action = ${err}`);
-      console.log(err);
       dispatch({type: REGISTER_FAIL});
     }
   };

@@ -6,6 +6,7 @@ const ACCESS_TOKEN = `${KEY}access_token`;
 const REFRESH_TOKEN = `${KEY}refresh_token`;
 const STUDENT_INFO = `${KEY}student_info`;
 
+// TODO: Make this clean.
 //! Set this properly
 const storage = {
   accessToken: {

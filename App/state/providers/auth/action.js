@@ -62,7 +62,7 @@ export const useAuthActions = (authState, dispatch) => {
     dispatch({type: LOGOUT});
   };
 
-  // TODO: Modify this so that it does not throw any errors
+  // TODO: Make this so, that refreshToken is used when accessToken is expired
   const restoreTokenFromStorage = async () => {
     try {
       const accessToken = await storage.accessToken.get();

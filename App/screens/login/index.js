@@ -6,6 +6,8 @@ import {Routes} from '../../config';
 import {FormButton, FormInput} from '../../components';
 import {useAuth} from '../../state/providers/auth';
 
+let renderCount = 0;
+
 const LoginScreen = ({navigation}) => {
   const {handleSubmit, control, errors} = useForm();
   const {navigate: navigateTo} = navigation;
@@ -15,6 +17,10 @@ const LoginScreen = ({navigation}) => {
     login(data);
   };
 
+  renderCount++;
+
+  // TODO: Add Server Side Validation
+  //? https://www.carlrippon.com/react-hook-form-server-validation/
   return (
     <SafeAreaView style={styles.formView}>
       <Text>Student Login</Text>
@@ -60,6 +66,8 @@ const LoginScreen = ({navigation}) => {
       <TouchableHighlight onPress={() => navigateTo(Routes.REGISTER)}>
         <Text>Go to Sign-Up Screen</Text>
       </TouchableHighlight>
+
+      <Text>Render Count: {renderCount}</Text>
     </SafeAreaView>
   );
 };

@@ -20,6 +20,7 @@ export const useAuthActions = (authState, dispatch) => {
       dispatch({type: USER_LOADED, payload: data});
     } catch (err) {
       console.log(`loadStudent Action = ${err}`);
+      console.log('loadStudent Action err.response.data =', err.response.data);
       dispatch({type: AUTH_ERROR});
     }
   };
@@ -31,6 +32,9 @@ export const useAuthActions = (authState, dispatch) => {
       dispatch(loadStudent());
     } catch (err) {
       console.log(`loginStudent Action = ${err}`);
+      const errors = err.response.data;
+      console.log('loginStudent Action err.response.data =', errors);
+      console.log('loginStudent Action err.response.data =', errors.email);
       dispatch({type: LOGIN_FAIL});
     }
   };

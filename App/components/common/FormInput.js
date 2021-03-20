@@ -3,13 +3,14 @@ import {View, Text, StyleSheet, TextInput} from 'react-native';
 
 import {Dimensions} from '../../utils';
 
-const FormInput = ({placeholder, error, errorText, ...props}) => {
+const FormInput = ({placeholder, error, errorText, onBlur, ...props}) => {
   return (
     <View style={styles.wrapper}>
       <TextInput
         numberOfLines={1}
         placeholder={placeholder}
         placeholderTextColor="#666"
+        onBlur={onBlur}
         {...props}
         style={[styles.input, error && styles.error, props.style]}
       />

@@ -6,8 +6,6 @@ import {Routes} from '../../config';
 import {FormButton, FormInput} from '../../components';
 import {useAuth} from '../../state/providers/auth';
 
-let renderCount = 0;
-
 const LoginScreen = ({navigation}) => {
   const {handleSubmit, control, errors} = useForm();
   const {navigate: navigateTo} = navigation;
@@ -16,8 +14,6 @@ const LoginScreen = ({navigation}) => {
   const onSubmit = (data) => {
     login(data);
   };
-
-  renderCount++;
 
   // TODO: Add Server Side Validation
   //? https://www.carlrippon.com/react-hook-form-server-validation/
@@ -30,11 +26,12 @@ const LoginScreen = ({navigation}) => {
         name="email"
         control={control}
         rules={{required: {value: true, message: 'E-Mail is required'}}}
-        render={({onChange, value}) => (
+        render={({onChange, onBlur, value}) => (
           <FormInput
             placeholder="E-Mail Address"
             error={errors.email}
             errorText={errors?.email?.message}
+            onBlur={onBlur}
             onChangeText={(text) => onChange(text)}
             value={value}
             keyboardType="email-address"
@@ -49,7 +46,7 @@ const LoginScreen = ({navigation}) => {
         name="password"
         control={control}
         rules={{required: {value: true, message: 'Password is required'}}}
-        render={({onChange, value}) => (
+        render={({onChange, onBlur, value}) => (
           <FormInput
             placeholder="Password"
             error={errors.password}
@@ -66,8 +63,6 @@ const LoginScreen = ({navigation}) => {
       <TouchableHighlight onPress={() => navigateTo(Routes.REGISTER)}>
         <Text>Go to Sign-Up Screen</Text>
       </TouchableHighlight>
-
-      <Text>Render Count: {renderCount}</Text>
     </SafeAreaView>
   );
 };

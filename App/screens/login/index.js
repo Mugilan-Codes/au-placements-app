@@ -5,6 +5,7 @@ import {useForm, Controller} from 'react-hook-form';
 import {Routes} from '../../config';
 import {FormButton, FormInput} from '../../components';
 import {useAuth} from '../../state/providers/auth';
+import {validators} from '../../utils';
 
 const LoginScreen = ({navigation}) => {
   const {handleSubmit, control, errors} = useForm();
@@ -19,13 +20,21 @@ const LoginScreen = ({navigation}) => {
   //? https://www.carlrippon.com/react-hook-form-server-validation/
   return (
     <SafeAreaView style={styles.formView}>
-      <Text>Student Login</Text>
+      {/* TODO: Make it as a separate component for Screen Headers */}
+      <Text style={styles.headerText}>Student Login</Text>
 
       <Controller
         defaultValue=""
         name="email"
         control={control}
-        rules={{required: {value: true, message: 'E-Mail is required'}}}
+        // rules={{required: {value: true, message: 'E-Mail is required'}}}
+        rules={{
+          required: 'E-Mail is required',
+          pattern: {
+            value: validators.EMAIL_REGEX,
+            message: 'Must be a valid email',
+          },
+        }}
         render={({onChange, onBlur, value}) => (
           <FormInput
             placeholder="E-Mail Address"
@@ -45,12 +54,20 @@ const LoginScreen = ({navigation}) => {
         defaultValue=""
         name="password"
         control={control}
-        rules={{required: {value: true, message: 'Password is required'}}}
+        // rules={{required: {value: true, message: 'Password is required'}}}
+        rules={{
+          required: 'Password is required',
+          minLength: {
+            value: 8,
+            message: 'Password must have at least 8 characters',
+          },
+        }}
         render={({onChange, onBlur, value}) => (
           <FormInput
             placeholder="Password"
             error={errors.password}
             errorText={errors?.password?.message}
+            onBlur={onBlur}
             onChangeText={(text) => onChange(text)}
             value={value}
             secureTextEntry={true}
@@ -72,6 +89,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 40,
   },
 });
 

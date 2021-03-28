@@ -9,6 +9,7 @@ import {useAuth} from '../state/providers/auth';
 
 const Main = createStackNavigator();
 
+// TODO: Setup automatic signin
 const AppNavigator = () => {
   const {state, restoreToken} = useAuth();
 

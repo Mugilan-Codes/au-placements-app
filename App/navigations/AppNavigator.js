@@ -10,7 +10,7 @@ import {useAuth} from '../state/providers/auth';
 const Main = createStackNavigator();
 
 // TODO: Setup automatic signin
-const AppNavigator = () => {
+const AppNavigator = ({theme}) => {
   const {state, restoreToken} = useAuth();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const AppNavigator = () => {
   }, [restoreToken]);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <Main.Navigator screenOptions={{headerShown: false}}>
         {state.isAuthenticated ? (
           <Main.Screen name={Routes.HOME} component={HomeNavigator} />

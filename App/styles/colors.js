@@ -1,3 +1,5 @@
+// ? https://stackoverflow.com/questions/63134848/create-a-theme-provider-component-in-react-native
+
 const Colors = {
   PRIMARY: '#C4FFFF',
   SECONDARY: '#5628F3',

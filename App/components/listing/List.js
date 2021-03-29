@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
+
 import {Routes} from '../../config';
 
 const StyledView = styled.View`

@@ -1,1 +1,2 @@
-export {default as StateProvider} from './providers/StateProvider';
+export {default as StateProvider} from './StateProvider';
+export {useAuth} from './providers';

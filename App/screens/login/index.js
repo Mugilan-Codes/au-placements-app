@@ -4,15 +4,15 @@ import {useForm, Controller} from 'react-hook-form';
 
 import {Routes} from '../../config';
 import {FormButton, FormInput} from '../../components';
-import {useAuth} from '../../state/providers/auth';
+import {useAuth} from '../../state';
 import {validators} from '../../utils';
 
 const LoginScreen = ({navigation}) => {
   const {handleSubmit, control, errors} = useForm();
-  const {navigate: navigateTo} = navigation;
   const {login} = useAuth();
 
   const onSubmit = (data) => {
+    // TODO: Present a Loading while logging in
     login(data);
   };
 
@@ -77,7 +77,7 @@ const LoginScreen = ({navigation}) => {
 
       <FormButton label="Submit" onPress={handleSubmit(onSubmit)} />
 
-      <TouchableHighlight onPress={() => navigateTo(Routes.REGISTER)}>
+      <TouchableHighlight onPress={() => navigation.navigate(Routes.REGISTER)}>
         <Text>Go to Sign-Up Screen</Text>
       </TouchableHighlight>
     </SafeAreaView>

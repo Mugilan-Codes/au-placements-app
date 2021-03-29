@@ -5,12 +5,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Routes} from '../config';
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
-import {useAuth} from '../state/providers/auth';
+import {useAuth} from '../state';
 
 const Main = createStackNavigator();
 
 // TODO: Setup automatic signin
-const AppNavigator = ({theme}) => {
+const AppNavigator = () => {
   const {state, restoreToken} = useAuth();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const AppNavigator = ({theme}) => {
   }, [restoreToken]);
 
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer>
       <Main.Navigator screenOptions={{headerShown: false}}>
         {state.isAuthenticated ? (
           <Main.Screen name={Routes.HOME} component={HomeNavigator} />

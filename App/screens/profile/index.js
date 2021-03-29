@@ -7,7 +7,7 @@ import {
   Alert,
 } from 'react-native';
 
-import {useAuth} from '../../state/providers/auth/provider';
+import {useAuth} from '../../state';
 
 const ProfleScreen = ({navigation}) => {
   const {state, loadUser, logout} = useAuth();
@@ -20,7 +20,8 @@ const ProfleScreen = ({navigation}) => {
   }, [loadUser]);
 
   const onLogout = async () => {
-    logout();
+    // TODO: Present a Loading
+    await logout();
   };
 
   return (

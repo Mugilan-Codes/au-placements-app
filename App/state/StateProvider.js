@@ -1,7 +1,7 @@
 // Inspired by [Phone-Store by trujic1000](https://github.com/trujic1000/phone-store/blob/master/src/global-state/state.js)
 
 import React, {cloneElement} from 'react';
-import {AuthProvider} from './auth';
+import {AuthProvider} from './providers';
 
 // reduceRight works in reverse as opposed to reduce
 // kids = accumulator, parent = currentValue

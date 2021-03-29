@@ -4,18 +4,18 @@ import {SafeAreaView, StyleSheet, Text, TouchableHighlight} from 'react-native';
 
 import {FormButton, FormInput} from '../../components';
 import {Routes} from '../../config';
-import {useAuth} from '../../state/providers/auth';
+import {useAuth} from '../../state';
 import {validators} from '../../utils';
 
 const RegisterScreen = ({navigation}) => {
   const {handleSubmit, control, errors, watch} = useForm();
-  const {navigate: navigateTo} = navigation;
   const {register} = useAuth();
 
   const password = useRef({});
   password.current = watch('password', '');
 
   const onSubmit = (data) => {
+    // TODO: Present a Loading
     register(data);
   };
 
@@ -127,7 +127,7 @@ const RegisterScreen = ({navigation}) => {
 
       <FormButton label="Submit" onPress={handleSubmit(onSubmit)} />
 
-      <TouchableHighlight onPress={() => navigateTo(Routes.LOGIN)}>
+      <TouchableHighlight onPress={() => navigation.navigate(Routes.LOGIN)}>
         <Text>Go to Log-In Screen</Text>
       </TouchableHighlight>
     </SafeAreaView>

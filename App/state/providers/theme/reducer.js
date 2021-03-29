@@ -1,4 +1,4 @@
-import {Themes} from '../../../config';
+import {Themes} from '../../../styles';
 
 export const initialState = {
   dark: false,

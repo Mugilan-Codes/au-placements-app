@@ -6,18 +6,23 @@ import {
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
-import merge from 'deepmerge';
 
-export const CombinedDefaultTheme = merge.all([
-  PaperDefaultTheme,
-  NavigationDefaultTheme,
-  {}, // ! Customize
-]);
-export const CombinedDarkTheme = merge([
-  PaperDarkTheme,
-  NavigationDarkTheme,
-  {}, // ! Customize
-]);
+export const CombinedDefaultTheme = {
+  ...PaperDefaultTheme,
+  ...NavigationDefaultTheme,
+  colors: {
+    ...PaperDefaultTheme.colors,
+    ...NavigationDefaultTheme.colors,
+  },
+};
+export const CombinedDarkTheme = {
+  ...PaperDarkTheme,
+  ...NavigationDarkTheme,
+  colors: {
+    ...PaperDarkTheme.colors,
+    ...NavigationDarkTheme.colors,
+  },
+};
 
 // todo: Design Color Pallete here
 export const Themes = {
@@ -58,25 +63,5 @@ export const DarkTheme = {
     text: 'rgb(28, 28, 30)',
     border: 'rgb(199, 199, 204)',
     notification: 'rgb(255, 69, 58)',
-  },
-};
-
-export const customTheme = {
-  dark: false,
-  roundness: 4,
-  colors: {
-    primary: '#034748',
-    accent: '#11B5E4',
-    background: '#F1F7ED',
-    surface: '#F1F7ED',
-    text: '#001021',
-    error: '#B71F0E',
-    disabled: '#BEC6C6',
-    placeholder: '#1481BA',
-    backdrop: '#001021',
-  },
-  fonts: {
-    regular: 'Helvetica Neue',
-    medium: 'Helvetica Neue Light',
   },
 };

@@ -1,5 +1,5 @@
 import {Themes} from '../../../styles';
-import {THEME_LOADED} from './types';
+import {CHANGE_THEME, THEME_LOADED} from './types';
 
 export const initialState = {
   dark: false,
@@ -13,6 +13,8 @@ const reducer = (state = initialState, action) => {
   switch (type) {
     case THEME_LOADED:
       return {...state, ...payload};
+    case CHANGE_THEME:
+      return {...state, theme: payload};
     default:
       return state;
   }

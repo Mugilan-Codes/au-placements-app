@@ -1,4 +1,4 @@
-import {Themes} from '../../../styles';
+import {CombinedDarkTheme, CombinedDefaultTheme, Themes} from '../../../styles';
 import {CHANGE_THEME, THEME_LOADED} from './types';
 
 export const initialState = {

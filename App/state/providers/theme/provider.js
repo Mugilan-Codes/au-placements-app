@@ -1,8 +1,8 @@
 import React, {createContext, useContext, useReducer} from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {useThemeActions} from './action';
 
 import reducer, {initialState} from './reducer';
+import {useThemeActions} from './action';
 
 const ThemeContext = createContext();
 

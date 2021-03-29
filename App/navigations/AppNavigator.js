@@ -13,6 +13,9 @@ const Main = createStackNavigator();
 const AppNavigator = () => {
   const {state, restoreToken} = useAuth();
 
+  // TODO: Get theme from ThemeProvider using useTheme() and pass it to NavigationContainer
+  // TODO: useEffect to reload the Navigator whenever there is a change in theme
+
   useEffect(() => {
     restoreToken();
   }, [restoreToken]);

@@ -7,6 +7,7 @@ export const initialState = {
   toggle: () => {},
 };
 
+// TODO: Change mode accorfing to the user
 const reducer = (state = initialState, action) => {
   const {type, payload} = action;
 

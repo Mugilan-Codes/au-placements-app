@@ -3,7 +3,7 @@ import {SafeAreaView, StyleSheet, Text, TouchableHighlight} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 
 import {Routes} from '../../config';
-import {FormButton, FormInput} from '../../components';
+import {FormButton, FormInput, ScreenHeader} from '../../components';
 import {useAuth} from '../../state';
 import {validators} from '../../utils';
 
@@ -20,14 +20,12 @@ const LoginScreen = ({navigation}) => {
   //? https://www.carlrippon.com/react-hook-form-server-validation/
   return (
     <SafeAreaView style={styles.formView}>
-      {/* TODO: Make it as a separate component for Screen Headers */}
-      <Text style={styles.headerText}>Student Login</Text>
+      <ScreenHeader title="Student Login" />
 
       <Controller
         defaultValue=""
         name="email"
         control={control}
-        // rules={{required: {value: true, message: 'E-Mail is required'}}}
         rules={{
           required: 'E-Mail is required',
           pattern: {
@@ -54,7 +52,6 @@ const LoginScreen = ({navigation}) => {
         defaultValue=""
         name="password"
         control={control}
-        // rules={{required: {value: true, message: 'Password is required'}}}
         rules={{
           required: 'Password is required',
           minLength: {
@@ -89,9 +86,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  headerText: {
-    fontSize: 40,
   },
 });
 

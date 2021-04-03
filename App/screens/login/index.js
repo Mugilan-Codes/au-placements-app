@@ -12,7 +12,7 @@ const LoginScreen = ({navigation}) => {
   const {login} = useAuth();
 
   const onSubmit = (data) => {
-    // TODO: Present a Loading while logging in
+    // TODO: Present a Loading while logging in. Use global loader context
     login(data);
   };
 

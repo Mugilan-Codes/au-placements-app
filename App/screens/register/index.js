@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {SafeAreaView, StyleSheet, Text, TouchableHighlight} from 'react-native';
 
-import {FormButton, FormInput} from '../../components';
+import {FormButton, FormInput, ScreenHeader} from '../../components';
 import {Routes} from '../../config';
 import {useAuth} from '../../state';
 import {validators} from '../../utils';
@@ -21,7 +21,7 @@ const RegisterScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.formView}>
-      <Text>Student Register</Text>
+      <ScreenHeader title="Student Register" />
 
       {/*todo: course - Dynamically fetch from db and display it in dropdown box */}
 

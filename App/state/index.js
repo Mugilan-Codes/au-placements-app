@@ -1,2 +1,2 @@
 export {default as StateProvider} from './StateProvider';
-export {useAuth, useTheme} from './providers';
+export {useAuth, useCustomTheme} from './providers';

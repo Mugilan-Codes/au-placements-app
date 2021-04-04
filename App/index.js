@@ -9,6 +9,7 @@ import {StateProvider} from './state';
 
 const App = () => {
   enableScreens();
+
   return (
     <StateProvider>
       <AppNavigator />

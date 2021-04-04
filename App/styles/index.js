@@ -5,4 +5,4 @@ export {
   DarkTheme,
   CombinedDefaultTheme,
   CombinedDarkTheme,
-} from './Themes';
+} from './themes';

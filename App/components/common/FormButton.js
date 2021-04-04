@@ -1,21 +1,29 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {useTheme} from 'react-native-paper';
 
 import {Colors} from '../../styles';
 import {Dimensions} from '../../utils';
 
-const FormButton = ({label, ...props}) => (
-  <TouchableOpacity style={styles.button} {...props}>
-    <Text style={styles.buttonLabel}>{label.toUpperCase()}</Text>
-  </TouchableOpacity>
-);
+const FormButton = ({label, ...props}) => {
+  const {colors} = useTheme();
+  return (
+    <TouchableOpacity
+      style={[styles.button, {backgroundColor: colors.background}]}
+      {...props}>
+      <Text style={[styles.buttonLabel, {color: colors.primary}]}>
+        {label.toUpperCase()}
+      </Text>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     width: Dimensions.WINDOW_WIDTH / 2,
     height: Dimensions.WINDOW_HEIGHT / 15,
-    backgroundColor: Colors.SECONDARY,
+    // backgroundColor: Colors.SECONDARY,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -23,7 +31,7 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     fontSize: 28,
-    color: '#ffffff',
+    // color: '#ffffff',
   },
 });
 

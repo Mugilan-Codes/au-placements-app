@@ -1,6 +1,7 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, TouchableHighlight} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
+import {useTheme} from 'react-native-paper';
 
 import {Routes} from '../../config';
 import {FormButton, FormInput, ScreenHeader} from '../../components';
@@ -11,6 +12,7 @@ import {View} from 'react-native';
 const LoginScreen = ({navigation}) => {
   const {handleSubmit, control, errors} = useForm();
   const {login} = useAuth();
+  const {colors} = useTheme();
 
   const onSubmit = (data) => {
     // TODO: Present a Loading while logging in. Use global loader context
@@ -20,7 +22,8 @@ const LoginScreen = ({navigation}) => {
   // TODO: Add Server Side Validation
   //? https://www.carlrippon.com/react-hook-form-server-validation/
   return (
-    <SafeAreaView style={styles.content}>
+    <SafeAreaView
+      style={[styles.content, {backgroundColor: colors.background}]}>
       <ScreenHeader title="Student Login" />
 
       <View style={styles.formView}>

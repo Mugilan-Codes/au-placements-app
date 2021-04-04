@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Routes} from '../config';
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
-import {useAuth, useTheme} from '../state';
+import {useAuth, useCustomTheme} from '../state';
 
 const Main = createStackNavigator();
 
@@ -13,9 +13,9 @@ const Main = createStackNavigator();
 const AppNavigator = () => {
   const {state, restoreToken} = useAuth();
 
-  // TODO: Get theme from ThemeProvider using useTheme() and pass it to NavigationContainer
   // TODO: useEffect to reload the Navigator whenever there is a change in theme
-  // const {themeState} = useTheme();
+  // const {themeState} = useCustomTheme();
+  const {theme} = useCustomTheme();
 
   useEffect(() => {
     restoreToken();
@@ -23,7 +23,7 @@ const AppNavigator = () => {
 
   return (
     // <NavigationContainer theme={themeState.theme}>
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <Main.Navigator screenOptions={{headerShown: false}}>
         {state.isAuthenticated ? (
           <Main.Screen name={Routes.HOME} component={HomeNavigator} />

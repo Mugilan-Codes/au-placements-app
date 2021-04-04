@@ -14,7 +14,7 @@ const ProviderComposer = ({contexts, children}) => {
 
 const StateProvider = ({children}) => {
   return (
-    <ProviderComposer contexts={[<AuthProvider />]}>
+    <ProviderComposer contexts={[<AuthProvider />, <ThemeProvider />]}>
       {children}
     </ProviderComposer>
   );

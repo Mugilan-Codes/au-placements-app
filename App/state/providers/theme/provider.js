@@ -1,8 +1,14 @@
-import React, {createContext, useContext, useReducer} from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
+import {useColorScheme} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
 
-import reducer, {initialState} from './reducer';
-import {useThemeActions} from './action';
+import {CombinedDarkTheme, CombinedDefaultTheme} from '../../../styles';
 
 const ThemeContext = createContext();
 
@@ -11,16 +17,32 @@ const ThemeContext = createContext();
 // ? https://callstack.github.io/react-native-paper/theming-with-react-navigation.html
 // ? https://callstack.github.io/react-native-paper/theming.html
 const ThemeProvider = ({children}) => {
-  const [state, dispatch] = useReducer(reducer, initialState || {});
+  const colorScheme = useColorScheme();
+  const [isThemeDark, setIsThemeDark] = useState(colorScheme === 'dark');
 
-  const themeActions = useThemeActions(state, dispatch);
+  let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
+
+  // TODO: Change Theme in sync with System Theme
+
+  const toggleTheme = useCallback(() => {
+    return setIsThemeDark(!isThemeDark);
+  }, [isThemeDark]);
+
+  const preferences = useMemo(
+    () => ({
+      toggleTheme,
+      isThemeDark,
+      theme,
+    }),
+    [toggleTheme, isThemeDark, theme],
+  );
 
   return (
-    <ThemeContext.Provider value={{themeState: state, themeActions}}>
-      <PaperProvider theme={state.theme}>{children}</PaperProvider>
+    <ThemeContext.Provider value={preferences}>
+      <PaperProvider theme={theme}>{children}</PaperProvider>
     </ThemeContext.Provider>
   );
 };
 
-export const useTheme = () => useContext(ThemeContext);
+export const useCustomTheme = () => useContext(ThemeContext);
 export default ThemeProvider;

@@ -15,14 +15,15 @@ ScreenHeader.propTypes = {
 };
 
 ScreenHeader.defaultProps = {
-  title: 'Set ScreenHeader "title"',
+  title: 'ScreenHeader Title',
 };
 
 export default ScreenHeader;
 
 const styles = StyleSheet.create({
   content: {
-    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
   },
   headerText: {
     fontSize: 40,

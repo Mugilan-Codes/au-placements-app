@@ -15,14 +15,15 @@ const AppNavigator = () => {
 
   // TODO: Get theme from ThemeProvider using useTheme() and pass it to NavigationContainer
   // TODO: useEffect to reload the Navigator whenever there is a change in theme
-  const {themeState} = useTheme();
+  // const {themeState} = useTheme();
 
   useEffect(() => {
     restoreToken();
   }, [restoreToken]);
 
   return (
-    <NavigationContainer theme={themeState.theme}>
+    // <NavigationContainer theme={themeState.theme}>
+    <NavigationContainer>
       <Main.Navigator screenOptions={{headerShown: false}}>
         {state.isAuthenticated ? (
           <Main.Screen name={Routes.HOME} component={HomeNavigator} />

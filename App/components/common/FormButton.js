@@ -6,7 +6,7 @@ import {Dimensions} from '../../utils';
 
 const FormButton = ({label, ...props}) => (
   <TouchableOpacity style={styles.button} {...props}>
-    <Text style={styles.buttonLabel}>{label}</Text>
+    <Text style={styles.buttonLabel}>{label.toUpperCase()}</Text>
   </TouchableOpacity>
 );
 

@@ -21,7 +21,7 @@ const FormInput = ({placeholder, error, errorText, onBlur, ...props}) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: 5,
+    marginBottom: 15,
   },
   input: {
     padding: 10,

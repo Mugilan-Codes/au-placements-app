@@ -22,16 +22,17 @@ const AuthProvider = ({children}) => {
     restoreTokenFromStorage,
   } = useAuthActions(state, dispatch);
 
-  // const login = useCallback(() => loginStudent, []);
   const login = loginStudent;
 
-  const loadUser = useCallback(() => loadStudent, []);
+  const loadUser = useCallback(() => loadStudent, [loadStudent]);
 
-  const register = useCallback(() => registerStudent, []);
+  const register = registerStudent;
 
-  const logout = useCallback(() => logoutStudent, []);
+  const logout = logoutStudent;
 
-  const restoreToken = useCallback(() => restoreTokenFromStorage, []);
+  const restoreToken = useCallback(() => restoreTokenFromStorage, [
+    restoreTokenFromStorage,
+  ]);
 
   const value = useMemo(() => {
     return {state, login, loadUser, register, logout, restoreToken};

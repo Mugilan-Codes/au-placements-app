@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import {useAuth} from '../../state';
+import {ScreenHeader} from '../../components';
 
 const ProfleScreen = ({navigation}) => {
   const {state, loadUser, logout} = useAuth();
@@ -21,38 +22,41 @@ const ProfleScreen = ({navigation}) => {
 
   const onLogout = async () => {
     // TODO: Present a Loading
+    console.log('logging out...');
     await logout();
   };
 
+  // TODO: Create a card to display state.user, state.user.mark and state.user.education
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>ProfleScreen</Text>
-      <Text>{state?.user?.name}</Text>
+    <>
+      <ScreenHeader title={state?.user?.name} subText="Profile" />
+      <SafeAreaView style={styles.container}>
+        {state.user?.mark ? (
+          <TouchableHighlight onPress={() => Alert.alert('Edit Marks')}>
+            <Text>Edit Marks</Text>
+          </TouchableHighlight>
+        ) : (
+          <TouchableHighlight onPress={() => Alert.alert('Add Marks')}>
+            <Text>Add Marks</Text>
+          </TouchableHighlight>
+        )}
 
-      {state.user?.mark ? (
-        <TouchableHighlight onPress={() => Alert.alert('Edit Marks')}>
-          <Text>Edit Marks</Text>
-        </TouchableHighlight>
-      ) : (
-        <TouchableHighlight onPress={() => Alert.alert('Add Marks')}>
-          <Text>Add Marks</Text>
-        </TouchableHighlight>
-      )}
+        {state.user?.education ? (
+          <TouchableHighlight onPress={() => Alert.alert('Edit Education')}>
+            <Text>Edit Education</Text>
+          </TouchableHighlight>
+        ) : (
+          <TouchableHighlight onPress={() => Alert.alert('Add Education')}>
+            <Text>Add Education</Text>
+          </TouchableHighlight>
+        )}
 
-      {state.user?.education ? (
-        <TouchableHighlight onPress={() => Alert.alert('Edit Education')}>
-          <Text>Edit Education</Text>
+        <TouchableHighlight onPress={onLogout}>
+          <Text>LOGOUT</Text>
         </TouchableHighlight>
-      ) : (
-        <TouchableHighlight onPress={() => Alert.alert('Add Education')}>
-          <Text>Add Education</Text>
-        </TouchableHighlight>
-      )}
-
-      <TouchableHighlight onPress={onLogout}>
-        <Text>LOGOUT</Text>
-      </TouchableHighlight>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 };
 

@@ -1,23 +1,22 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, SafeAreaView} from 'react-native';
 import PropTypes from 'prop-types';
-import {useTheme, Switch} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 
 import {useCustomTheme} from '../../state';
 
-const ScreenHeader = ({title}) => {
-  const theme = useTheme();
-  const {toggleTheme, isThemeDark} = useCustomTheme();
+const ScreenHeader = ({title, subText}) => {
+  const {colors} = useTheme();
+  // const {
+  //   theme: {colors},
+  // } = useCustomTheme();
   return (
-    <View style={styles.content}>
-      <Text style={styles.headerText}>{title}</Text>
-      {/* <Switch
-        value={isThemeDark}
-        onValueChange={toggleTheme}
-        style={[styles.switchStyle, {backgroundColor: theme.colors.accent}]}
-        color={'red'}
-      /> */}
-    </View>
+    <SafeAreaView style={[styles.content, {backgroundColor: colors.accent}]}>
+      <Text style={[styles.headerText, {color: colors.text}]}>{title}</Text>
+      {subText ? (
+        <Text style={[styles.subText, {color: colors.text}]}>{subText}</Text>
+      ) : null}
+    </SafeAreaView>
   );
 };
 
@@ -35,15 +34,12 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 20,
     paddingVertical: 16,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'baseline',
+    alignItems: 'center',
   },
   headerText: {
     fontSize: 30,
   },
-  switchStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  subText: {
+    fontSize: 15,
   },
 });

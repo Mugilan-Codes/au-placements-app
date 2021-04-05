@@ -3,7 +3,7 @@ import {Text, SafeAreaView, FlatList, View} from 'react-native';
 import dayjs from 'dayjs';
 import localIn from 'dayjs/locale/en-in';
 
-import {List, ListSeparator} from '../../components';
+import {List, ListSeparator, ScreenHeader} from '../../components';
 import {Student} from '../../api';
 
 // TODO: Store listings and lastUpdated values in AsyncStorage for Offline Viewing
@@ -52,11 +52,11 @@ const DashboardScreen = () => {
   // TODO: Move the bookmarked listings to top of the flatlist
   //? Learn about Flatlist refreshing and other attributes
   return (
-    <SafeAreaView>
-      <View>
-        <Text>DashboardScreen</Text>
-        <Text>Last Updated: {lastUpdated}</Text>
-      </View>
+    <>
+      <ScreenHeader
+        title="Dashboard"
+        subText={`Last Updated: ${lastUpdated}`}
+      />
       <FlatList
         data={listings}
         renderItem={renderItem}
@@ -64,8 +64,10 @@ const DashboardScreen = () => {
         onRefresh={onRefresh}
         refreshing={isRefreshing}
         ItemSeparatorComponent={ListSeparator}
+        ListHeaderComponent={() => <View style={{height: 20}} />}
+        ListFooterComponent={() => <View style={{height: 20}} />}
       />
-    </SafeAreaView>
+    </>
   );
 };
 

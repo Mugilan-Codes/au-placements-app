@@ -14,6 +14,7 @@ import {
 
 export const useAuthActions = (authState, dispatch) => {
   const loadStudent = async () => {
+    console.log('loadStudent Action');
     try {
       // todo: Check if the token exists and is that token a valid one
       const {data} = await Student.get();
@@ -26,6 +27,7 @@ export const useAuthActions = (authState, dispatch) => {
   };
 
   const loginStudent = async ({email, password}) => {
+    console.log('loginStudent Action');
     try {
       const {data} = await Student.login(email, password);
       dispatch({type: LOGIN_SUCCESS, payload: data});
@@ -46,6 +48,7 @@ export const useAuthActions = (authState, dispatch) => {
     password,
     confirm_password,
   }) => {
+    console.log('registerStudent Action');
     try {
       const {data} = await Student.register({
         register_no,
@@ -63,11 +66,13 @@ export const useAuthActions = (authState, dispatch) => {
   };
 
   const logoutStudent = async () => {
+    console.log('logoutStudent Action');
     dispatch({type: LOGOUT});
   };
 
   // TODO: Make this so, that refreshToken is used when accessToken is expired
   const restoreTokenFromStorage = async () => {
+    console.log('restoreTokenFromStorage Action');
     try {
       const accessToken = await storage.accessToken.get();
       const refreshToken = await storage.refreshToken.get();

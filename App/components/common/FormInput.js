@@ -1,9 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
+import {useTheme} from 'react-native-paper';
 
 import {Dimensions} from '../../utils';
 
 const FormInput = ({placeholder, error, errorText, onBlur, ...props}) => {
+  const {colors} = useTheme();
   return (
     <View style={styles.wrapper}>
       <TextInput
@@ -12,7 +14,12 @@ const FormInput = ({placeholder, error, errorText, onBlur, ...props}) => {
         placeholderTextColor="#666"
         onBlur={onBlur}
         {...props}
-        style={[styles.input, error && styles.error, props.style]}
+        style={[
+          styles.input,
+          error && styles.error,
+          props.style,
+          {color: colors.text, borderColor: colors.border},
+        ]}
       />
       {errorText && <Text style={styles.errorText}>{errorText}</Text>}
     </View>
@@ -30,7 +37,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderRadius: 8,
     borderWidth: 1,
-    color: 'yellow', //todo: Change based on Theme (Light or Dark)
   },
   error: {
     borderColor: 'red',

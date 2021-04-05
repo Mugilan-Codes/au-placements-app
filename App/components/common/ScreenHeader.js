@@ -11,12 +11,12 @@ const ScreenHeader = ({title}) => {
   return (
     <View style={styles.content}>
       <Text style={styles.headerText}>{title}</Text>
-      <Switch
+      {/* <Switch
         value={isThemeDark}
         onValueChange={toggleTheme}
         style={[styles.switchStyle, {backgroundColor: theme.colors.accent}]}
         color={'red'}
-      />
+      /> */}
     </View>
   );
 };
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   switchStyle: {
-    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

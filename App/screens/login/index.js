@@ -1,5 +1,11 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, TouchableHighlight} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {useTheme} from 'react-native-paper';
 
@@ -7,7 +13,6 @@ import {Routes} from '../../config';
 import {FormButton, FormInput, ScreenHeader} from '../../components';
 import {useAuth} from '../../state';
 import {validators} from '../../utils';
-import {View} from 'react-native';
 
 const LoginScreen = ({navigation}) => {
   const {handleSubmit, control, errors} = useForm();

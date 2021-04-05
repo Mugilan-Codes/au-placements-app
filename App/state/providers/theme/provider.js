@@ -4,25 +4,33 @@ import React, {
   useContext,
   useMemo,
   useState,
+  useEffect,
 } from 'react';
-import {useColorScheme} from 'react-native';
 import {Provider as PaperProvider} from 'react-native-paper';
+import {AppearanceProvider, Appearance} from 'react-native-appearance';
 
 import {CombinedDarkTheme, CombinedDefaultTheme} from '../../../styles';
 
 const ThemeContext = createContext();
+
+const defaultColorScheme = Appearance.getColorScheme() || 'light';
 
 // TODO: Add Theme using react native paper and react navigation combined
 // ? https://blog.logrocket.com/designing-a-ui-with-custom-theming-using-react-native-paper/
 // ? https://callstack.github.io/react-native-paper/theming-with-react-navigation.html
 // ? https://callstack.github.io/react-native-paper/theming.html
 const ThemeProvider = ({children}) => {
-  const colorScheme = useColorScheme();
-  const [isThemeDark, setIsThemeDark] = useState(colorScheme === 'dark');
+  const defaultIsDark = defaultColorScheme === 'dark';
+  const [isThemeDark, setIsThemeDark] = useState(defaultIsDark);
 
   let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
 
-  // TODO: Change Theme in sync with System Theme
+  useEffect(() => {
+    const subscription = Appearance.addChangeListener(({colorScheme}) => {
+      setIsThemeDark(colorScheme === 'dark');
+    });
+    return () => subscription.remove();
+  }, []);
 
   const toggleTheme = useCallback(() => {
     return setIsThemeDark(!isThemeDark);
@@ -39,7 +47,9 @@ const ThemeProvider = ({children}) => {
 
   return (
     <ThemeContext.Provider value={preferences}>
-      <PaperProvider theme={theme}>{children}</PaperProvider>
+      <AppearanceProvider>
+        <PaperProvider theme={theme}>{children}</PaperProvider>
+      </AppearanceProvider>
     </ThemeContext.Provider>
   );
 };

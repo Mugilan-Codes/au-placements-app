@@ -1,8 +1,2 @@
 export {default as Colors} from './colors';
-export {
-  Themes,
-  LightTheme,
-  DarkTheme,
-  CombinedDefaultTheme,
-  CombinedDarkTheme,
-} from './themes';
+export {CombinedDefaultTheme, CombinedDarkTheme} from './themes';

@@ -1,2 +1,2 @@
 export {default as useInterval} from './useInterval';
-export {default as useCustomTheme} from './useCustomTheme';
+export {default as useKeyboard} from './useKeyboard';

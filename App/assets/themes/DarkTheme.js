@@ -1,3 +1,22 @@
+// import {DarkTheme as NavigationDarkTheme} from '@react-navigation/native';
+// import {DarkTheme as PaperDarkTheme} from 'react-native-paper';
+
+// const CombinedDarkTheme = {
+//   ...PaperDarkTheme,
+//   ...NavigationDarkTheme,
+//   colors: {
+//     ...PaperDarkTheme.colors,
+//     ...NavigationDarkTheme.colors,
+//     background: '#2E3440',
+//     border: '#575c66',
+//     backgroundAlt: '#575c66',
+//     borderAlt: '#2E3440',
+//     text: '#ECEFF4',
+//   },
+// };
+
+// export default CombinedDarkTheme;
+
 const DarkTheme = {
   dark: true,
   colors: {

@@ -33,3 +33,5 @@ export const CombinedDarkTheme = {
     text: '#ECEFF4',
   },
 };
+
+// TODO: Create Custom Dark & Light Theme and export it. Use that it in assets/themes

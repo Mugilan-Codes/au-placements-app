@@ -32,6 +32,7 @@ const ThemeProvider = ({children}) => {
     return () => subscription.remove();
   }, []);
 
+  // TODO: Store the user preference when toggled and maintain that
   const toggleTheme = useCallback(() => {
     return setIsThemeDark(!isThemeDark);
   }, [isThemeDark]);

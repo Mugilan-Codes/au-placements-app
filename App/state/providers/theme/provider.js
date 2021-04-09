@@ -7,9 +7,10 @@ import React, {
   useEffect,
 } from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
+// TODO: remove react-native-appearance package
 import {AppearanceProvider, Appearance} from 'react-native-appearance';
 
-import {CombinedDarkTheme, CombinedDefaultTheme} from '../../../styles';
+import {DarkTheme, LightTheme} from '../../../styles';
 
 const ThemeContext = createContext();
 
@@ -23,7 +24,7 @@ const ThemeProvider = ({children}) => {
   const defaultIsDark = defaultColorScheme === 'dark';
   const [isThemeDark, setIsThemeDark] = useState(defaultIsDark);
 
-  let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
+  let theme = isThemeDark ? DarkTheme : LightTheme;
 
   useEffect(() => {
     const subscription = Appearance.addChangeListener(({colorScheme}) => {

@@ -6,13 +6,43 @@ import {
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
+import merge from 'deepmerge';
 
-export const CombinedDefaultTheme = {
-  ...PaperDefaultTheme,
-  ...NavigationDefaultTheme,
+// ? https://callstack.github.io/react-native-paper/theming.html
+// ? https://reactnavigation.org/docs/themes/
+// const sampleTheme = {
+//   dark: true,
+//   mode: 'adaptive',
+//   roundness: 2,
+//   colors: {
+//     primary: '',
+//     accent: '',
+//     background: '',
+//     surface: '',
+//     card: '',
+//     text: '',
+//     disabled: '',
+//     placeholder: '',
+//     backdrop: '',
+//     onSurface: '',
+//     border: '',
+//     notification: '',
+//   },
+//   fonts: {
+//     regular: '',
+//     medium: '',
+//     light: '',
+//     thin: '',
+//   },
+//   animation: {
+//     scale: 1,
+//   },
+// };
+
+const customCommonTheme = {};
+
+const customLightTheme = {
   colors: {
-    ...PaperDefaultTheme.colors,
-    ...NavigationDefaultTheme.colors,
     background: '#ededed',
     border: '#bdbdbd',
     backgroundAlt: '#eaeaeb',
@@ -20,12 +50,8 @@ export const CombinedDefaultTheme = {
     text: '#171717',
   },
 };
-export const CombinedDarkTheme = {
-  ...PaperDarkTheme,
-  ...NavigationDarkTheme,
+const customDarkTheme = {
   colors: {
-    ...PaperDarkTheme.colors,
-    ...NavigationDarkTheme.colors,
     background: '#2E3440',
     border: '#575c66',
     backgroundAlt: '#575c66',
@@ -34,4 +60,17 @@ export const CombinedDarkTheme = {
   },
 };
 
-// TODO: Create Custom Dark & Light Theme and export it. Use that it in assets/themes
+const CombinedDefaultTheme = merge.all([
+  PaperDefaultTheme,
+  NavigationDefaultTheme,
+  customCommonTheme,
+  customLightTheme,
+]);
+const CombinedDarkTheme = merge.all([
+  PaperDarkTheme,
+  NavigationDarkTheme,
+  customCommonTheme,
+  customDarkTheme,
+]);
+
+export {CombinedDefaultTheme as LightTheme, CombinedDarkTheme as DarkTheme};

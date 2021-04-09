@@ -16,6 +16,7 @@
 - Make the Listing Screen work properly.
 - Make a better way to handle the providers.
 - [Create global loader using context API in react native](https://medium.com/@jaythummar85/create-global-loader-using-context-api-in-react-native-4f5875c96472)
+- Refactor state folder in root
 
 ## DOCS
 

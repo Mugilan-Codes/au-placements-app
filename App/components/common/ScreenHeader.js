@@ -1,17 +1,16 @@
 import React from 'react';
 import {StyleSheet, Text, SafeAreaView} from 'react-native';
 import PropTypes from 'prop-types';
-import {useTheme} from 'react-native-paper';
 
 import {useCustomTheme} from '../../contexts';
 
 const ScreenHeader = ({title, subText}) => {
-  const {colors} = useTheme();
-  // const {
-  //   theme: {colors},
-  // } = useCustomTheme();
+  const {
+    theme: {colors},
+  } = useCustomTheme();
   return (
-    <SafeAreaView style={[styles.content, {backgroundColor: colors.accent}]}>
+    <SafeAreaView
+      style={[styles.content, {backgroundColor: colors.backgroundAlt}]}>
       <Text style={[styles.headerText, {color: colors.text}]}>{title}</Text>
       {subText ? (
         <Text style={[styles.subText, {color: colors.text}]}>{subText}</Text>

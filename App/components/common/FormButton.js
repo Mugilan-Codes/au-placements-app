@@ -1,12 +1,13 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {useTheme} from 'react-native-paper';
 
-import {Colors} from '../../styles';
 import {Dimensions} from '../../utils';
+import {useCustomTheme} from '../../contexts';
 
 const FormButton = ({label, ...props}) => {
-  const {colors} = useTheme();
+  const {
+    theme: {colors},
+  } = useCustomTheme();
   return (
     <TouchableOpacity
       style={[styles.button, {backgroundColor: colors.background}]}
@@ -23,7 +24,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: Dimensions.WINDOW_WIDTH / 2,
     height: Dimensions.WINDOW_HEIGHT / 15,
-    // backgroundColor: Colors.SECONDARY,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     fontSize: 28,
-    // color: '#ffffff',
   },
 });
 

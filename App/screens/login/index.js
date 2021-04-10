@@ -7,17 +7,18 @@ import {
   View,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
-import {useTheme} from 'react-native-paper';
 
 import {Routes} from '../../config';
 import {FormButton, FormInput, ScreenHeader} from '../../components';
-import {useAuth} from '../../contexts';
+import {useAuth, useCustomTheme} from '../../contexts';
 import {validators} from '../../utils';
 
 const LoginScreen = ({navigation}) => {
   const {handleSubmit, control, errors} = useForm();
   const {login} = useAuth();
-  const {colors} = useTheme();
+  const {
+    theme: {colors},
+  } = useCustomTheme();
 
   const onSubmit = (data) => {
     // TODO: Present a Loading while logging in. Use global loader context

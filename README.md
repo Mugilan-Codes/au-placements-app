@@ -15,6 +15,7 @@
 - Reduce Load Time and add Loading Screens.
 - Make the Listing Screen work properly.
 - [Create global loader using context API in react native](https://medium.com/@jaythummar85/create-global-loader-using-context-api-in-react-native-4f5875c96472)
+- [Create Color Palletes](https://coolors.co/)
 
 ## DOCS
 
@@ -22,3 +23,7 @@
 - [Styled Components Basics](https://styled-components.com/docs/basics)
 - [day.js package](https://github.com/iamkun/dayjs)
 - [How to Add Support for Dark and Light Themes in React Native with Crowdbotics](https://blog.crowdbotics.com/how-to-add-support-for-dark-and-light-themes-in-react-native-apps/)
+- Theming
+  - [Designing a UI with custom theming using react-native-paper](https://blog.logrocket.com/designing-a-ui-with-custom-theming-using-react-native-paper/)
+  - [Theming](https://callstack.github.io/react-native-paper/theming.html)
+  - [Theming with React Navigation](https://callstack.github.io/react-native-paper/theming-with-react-navigation.html)

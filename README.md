@@ -16,6 +16,11 @@
 - Make the Listing Screen work properly.
 - [Create global loader using context API in react native](https://medium.com/@jaythummar85/create-global-loader-using-context-api-in-react-native-4f5875c96472)
 - [Create Color Palletes](https://coolors.co/)
+- Styled Components
+  - [Use theme inside custom component style](https://github.com/callstack/react-native-paper/issues/1837)
+  - [The styled-components Happy Path - My personal suite of “best practices”](https://www.joshwcomeau.com/css/styled-components/)
+  - [Styling your React Native App with Styled-Components](https://javascript.plainenglish.io/styling-your-react-native-app-with-styled-components-6939afde3d2f)
+  - [A Comparison of Three Methods for Styling Components in React Native](https://blog.echobind.com/a-comparison-of-three-methods-for-styling-components-in-react-native-88ece2fdcdea)
 
 ## DOCS
 

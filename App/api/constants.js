@@ -1,5 +1,5 @@
 //! Test URL .. Change after Deploying
-const API_URL = 'http://192.168.0.107:5000/api';
+const API_URL = 'http://192.168.0.104:5000/api';
 
 export const Auth = {
   REGISTER: `${API_URL}/student/register`,

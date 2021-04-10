@@ -11,7 +11,7 @@ import {useTheme} from 'react-native-paper';
 
 import {Routes} from '../../config';
 import {FormButton, FormInput, ScreenHeader} from '../../components';
-import {useAuth} from '../../state';
+import {useAuth} from '../../contexts';
 import {validators} from '../../utils';
 
 const LoginScreen = ({navigation}) => {

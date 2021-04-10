@@ -7,7 +7,7 @@ import {
   Alert,
 } from 'react-native';
 
-import {useAuth} from '../../state';
+import {useAuth} from '../../contexts';
 import {ScreenHeader} from '../../components';
 
 const ProfleScreen = ({navigation}) => {

@@ -10,7 +10,7 @@ import {
 
 import {FormButton, FormInput, ScreenHeader} from '../../components';
 import {Routes} from '../../config';
-import {useAuth} from '../../state';
+import {useAuth} from '../../contexts';
 import {validators} from '../../utils';
 
 const RegisterScreen = ({navigation}) => {

@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Routes} from '../config';
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
-import {useAuth, useCustomTheme} from '../state';
+import {useAuth, useCustomTheme} from '../contexts';
 
 const Main = createStackNavigator();
 

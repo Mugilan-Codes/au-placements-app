@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Text, SafeAreaView, FlatList, View} from 'react-native';
-import dayjs from 'dayjs';
-import localIn from 'dayjs/locale/en-in';
+import {FlatList, View} from 'react-native';
 
 import {List, ListSeparator, ScreenHeader} from '../../components';
 import {Student} from '../../api';
+import {Date} from '../../utils';
 
 // TODO: Store listings and lastUpdated values in AsyncStorage for Offline Viewing
 const DashboardScreen = () => {
@@ -18,9 +17,7 @@ const DashboardScreen = () => {
 
   const getListings = async () => {
     const {data} = await Student.getAllListings();
-    const time = dayjs()
-      .locale(localIn)
-      .format('hh:mm:ss A --> ddd DD/MM/YYYY');
+    const time = Date.getCurrentTime();
     setListings(data);
     setLastUpdated(time);
   };

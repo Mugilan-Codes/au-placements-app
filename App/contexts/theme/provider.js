@@ -10,7 +10,7 @@ import {Provider as PaperProvider} from 'react-native-paper';
 // TODO: remove react-native-appearance package
 import {AppearanceProvider, Appearance} from 'react-native-appearance';
 
-import {DarkTheme, LightTheme} from '../../../styles';
+import {DarkTheme, LightTheme} from '../../styles';
 
 const ThemeContext = createContext();
 

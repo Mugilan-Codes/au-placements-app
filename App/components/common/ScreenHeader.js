@@ -3,7 +3,7 @@ import {StyleSheet, Text, SafeAreaView} from 'react-native';
 import PropTypes from 'prop-types';
 import {useTheme} from 'react-native-paper';
 
-import {useCustomTheme} from '../../state';
+import {useCustomTheme} from '../../contexts';
 
 const ScreenHeader = ({title, subText}) => {
   const {colors} = useTheme();

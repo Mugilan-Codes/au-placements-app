@@ -1,5 +1,5 @@
-import {Student} from '../../../api';
-import {storage} from '../../../utils';
+import {Student} from '../../api';
+import {storage} from '../../utils';
 import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,

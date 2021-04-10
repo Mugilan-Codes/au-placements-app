@@ -9,7 +9,7 @@ import {
   LOGOUT,
   RESTORE_TOKEN_FAIL,
 } from './types';
-import {setAuthToken, storage} from '../../../utils';
+import {setAuthToken, storage} from '../../utils';
 
 export const initialState = {
   isLoading: true,

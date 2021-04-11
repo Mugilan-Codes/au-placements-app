@@ -7,6 +7,7 @@ import React, {
   useEffect,
 } from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
+import {ThemeProvider as StyleProvider} from 'styled-components/native';
 import {Appearance} from 'react-native';
 
 import {DarkTheme, LightTheme} from '../../styles';
@@ -51,7 +52,9 @@ const ThemeProvider = ({children}) => {
 
   return (
     <ThemeContext.Provider value={preferences}>
-      <PaperProvider theme={theme}>{children}</PaperProvider>
+      <PaperProvider theme={theme}>
+        <StyleProvider theme={theme}>{children}</StyleProvider>
+      </PaperProvider>
     </ThemeContext.Provider>
   );
 };

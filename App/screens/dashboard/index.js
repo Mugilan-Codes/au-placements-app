@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList} from 'react-native';
 
 import {List, ListSeparator, ScreenHeader} from '../../components';
 import {Student} from '../../api';
 import {Date} from '../../utils';
+import {ViewWithHeight} from './styles';
 
 // TODO: Store listings and lastUpdated values in AsyncStorage for Offline Viewing
 const DashboardScreen = () => {
@@ -61,8 +62,8 @@ const DashboardScreen = () => {
         onRefresh={onRefresh}
         refreshing={isRefreshing}
         ItemSeparatorComponent={ListSeparator}
-        ListHeaderComponent={() => <View style={{height: 20}} />}
-        ListFooterComponent={() => <View style={{height: 20}} />}
+        ListHeaderComponent={() => <ViewWithHeight />}
+        ListFooterComponent={() => <ViewWithHeight />}
       />
     </>
   );

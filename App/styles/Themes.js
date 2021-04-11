@@ -8,6 +8,8 @@ import {
 } from 'react-native-paper';
 import merge from 'deepmerge';
 
+import {LINE_HEIGHT_20} from './typography';
+
 // ? https://callstack.github.io/react-native-paper/theming.html
 // ? https://reactnavigation.org/docs/themes/
 // const sampleTheme = {
@@ -39,7 +41,9 @@ import merge from 'deepmerge';
 //   },
 // };
 
-const customCommonTheme = {};
+const customCommonTheme = {
+  specialHeight: `${LINE_HEIGHT_20}px`,
+};
 
 const customLightTheme = {
   colors: {

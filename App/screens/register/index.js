@@ -10,7 +10,7 @@ import {
 
 import {FormButton, FormInput, ScreenHeader} from '../../components';
 import {Routes} from '../../config';
-import {useAuth, useCustomTheme} from '../../contexts';
+import {useAuth, useTheme} from '../../contexts';
 import {validators} from '../../utils';
 
 const RegisterScreen = ({navigation}) => {
@@ -18,7 +18,7 @@ const RegisterScreen = ({navigation}) => {
   const {register} = useAuth();
   const {
     theme: {colors},
-  } = useCustomTheme();
+  } = useTheme();
 
   const password = useRef({});
   password.current = watch('password', '');

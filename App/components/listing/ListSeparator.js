@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {Divider} from 'react-native-paper';
 
 const ListSeparator = () => {
-  return <View style={styles.line} />;
+  return <Divider style={styles.line} />;
 };
 
 const styles = StyleSheet.create({

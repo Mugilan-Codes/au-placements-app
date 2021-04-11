@@ -1,17 +1,18 @@
 //! Test URL .. Change after Deploying
-const API_URL = 'http://192.168.0.104:5000/api';
+const BASE_URL = 'http://192.168.0.104:5000';
+const API_URL = `${BASE_URL}/api/student`;
 
 export const Auth = {
-  REGISTER: `${API_URL}/student/register`,
-  LOGIN: `${API_URL}/student/login`,
-  GET: `${API_URL}/student`,
-  UPDATE: `${API_URL}/student`,
-  COURSES: `${API_URL}/student/courses`,
-  MARKS: `${API_URL}/student/marks`,
-  EDUCATION: `${API_URL}/student/education`,
+  REGISTER: `${API_URL}/register`,
+  LOGIN: `${API_URL}/login`,
+  GET: `${API_URL}`,
+  UPDATE: `${API_URL}`,
+  COURSES: `${API_URL}/courses`,
+  MARKS: `${API_URL}/marks`,
+  EDUCATION: `${API_URL}/education`,
 };
 
 export const Listing = {
-  GET_ALL: `${API_URL}/student/listing`,
-  GET: (list_id) => `${API_URL}/student/listing/${list_id}`,
+  GET_ALL: `${API_URL}/listing`,
+  GET: (list_id) => `${API_URL}/listing/${list_id}`,
 };

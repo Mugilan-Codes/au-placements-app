@@ -2,12 +2,12 @@ import React from 'react';
 import {StyleSheet, Text, SafeAreaView} from 'react-native';
 import PropTypes from 'prop-types';
 
-import {useCustomTheme} from '../../contexts';
+import {useTheme} from '../../contexts';
 
 const ScreenHeader = ({title, subText}) => {
   const {
     theme: {colors},
-  } = useCustomTheme();
+  } = useTheme();
   return (
     <SafeAreaView
       style={[styles.content, {backgroundColor: colors.backgroundAlt}]}>

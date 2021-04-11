@@ -5,17 +5,14 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Routes} from '../config';
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
-import {useAuth, useCustomTheme} from '../contexts';
+import {useAuth, useTheme} from '../contexts';
 
 const Main = createStackNavigator();
 
 // TODO: Setup automatic signin
 const AppNavigator = () => {
   const {state, restoreToken} = useAuth();
-
-  // TODO: useEffect to reload the Navigator whenever there is a change in theme
-  // const {themeState} = useCustomTheme();
-  const {theme} = useCustomTheme();
+  const {theme} = useTheme();
 
   useEffect(() => {
     restoreToken();

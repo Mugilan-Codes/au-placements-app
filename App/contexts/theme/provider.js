@@ -56,5 +56,5 @@ const ThemeProvider = ({children}) => {
   );
 };
 
-export const useCustomTheme = () => useContext(ThemeContext);
+export const useTheme = () => useContext(ThemeContext);
 export default ThemeProvider;

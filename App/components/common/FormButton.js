@@ -2,12 +2,12 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 import {Dimensions} from '../../utils';
-import {useCustomTheme} from '../../contexts';
+import {useTheme} from '../../contexts';
 
 const FormButton = ({label, ...props}) => {
   const {
     theme: {colors},
-  } = useCustomTheme();
+  } = useTheme();
   return (
     <TouchableOpacity
       style={[styles.button, {backgroundColor: colors.background}]}

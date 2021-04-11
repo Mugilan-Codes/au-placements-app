@@ -10,7 +10,7 @@ import {useForm, Controller} from 'react-hook-form';
 
 import {Routes} from '../../config';
 import {FormButton, FormInput, ScreenHeader} from '../../components';
-import {useAuth, useCustomTheme} from '../../contexts';
+import {useAuth, useTheme} from '../../contexts';
 import {validators} from '../../utils';
 
 const LoginScreen = ({navigation}) => {
@@ -18,7 +18,7 @@ const LoginScreen = ({navigation}) => {
   const {login} = useAuth();
   const {
     theme: {colors},
-  } = useCustomTheme();
+  } = useTheme();
 
   const onSubmit = (data) => {
     // TODO: Present a Loading while logging in. Use global loader context

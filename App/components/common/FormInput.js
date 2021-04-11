@@ -2,12 +2,12 @@ import React from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 
 import {Dimensions} from '../../utils';
-import {useCustomTheme} from '../../contexts';
+import {useTheme} from '../../contexts';
 
 const FormInput = ({placeholder, error, errorText, onBlur, ...props}) => {
   const {
     theme: {colors},
-  } = useCustomTheme();
+  } = useTheme();
   return (
     <View style={styles.wrapper}>
       <TextInput

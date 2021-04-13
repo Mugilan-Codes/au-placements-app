@@ -1,17 +1,14 @@
-import axios from 'axios';
+import {Api} from '../config';
 
-// axios.defaults.baseURL = 'http://localhost:5000/api';
-// axios.defaults.headers.post['Content-Type'] = 'application/json';
 import {Auth, Listing} from './constants';
-
-const config = {headers: {'Content-Type': 'application/json'}};
 
 export const Student = {
   // todo: login with register_no
   login: async (email, password) => {
     const body = JSON.stringify({email, password});
 
-    return await axios.post(Auth.LOGIN, body, config);
+    // return await axios.post(Auth.LOGIN, body, config);
+    return await Api.post(Auth.LOGIN, body);
   },
   // todo: Add course_id
   register: async ({register_no, name, email, password, confirm_password}) => {
@@ -23,18 +20,19 @@ export const Student = {
       confirm_password,
     });
 
-    return await axios.post(Auth.REGISTER, body, config);
+    // return await axios.post(Auth.REGISTER, body, config);
+    return await Api.post(Auth.REGISTER, body);
   },
   get: async () => {
-    return await axios.get(Auth.GET);
+    return await Api.get(Auth.GET);
   },
   getCourses: async () => {
-    return await axios.get(Auth.COURSES);
+    return await Api.get(Auth.COURSES);
   },
   getAllListings: async () => {
-    return await axios.get(Listing.GET_ALL);
+    return await Api.get(Listing.GET_ALL);
   },
   getOneListing: async (list_id) => {
-    return list_id && (await axios.get(Listing.GET(list_id)));
+    return list_id && (await Api.get(Listing.GET(list_id)));
   },
 };

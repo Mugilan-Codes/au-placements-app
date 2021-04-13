@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import {storage} from '../utils';
+
 const BASE_URL = 'http://192.168.0.104:5000/api';
 
 const TOKEN_KEY = 'x-auth-token';
@@ -20,7 +22,11 @@ export default instance;
 
 export const setAuthToken = (token) => {
   if (token) {
-    instance.defaults.headers.common[TOKEN_KEY] = token;
+    // Set JSON Web Token in Client to be included in all calls
+    instance.interceptors.request.use((config) => {
+      config.headers.common[TOKEN_KEY] = token;
+      return config;
+    });
     console.log('AuthToken is set');
   } else {
     delete instance.defaults.headers.common[TOKEN_KEY];
@@ -29,8 +35,14 @@ export const setAuthToken = (token) => {
 };
 
 instance.interceptors.request.use(
-  (config) => {
-    console.log('axios instance interceptors request config =', config);
+  async (config) => {
+    console.log('axios instance interceptors request');
+
+    const accessToken = await storage.accessToken.get();
+    if (accessToken) {
+      config.headers.common[TOKEN_KEY] = accessToken;
+    }
+
     return config;
   },
   (error) => {
@@ -41,23 +53,25 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
+    console.log('axios instance interceptors response');
     // Any status code that lie within the range of 2xx cause this function to trigger
-    console.log('axios instance interceptors response =', response);
+    // console.log('axios instance interceptors response =', response);
     return response;
   },
   (error) => {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     console.log('axios instance interceptors response error =', error);
+    // TODO: Remove Token if error occurs
     return Promise.reject(error);
   },
 );
 
 // Global Axios Config
-axios.interceptors.request.use(
-  (config) => config,
-  (err) => Promise.reject(err),
-);
-axios.interceptors.response.use(
-  (response) => response,
-  (err) => Promise.reject(err),
-);
+// axios.interceptors.request.use(
+//   (config) => config,
+//   (err) => Promise.reject(err),
+// );
+// axios.interceptors.response.use(
+//   (response) => response,
+//   (err) => Promise.reject(err),
+// );

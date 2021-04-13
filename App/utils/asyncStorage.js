@@ -13,8 +13,8 @@ const storage = {
     set: async (token) => {
       try {
         await AsyncStorage.setItem(`${ACCESS_TOKEN}`, token);
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log('Storage accessToken.set err =', err);
       }
     },
     get: async () => {
@@ -23,8 +23,8 @@ const storage = {
         if (value !== null) {
           return value;
         }
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        console.log('Storage accessToken.get err =', err);
       }
     },
     remove: async () => {

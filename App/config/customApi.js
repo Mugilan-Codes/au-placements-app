@@ -20,6 +20,7 @@ const instance = axios.create({
 
 export default instance;
 
+// TODO: Remove setAuthToken as tokens are attached on each api call
 export const setAuthToken = (token) => {
   if (token) {
     // Set JSON Web Token in Client to be included in all calls

@@ -8,6 +8,71 @@ const STUDENT_INFO = `${KEY}student_info`;
 
 // TODO: Make this clean.
 //! Set this properly
+
+export const accessToken = {
+  set: async (token) => {
+    try {
+      await AsyncStorage.setItem(`${ACCESS_TOKEN}`, token);
+    } catch (err) {
+      console.log('Storage accessToken.set err =', err);
+    }
+  },
+  get: async () => {
+    try {
+      const value = await AsyncStorage.getItem(`${ACCESS_TOKEN}`);
+      if (value !== null) {
+        return value;
+      }
+    } catch (err) {
+      console.log('Storage accessToken.get err =', err);
+    }
+  },
+  remove: async () => {
+    try {
+      const value = await AsyncStorage.getItem(`${ACCESS_TOKEN}`);
+      if (value !== null) {
+        await AsyncStorage.removeItem(`${ACCESS_TOKEN}`);
+        console.log(`Removed ${ACCESS_TOKEN} from AsyncStorage`);
+      }
+      console.log(`No ${ACCESS_TOKEN} in AsyncStorage`);
+    } catch (e) {
+      console.log(`Error in removing ${ACCESS_TOKEN} from AsyncStorage =`, e);
+    }
+  },
+};
+
+export const refreshToken = {
+  set: async (token) => {
+    try {
+      await AsyncStorage.setItem(`${ACCESS_TOKEN}`, token);
+    } catch (err) {
+      console.log('Storage accessToken.set err =', err);
+    }
+  },
+  get: async () => {
+    try {
+      const value = await AsyncStorage.getItem(`${ACCESS_TOKEN}`);
+      if (value !== null) {
+        return value;
+      }
+    } catch (err) {
+      console.log('Storage accessToken.get err =', err);
+    }
+  },
+  remove: async () => {
+    try {
+      const value = await AsyncStorage.getItem(`${ACCESS_TOKEN}`);
+      if (value !== null) {
+        await AsyncStorage.removeItem(`${ACCESS_TOKEN}`);
+        console.log(`Removed ${ACCESS_TOKEN} from AsyncStorage`);
+      }
+      console.log(`No ${ACCESS_TOKEN} in AsyncStorage`);
+    } catch (e) {
+      console.log(`Error in removing ${ACCESS_TOKEN} from AsyncStorage =`, e);
+    }
+  },
+};
+
 const storage = {
   accessToken: {
     set: async (token) => {

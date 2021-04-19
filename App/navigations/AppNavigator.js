@@ -19,7 +19,6 @@ const AppNavigator = () => {
   }, [restoreToken]);
 
   return (
-    // <NavigationContainer theme={themeState.theme}>
     <NavigationContainer theme={theme}>
       <Main.Navigator screenOptions={{headerShown: false}}>
         {state.isAuthenticated ? (

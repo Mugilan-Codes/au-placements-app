@@ -3,14 +3,13 @@ import {Api} from '../config';
 import {Auth, Listing} from './constants';
 
 export const Student = {
-  // todo: login with register_no
+  // TODO: login with register_no
   login: async (email, password) => {
     const body = JSON.stringify({email, password});
 
-    // return await axios.post(Auth.LOGIN, body, config);
     return await Api.post(Auth.LOGIN, body);
   },
-  // todo: Add course_id
+  // TODO: Add course_id
   register: async ({register_no, name, email, password, confirm_password}) => {
     const body = JSON.stringify({
       register_no,
@@ -20,7 +19,6 @@ export const Student = {
       confirm_password,
     });
 
-    // return await axios.post(Auth.REGISTER, body, config);
     return await Api.post(Auth.REGISTER, body);
   },
   get: async () => {

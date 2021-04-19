@@ -16,7 +16,7 @@ export const useAuthActions = (authState, dispatch) => {
   const loadStudent = async () => {
     console.log('loadStudent Action');
     try {
-      // todo: Check if the token exists and is that token a valid one
+      // TODO: Check if the token exists and is that token a valid one
       const {data} = await Student.get();
       dispatch({type: USER_LOADED, payload: data});
     } catch (err) {
@@ -36,7 +36,10 @@ export const useAuthActions = (authState, dispatch) => {
       console.log(`loginStudent Action = ${err}`);
       const errors = err.response.data;
       console.log('loginStudent Action err.response.data =', errors);
-      console.log('loginStudent Action err.response.data =', errors.email);
+      console.log(
+        'loginStudent Action err.response.data.email =',
+        errors.email,
+      );
       dispatch({type: LOGIN_FAIL});
     }
   };

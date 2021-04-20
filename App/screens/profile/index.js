@@ -1,11 +1,14 @@
 import React, {useEffect} from 'react';
+import {SafeAreaView, StyleSheet, Alert} from 'react-native';
 import {
-  SafeAreaView,
+  Card,
+  Divider,
+  Button,
+  Title,
+  Avatar,
+  Paragraph,
   Text,
-  TouchableHighlight,
-  StyleSheet,
-  Alert,
-} from 'react-native';
+} from 'react-native-paper';
 
 import {useAuth} from '../../contexts';
 import {ScreenHeader} from '../../components';
@@ -26,35 +29,54 @@ const ProfleScreen = ({navigation}) => {
     await logout();
   };
 
+  console.log('ProfileScreen state.user =', state.user);
+
   // TODO: Create a card to display state.user, state.user.mark and state.user.education
 
   return (
     <>
       <ScreenHeader title={state?.user?.name} subText="Profile" />
+      <Card>
+        <Card.Title
+          title="User"
+          left={(props) => <Avatar.Icon {...props} icon="account" />}
+        />
+        <Card.Content>
+          <Title>{state?.user?.name}</Title>
+          <Paragraph>{state?.user?.email}</Paragraph>
+          <Text>Register Number: {state?.user?.register_no}</Text>
+        </Card.Content>
+      </Card>
+      <Divider />
+      <Card>
+        <Card.Title
+          title="Marks"
+          left={(props) => <Avatar.Icon {...props} icon="counter" />}
+        />
+        <Card.Actions>
+          {state.user?.mark ? (
+            <Button onPress={() => Alert.alert('Edit Marks')}>Edit</Button>
+          ) : (
+            <Button onPress={() => Alert.alert('Add Marks')}>Add</Button>
+          )}
+        </Card.Actions>
+      </Card>
+      <Divider />
+      <Card>
+        <Card.Title
+          title="Education"
+          left={(props) => <Avatar.Icon {...props} icon="book-open-variant" />}
+        />
+        <Card.Actions>
+          {state.user?.education ? (
+            <Button onPress={() => Alert.alert('Edit Education')}>Edit</Button>
+          ) : (
+            <Button onPress={() => Alert.alert('Add Education')}>Add</Button>
+          )}
+        </Card.Actions>
+      </Card>
       <SafeAreaView style={styles.container}>
-        {state.user?.mark ? (
-          <TouchableHighlight onPress={() => Alert.alert('Edit Marks')}>
-            <Text>Edit Marks</Text>
-          </TouchableHighlight>
-        ) : (
-          <TouchableHighlight onPress={() => Alert.alert('Add Marks')}>
-            <Text>Add Marks</Text>
-          </TouchableHighlight>
-        )}
-
-        {state.user?.education ? (
-          <TouchableHighlight onPress={() => Alert.alert('Edit Education')}>
-            <Text>Edit Education</Text>
-          </TouchableHighlight>
-        ) : (
-          <TouchableHighlight onPress={() => Alert.alert('Add Education')}>
-            <Text>Add Education</Text>
-          </TouchableHighlight>
-        )}
-
-        <TouchableHighlight onPress={onLogout}>
-          <Text>LOGOUT</Text>
-        </TouchableHighlight>
+        <Button onPress={onLogout}>Logout</Button>
       </SafeAreaView>
     </>
   );

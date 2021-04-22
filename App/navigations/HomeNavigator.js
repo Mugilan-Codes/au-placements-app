@@ -1,29 +1,38 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {Routes} from '../config';
 import {DashboardScreen, ProfileScreen, ModalScreen} from '../screens';
+import {useTheme} from '../contexts';
 
 const HomeStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const MainStackNavigator = () => {
+  const {theme} = useTheme();
+
+  const tabIconSize = 26;
+
   return (
     <Tab.Navigator
       backBehavior="none"
       initialRouteName={Routes.DASHBOARD}
-      activeColor="#e91e63"
-      style={styles.navigator}>
+      activeColor={theme.colors.active}
+      inactiveColor={theme.colors.inactive}
+      barStyle={{backgroundColor: theme.colors.barStyle}}>
       <Tab.Screen
         name={Routes.DASHBOARD}
         component={DashboardScreen}
         options={{
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="home"
+              color={color}
+              size={tabIconSize}
+            />
           ),
         }}
       />
@@ -33,7 +42,11 @@ const MainStackNavigator = () => {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <MaterialCommunityIcons
+              name="account"
+              color={color}
+              size={tabIconSize}
+            />
           ),
         }}
       />
@@ -55,7 +68,7 @@ const transitonConfig = {
 
 const screenOptions = {
   headerShown: false,
-  cardStyle: {backgroundColor: 'transparent'},
+  cardStyle: {backgroundColor: 'rgba(52, 52, 52, 0.9)'},
   cardOverlayEnabled: true,
   cardStyleInterpolator: ({current: {progress}}) => ({
     cardStyle: {
@@ -82,11 +95,7 @@ const HomeNavigator = () => {
   return (
     <HomeStack.Navigator mode="modal" screenOptions={screenOptions}>
       <HomeStack.Screen name={Routes.MAIN} component={MainStackNavigator} />
-      <HomeStack.Screen
-        name={Routes.MODAL}
-        component={ModalScreen}
-        options={{headerShown: true, headerTitle: 'Modal'}}
-      />
+      <HomeStack.Screen name={Routes.MODAL} component={ModalScreen} />
     </HomeStack.Navigator>
   );
 };
@@ -97,7 +106,7 @@ const HomeNavigator = () => {
 //       backBehavior="none"
 //       initialRouteName={Routes.DASHBOARD}
 //       activeColor="#e91e63"
-//       style={styles.navigator}>
+//       barStyle={{backgroundColor: '#tomato'}}>
 //       <Tab.Screen
 //         name={Routes.DASHBOARD}
 //         component={DashboardScreen}
@@ -121,11 +130,5 @@ const HomeNavigator = () => {
 //     </Tab.Navigator>
 //   );
 // };
-
-const styles = StyleSheet.create({
-  navigator: {
-    backgroundColor: 'tomato',
-  },
-});
 
 export default HomeNavigator;

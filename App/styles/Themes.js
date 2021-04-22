@@ -43,6 +43,11 @@ import {LINE_HEIGHT_20} from './typography';
 
 const customCommonTheme = {
   specialHeight: `${LINE_HEIGHT_20}px`,
+  colors: {
+    active: '#f0edf6',
+    inactive: '#3e2465',
+    barStyle: '#694fad',
+  },
 };
 
 const customLightTheme = {

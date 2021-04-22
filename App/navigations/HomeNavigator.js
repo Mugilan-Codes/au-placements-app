@@ -19,6 +19,7 @@ const MainStackNavigator = () => {
     <Tab.Navigator
       backBehavior="none"
       initialRouteName={Routes.DASHBOARD}
+      shifting={true}
       activeColor={theme.colors.active}
       inactiveColor={theme.colors.inactive}
       barStyle={{backgroundColor: theme.colors.barStyle}}>
@@ -99,36 +100,5 @@ const HomeNavigator = () => {
     </HomeStack.Navigator>
   );
 };
-
-// const HomeNavigator = () => {
-//   return (
-//     <Tab.Navigator
-//       backBehavior="none"
-//       initialRouteName={Routes.DASHBOARD}
-//       activeColor="#e91e63"
-//       barStyle={{backgroundColor: '#tomato'}}>
-//       <Tab.Screen
-//         name={Routes.DASHBOARD}
-//         component={DashboardScreen}
-//         options={{
-//           tabBarLabel: 'Dashboard',
-//           tabBarIcon: ({color}) => (
-//             <MaterialCommunityIcons name="home" color={color} size={26} />
-//           ),
-//         }}
-//       />
-//       <Tab.Screen
-//         name={Routes.PROFILE}
-//         component={ProfileScreen}
-//         options={{
-//           tabBarLabel: 'Profile',
-//           tabBarIcon: ({color}) => (
-//             <MaterialCommunityIcons name="account" color={color} size={26} />
-//           ),
-//         }}
-//       />
-//     </Tab.Navigator>
-//   );
-// };
 
 export default HomeNavigator;

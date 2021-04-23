@@ -36,3 +36,4 @@
   - [Designing a UI with custom theming using react-native-paper](https://blog.logrocket.com/designing-a-ui-with-custom-theming-using-react-native-paper/)
   - [Theming](https://callstack.github.io/react-native-paper/theming.html)
   - [Theming with React Navigation](https://callstack.github.io/react-native-paper/theming-with-react-navigation.html)
+- [Backend API](https://github.com/Mugilan-Codes/placements-api)

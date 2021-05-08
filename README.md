@@ -25,6 +25,7 @@
   - [The styled-components Happy Path - My personal suite of “best practices”](https://www.joshwcomeau.com/css/styled-components/)
   - [Styling your React Native App with Styled-Components](https://javascript.plainenglish.io/styling-your-react-native-app-with-styled-components-6939afde3d2f)
   - [A Comparison of Three Methods for Styling Components in React Native](https://blog.echobind.com/a-comparison-of-three-methods-for-styling-components-in-react-native-88ece2fdcdea)
+- Complete the project by may end
 
 ## DOCS
 

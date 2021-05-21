@@ -14,7 +14,7 @@
   - [AirBnB Clone with React Native Part 4: Login error notifications](https://heartbeat.fritz.ai/airbnb-clone-with-react-native-part-4-login-error-notifications-580beb4fc03c)
   - [react-native login screen - error when login button is pressed with empty login fields](https://stackoverflow.com/questions/53787767/react-native-login-screen-error-when-login-button-is-pressed-with-empty-login)
 - Add a bookmark feature to save listings
-- Use Modal to add Marks and Education. Use react-native-paper.
+- Use Modal to add Marks and Education.
 - Manage styles properly.
 - Reduce Load Time and add Loading Screens.
 - Make the Listing Screen work properly.

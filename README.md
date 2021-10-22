@@ -2,6 +2,7 @@
 
 ## TODO
 
+- Build Frontend without API (maybe use firebase for authentication purposes)
 - Use Refresh Tokens to stop logging out often
 - Add App Icon and Splash Screen
   - [react-native-splash-screen](https://www.npmjs.com/package/react-native-splash-screen)

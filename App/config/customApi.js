@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import {storage} from '../utils';
 
-const BASE_URL = 'http://192.168.0.104:5000/api';
+// const BASE_URL = 'http://192.168.0.104:5000/api';
+const BASE_URL = 'https://fathomless-earth-59931.herokuapp.com/api';
 
 const TOKEN_KEY = 'x-auth-token';
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, View, Text} from 'react-native';
 
 import {List, ListSeparator, ScreenHeader} from '../../components';
 import {Student} from '../../api';
@@ -8,7 +8,7 @@ import {ViewWithHeight} from './styles';
 
 // TODO: Store listings and lastUpdated values in AsyncStorage for Offline Viewing
 const DashboardScreen = () => {
-  const [listings, setListings] = useState(null);
+  const [listings, setListings] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(null);
 
@@ -17,9 +17,14 @@ const DashboardScreen = () => {
   }, []);
 
   const getListings = async () => {
-    const {data} = await Student.getAllListings();
+    const {data, error} = await Student.getAllListings();
+    console.log({error});
+    if (data.error) {
+      console.log('data error');
+    } else {
+      setListings(data);
+    }
     const time = Date.getCurrentTime();
-    setListings(data);
     setLastUpdated(time);
   };
 
@@ -29,8 +34,16 @@ const DashboardScreen = () => {
     setIsRefreshing(false);
   };
 
-  // todo: Make the item clickable and display individual listing
-  // ? https://reactnavigation.org/docs/params
+  const _ListEmptyComponent = () => {
+    return (
+      <View>
+        <Text>Empty</Text>
+      </View>
+    );
+  };
+
+  // TODO: Make the item clickable and display individual listing
+  // REF: https://reactnavigation.org/docs/params
   const renderItem = ({item}) => (
     // TODO: Pass in ID to display the Listing as a modal
     <List
@@ -44,11 +57,10 @@ const DashboardScreen = () => {
     />
   );
 
-  //? https://www.reddit.com/r/reactnative/comments/g1y0s8/loading_data_from_api_best_practice/
+  // REF: https://www.reddit.com/r/reactnative/comments/g1y0s8/loading_data_from_api_best_practice/
 
   // TODO: Make a bookmark to save listings
   // TODO: Move the bookmarked listings to top of the flatlist
-  //? Learn about Flatlist refreshing and other attributes
   return (
     <>
       <ScreenHeader
@@ -58,10 +70,11 @@ const DashboardScreen = () => {
       <FlatList
         data={listings}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, idx) => idx.toString()}
         onRefresh={onRefresh}
         refreshing={isRefreshing}
         ItemSeparatorComponent={ListSeparator}
+        ListEmptyComponent={_ListEmptyComponent}
         ListHeaderComponent={() => <ViewWithHeight />}
         ListFooterComponent={() => <ViewWithHeight />}
       />

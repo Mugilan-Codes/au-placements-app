@@ -2,7 +2,7 @@
 
 ## TODO
 
-- Build Frontend without API (maybe use firebase for authentication purposes)
+- Use Modal to add Marks and Education.
 - Use Refresh Tokens to stop logging out often
 - Add App Icon and Splash Screen
   - [react-native-splash-screen](https://www.npmjs.com/package/react-native-splash-screen)
@@ -15,8 +15,6 @@
   - [AirBnB Clone with React Native Part 4: Login error notifications](https://heartbeat.fritz.ai/airbnb-clone-with-react-native-part-4-login-error-notifications-580beb4fc03c)
   - [react-native login screen - error when login button is pressed with empty login fields](https://stackoverflow.com/questions/53787767/react-native-login-screen-error-when-login-button-is-pressed-with-empty-login)
 - Add a bookmark feature to save listings
-- Use Modal to add Marks and Education.
-- Manage styles properly.
 - Reduce Load Time and add Loading Screens.
 - Make the Listing Screen work properly.
 - [Create global loader using context API in react native](https://medium.com/@jaythummar85/create-global-loader-using-context-api-in-react-native-4f5875c96472)

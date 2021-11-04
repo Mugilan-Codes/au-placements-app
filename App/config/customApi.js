@@ -3,7 +3,8 @@ import axios from 'axios';
 import {storage} from '../utils';
 
 // const BASE_URL = 'http://192.168.0.104:5000/api';
-const BASE_URL = 'https://fathomless-earth-59931.herokuapp.com/api';
+// const BASE_URL = 'https://fathomless-earth-59931.herokuapp.com/api';
+const BASE_URL = 'http://localhost:3000/api';
 
 const TOKEN_KEY = 'x-auth-token';
 
@@ -23,6 +24,7 @@ export default instance;
 
 // TODO: Remove setAuthToken as tokens are attached on each api call
 export const setAuthToken = (token) => {
+  console.log(`setAuthToken token = ${token}`);
   if (token) {
     // Set JSON Web Token in Client to be included in all calls
     instance.interceptors.request.use((config) => {

@@ -2,6 +2,11 @@
 
 ## TODO
 
+- proper authentication
+  - check whether the user is already logged in
+  - log out
+  - store the tokens
+  - use refresh tokens to get new access tokens in expiry
 - Use Modal to add Marks and Education.
 - Use Refresh Tokens to stop logging out often
 - Add App Icon and Splash Screen
@@ -25,7 +30,7 @@
   - [Styling your React Native App with Styled-Components](https://javascript.plainenglish.io/styling-your-react-native-app-with-styled-components-6939afde3d2f)
   - [A Comparison of Three Methods for Styling Components in React Native](https://blog.echobind.com/a-comparison-of-three-methods-for-styling-components-in-react-native-88ece2fdcdea)
 
-## DOCS
+### DOCS
 
 - [About React.cloneElement](https://medium.com/trabe/advanced-composition-in-react-cloneelement-hocs-and-renderprops-a20971aec50e)
 - [Styled Components Basics](https://styled-components.com/docs/basics)
@@ -36,3 +41,4 @@
   - [Theming](https://callstack.github.io/react-native-paper/theming.html)
   - [Theming with React Navigation](https://callstack.github.io/react-native-paper/theming-with-react-navigation.html)
 - [Backend API](https://github.com/Mugilan-Codes/placements-api)
+- To use local instance of node api from docker. `adb -s <device_name> reverse tcp:8081 tcp:8081`

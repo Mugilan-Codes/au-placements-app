@@ -2,12 +2,12 @@
 
 ## TODO
 
+- complete basic workflow
 - proper authentication
   - check whether the user is already logged in
   - log out
   - store the tokens
   - use refresh tokens to get new access tokens in expiry
-- Design the application
 - Use Modal to add Marks and Education.
 - Use Refresh Tokens to stop logging out often
 - Add App Icon and Splash Screen

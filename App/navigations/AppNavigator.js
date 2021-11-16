@@ -7,7 +7,12 @@ import {Routes} from '../config';
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
 import {useTheme} from '../contexts';
-import {selectIsAuthenticated} from '../store/slices/authSlice';
+import {
+  selectIsAuthenticated,
+  selectUser,
+  selectAccessToken,
+  selectIsLoading,
+} from '../store/slices/authSlice';
 
 const Main = createStackNavigator();
 
@@ -16,6 +21,13 @@ const AppNavigator = () => {
   const {theme} = useTheme();
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const user = useSelector(selectUser);
+  const accessToken = useSelector(selectAccessToken);
+  const isLoading = useSelector(selectIsLoading);
+
+  console.log({user});
+  console.log({accessToken});
+  console.log({isLoading});
 
   return (
     <NavigationContainer theme={theme}>

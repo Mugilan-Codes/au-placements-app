@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {storage} from '../utils';
+// import {storage} from '../utils';
 
 // const BASE_URL = 'http://192.168.0.104:5000/api';
 // const BASE_URL = 'https://fathomless-earth-59931.herokuapp.com/api';
@@ -38,37 +38,37 @@ export const setAuthToken = (token) => {
   }
 };
 
-instance.interceptors.request.use(
-  async (config) => {
-    console.log('axios instance interceptors request');
+// instance.interceptors.request.use(
+//   async (config) => {
+//     console.log('axios instance interceptors request');
 
-    const accessToken = await storage.accessToken.get();
-    if (accessToken) {
-      config.headers.common[TOKEN_KEY] = accessToken;
-    }
+//     const accessToken = await storage.accessToken.get();
+//     if (accessToken) {
+//       config.headers.common[TOKEN_KEY] = accessToken;
+//     }
 
-    return config;
-  },
-  (error) => {
-    console.log('axios instance interceptors request error =', error);
-    return Promise.reject(error);
-  },
-);
+//     return config;
+//   },
+//   (error) => {
+//     console.log('axios instance interceptors request error =', error);
+//     return Promise.reject(error);
+//   },
+// );
 
-instance.interceptors.response.use(
-  (response) => {
-    console.log('axios instance interceptors response');
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // console.log('axios instance interceptors response =', response);
-    return response;
-  },
-  (error) => {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    console.log('axios instance interceptors response error =', error);
-    // TODO: Remove Token if error occurs
-    return Promise.reject(error);
-  },
-);
+// instance.interceptors.response.use(
+//   (response) => {
+//     console.log('axios instance interceptors response');
+//     // Any status code that lie within the range of 2xx cause this function to trigger
+//     // console.log('axios instance interceptors response =', response);
+//     return response;
+//   },
+//   (error) => {
+//     // Any status codes that falls outside the range of 2xx cause this function to trigger
+//     console.log('axios instance interceptors response error =', error);
+//     // TODO: Remove Token if error occurs
+//     return Promise.reject(error);
+//   },
+// );
 
 // Global Axios Config
 // axios.interceptors.request.use(

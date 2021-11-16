@@ -9,42 +9,44 @@ import {
   Paragraph,
   Text,
 } from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
 
-import {useAuth} from '../../contexts';
 import {ScreenHeader} from '../../components';
+import {load, logout, selectUser} from '../../store/slices/authSlice';
 
 const ProfleScreen = ({navigation}) => {
-  const {state, loadUser, logout} = useAuth();
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
   // TODO: Add/Edit Marks & Education
   // TODO: Use Modal
 
   useEffect(() => {
-    loadUser();
-  }, [loadUser]);
+    dispatch(load());
+  }, [dispatch]);
 
   const onLogout = async () => {
     // TODO: Present a Loading
     console.log('logging out...');
-    await logout();
+    dispatch(logout());
   };
 
-  console.log('ProfileScreen state.user =', state.user);
+  console.log('ProfileScreen user =', user);
 
-  // TODO: Create a card to display state.user, state.user.mark and state.user.education
+  // TODO: Create a card to display user, user.mark and user.education
 
   return (
     <>
-      <ScreenHeader title={state?.user?.name} subText="Profile" />
+      <ScreenHeader title={user?.name} subText="Profile" />
       <Card>
         <Card.Title
           title="User"
           left={(props) => <Avatar.Icon {...props} icon="account" />}
         />
         <Card.Content>
-          <Title>{state?.user?.name}</Title>
-          <Paragraph>{state?.user?.email}</Paragraph>
-          <Text>Register Number: {state?.user?.register_no}</Text>
+          <Title>{user?.name}</Title>
+          <Paragraph>{user?.email}</Paragraph>
+          <Text>Register Number: {user?.register_no}</Text>
         </Card.Content>
       </Card>
       <Divider />
@@ -54,7 +56,7 @@ const ProfleScreen = ({navigation}) => {
           left={(props) => <Avatar.Icon {...props} icon="counter" />}
         />
         <Card.Actions>
-          {state.user?.mark ? (
+          {user?.mark ? (
             <Button onPress={() => Alert.alert('Edit Marks')}>Edit</Button>
           ) : (
             <Button onPress={() => Alert.alert('Add Marks')}>Add</Button>
@@ -68,7 +70,7 @@ const ProfleScreen = ({navigation}) => {
           left={(props) => <Avatar.Icon {...props} icon="book-open-variant" />}
         />
         <Card.Actions>
-          {state.user?.education ? (
+          {user?.education ? (
             <Button onPress={() => Alert.alert('Edit Education')}>Edit</Button>
           ) : (
             <Button onPress={() => Alert.alert('Add Education')}>Add</Button>

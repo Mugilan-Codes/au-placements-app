@@ -7,15 +7,17 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 
 import {FormButton, FormInput, ScreenHeader} from '../../components';
 import {Routes} from '../../config';
-import {useAuth, useTheme} from '../../contexts';
+import {useTheme} from '../../contexts';
 import {validators} from '../../utils';
+import {register} from '../../store/slices/authSlice';
 
 const RegisterScreen = ({navigation}) => {
   const {handleSubmit, control, errors, watch} = useForm();
-  const {register} = useAuth();
+  const dispatch = useDispatch();
   const {
     theme: {colors},
   } = useTheme();
@@ -25,7 +27,7 @@ const RegisterScreen = ({navigation}) => {
 
   const onSubmit = (data) => {
     // TODO: Present a Loading
-    register(data);
+    dispatch(register(data));
   };
 
   return (
@@ -33,7 +35,7 @@ const RegisterScreen = ({navigation}) => {
       <ScreenHeader title="Student Register" />
       <SafeAreaView
         style={[styles.content, {backgroundColor: colors.background}]}>
-        {/*todo: course - Dynamically fetch from db and display it in dropdown box */}
+        {/*// TODO: course - Dynamically fetch from db and display it in dropdown box */}
 
         <View style={styles.formView}>
           <Controller

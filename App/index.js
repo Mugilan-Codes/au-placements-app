@@ -4,13 +4,16 @@ import {enableScreens} from 'react-native-screens';
 
 import {AppNavigator} from './navigations';
 import {StateProvider} from './contexts';
+import StoreProvider from './store';
 
 enableScreens();
 const App = () => {
   return (
-    <StateProvider>
-      <AppNavigator />
-    </StateProvider>
+    <StoreProvider>
+      <StateProvider>
+        <AppNavigator />
+      </StateProvider>
+    </StoreProvider>
   );
 };
 

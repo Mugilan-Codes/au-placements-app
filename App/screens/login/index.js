@@ -7,22 +7,24 @@ import {
   View,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
+import {useDispatch} from 'react-redux';
 
 import {Routes} from '../../config';
 import {FormButton, FormInput, ScreenHeader} from '../../components';
-import {useAuth, useTheme} from '../../contexts';
+import {useTheme} from '../../contexts';
 import {validators} from '../../utils';
+import {login} from '../../store/slices/authSlice';
 
 const LoginScreen = ({navigation}) => {
   const {handleSubmit, control, errors} = useForm();
-  const {login} = useAuth();
+  const dispatch = useDispatch();
   const {
     theme: {colors},
   } = useTheme();
 
   const onSubmit = (data) => {
     // TODO: Present a Loading while logging in. Use global loader context
-    login(data);
+    dispatch(login({email: data.email, password: data.password}));
   };
 
   // TODO: Add Server Side Validation

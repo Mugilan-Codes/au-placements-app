@@ -17,8 +17,7 @@ const DashboardScreen = () => {
   }, []);
 
   const getListings = async () => {
-    const {data, error} = await Student.getAllListings();
-    console.log({error});
+    const {data} = await Student.getAllListings();
     if (data.error) {
       console.log('data error');
     } else {

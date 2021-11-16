@@ -2,7 +2,7 @@
 
 import React, {cloneElement} from 'react';
 
-import {AuthProvider} from './auth';
+// import {AuthProvider} from './auth';
 import {ThemeProvider} from './theme';
 
 // reduceRight works in reverse as opposed to reduce
@@ -16,7 +16,8 @@ const ProviderComposer = ({contexts, children}) => {
 
 const StateProvider = ({children}) => {
   return (
-    <ProviderComposer contexts={[<AuthProvider />, <ThemeProvider />]}>
+    // <ProviderComposer contexts={[<AuthProvider />, <ThemeProvider />]}>
+    <ProviderComposer contexts={[<ThemeProvider />]}>
       {children}
     </ProviderComposer>
   );

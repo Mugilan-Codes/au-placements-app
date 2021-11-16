@@ -1,27 +1,26 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
 
 import {Routes} from '../config';
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
-import {useAuth, useTheme} from '../contexts';
+import {useTheme} from '../contexts';
+import {selectIsAuthenticated} from '../store/slices/authSlice';
 
 const Main = createStackNavigator();
 
 // TODO: Setup automatic signin
 const AppNavigator = () => {
-  const {state, restoreToken} = useAuth();
   const {theme} = useTheme();
 
-  useEffect(() => {
-    restoreToken();
-  }, [restoreToken]);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   return (
     <NavigationContainer theme={theme}>
       <Main.Navigator screenOptions={{headerShown: false}}>
-        {state.isAuthenticated ? (
+        {isAuthenticated ? (
           <Main.Screen name={Routes.HOME} component={HomeNavigator} />
         ) : (
           <Main.Screen name={Routes.AUTH} component={AuthNavigator} />

@@ -2,6 +2,7 @@
 
 ## TODO
 
+- implement redux toolkit
 - complete basic workflow
 - proper authentication
   - check whether the user is already logged in

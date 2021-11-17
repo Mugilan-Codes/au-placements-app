@@ -8,3 +8,6 @@ export const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|
 // REF: https://stackoverflow.com/a/33969156/12381908
 // REF: https://www.codeproject.com/Answers/656531/Regex-expression-for-0-10-numbers-with-two-decimal#answer3
 export const ZERO_TO_TEN = /^\d(\.\d{0,2})?$|^10(\.0{0,2})?$/;
+
+// Matches values from 0.00 to 100.00 (inclusive)
+export const ZERO_TO_HUNDRED = /^(\d{0,2}(\.\d{1,2})?|100(\.00?)?)$/;

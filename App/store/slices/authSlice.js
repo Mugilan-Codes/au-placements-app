@@ -29,6 +29,7 @@ export const register = createAsyncThunk(
   },
 );
 
+// TODO: Set auth token before loading auth data
 export const load = createAsyncThunk('auth/load', async () => {
   const res = await Student.get();
   return res.data;

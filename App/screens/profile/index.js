@@ -1,5 +1,11 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  RefreshControl,
+} from 'react-native';
 import {
   Card,
   Divider,
@@ -14,10 +20,12 @@ import {
 } from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {useForm, Controller} from 'react-hook-form';
+import {Picker} from '@react-native-picker/picker';
 
 import {FormInput, ScreenHeader} from '../../components';
 import {load, logout, selectUser} from '../../store/slices/authSlice';
 import {validators} from '../../utils';
+import {Student} from '../../api';
 
 const ProfleScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -25,6 +33,35 @@ const ProfleScreen = ({navigation}) => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [eduModal, setEduModal] = useState(false);
+  const [studModal, setStudModal] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const [selectedVal, setSelectedVal] = useState('');
+  const [courses, setCourses] = useState([]);
+
+  const getCourses = async () => {
+    const res = await Student.getCourses();
+
+    const data = await res.data;
+
+    setCourses(data.courses);
+
+    console.log(data.total);
+  };
+
+  useEffect(() => {
+    getCourses();
+  }, []);
+
+  const loadPicker = () => {
+    // getCourses();
+
+    return courses.map((course, idx) => {
+      return (
+        <Picker.Item key={idx} label={course.course_name} value={course.id} />
+      );
+    });
+  };
 
   const {
     control,
@@ -38,10 +75,12 @@ const ProfleScreen = ({navigation}) => {
   const handleEduModal = () => {
     setEduModal(!eduModal);
   };
+  const handleStudModal = () => {
+    setStudModal(!studModal);
+  };
   const containerStyle = {backgroundColor: 'white', padding: 20};
 
   // TODO: Add/Edit Marks & Education
-  // TODO: Populate modal with existing info
   // TODO: close modal after submit and refresh profile screen for changes to take effect
   const onSubmit = (data) => {
     console.log('Mark OnSubmit');
@@ -53,7 +92,10 @@ const ProfleScreen = ({navigation}) => {
   };
 
   const reloadData = useCallback(() => {
+    console.log('reloading...');
+    setRefreshing(true);
     dispatch(load());
+    setRefreshing(false);
   }, [dispatch]);
 
   useEffect(() => {
@@ -66,23 +108,21 @@ const ProfleScreen = ({navigation}) => {
     dispatch(logout());
   };
 
-  console.log('ProfileScreen user =', user);
-
   // TODO: add course by updating student. (present all the courses in a dropdown)
 
   return (
     <>
       <ScreenHeader title={user?.name} subText="Profile" />
 
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={reloadData} />
+        }>
         <Card>
-          <Card.Actions>
-            <Button onPress={reloadData}>Reload</Button>
-          </Card.Actions>
-
           <Card.Title
             title="Student"
             left={(props) => <Avatar.Icon {...props} icon="account" />}
+            right={(props) => <Avatar.Icon {...props} icon="account" />}
           />
 
           <Card.Content>
@@ -95,6 +135,8 @@ const ProfleScreen = ({navigation}) => {
             <Text>Level: {user?.course?.degree}</Text>
 
             <Text>Degree: {user?.course?.course_name}</Text>
+
+            <Button onPress={handleStudModal}>Edit</Button>
           </Card.Content>
         </Card>
 
@@ -129,11 +171,7 @@ const ProfleScreen = ({navigation}) => {
           )}
 
           <Card.Actions>
-            {user?.mark ? (
-              <Button onPress={handleModal}>Edit</Button>
-            ) : (
-              <Button onPress={handleModal}>Add</Button>
-            )}
+            <Button onPress={handleModal}>{user?.mark ? 'Edit' : 'Add'}</Button>
           </Card.Actions>
         </Card>
 
@@ -182,11 +220,9 @@ const ProfleScreen = ({navigation}) => {
           )}
 
           <Card.Actions>
-            {user?.education ? (
-              <Button onPress={handleEduModal}>Edit</Button>
-            ) : (
-              <Button onPress={handleEduModal}>Add</Button>
-            )}
+            <Button onPress={handleEduModal}>
+              {user?.education ? 'Edit' : 'Add'}
+            </Button>
           </Card.Actions>
         </Card>
 
@@ -359,6 +395,22 @@ const ProfleScreen = ({navigation}) => {
             </View>
 
             <Button onPress={handleEduModal}>Close Modal</Button>
+          </Modal>
+
+          <Modal
+            visible={studModal}
+            onDismiss={handleStudModal}
+            contentContainerStyle={containerStyle}>
+            <Title>Update Student</Title>
+
+            <Picker
+              selectedValue={selectedVal}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedVal(itemValue)
+              }>
+              {loadPicker()}
+            </Picker>
+            {/* <View></View> */}
           </Modal>
         </Portal>
       </ScrollView>

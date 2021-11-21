@@ -33,6 +33,7 @@ const DashboardScreen = () => {
     setIsRefreshing(false);
   };
 
+  // TODO: Style the list empty component
   const _ListEmptyComponent = () => {
     return (
       <View>
@@ -41,22 +42,22 @@ const DashboardScreen = () => {
     );
   };
 
-  // TODO: Make the item clickable and display individual listing
   // REF: https://reactnavigation.org/docs/params
-  const renderItem = ({item}) => (
-    // TODO: Pass in ID to display the Listing as a modal
-    <List
-      id={item.id}
-      title={item.title}
-      description={item.description}
-      company_name={item.company_name}
-      start_date={item.start_date}
-      eligible={item.eligible}
-      updated_on={item.updated_on}
-    />
-  );
+  const renderItem = ({item}) => {
+    return (
+      <List
+        id={item.id}
+        title={item.title}
+        company_name={item.company_name}
+        start_date={item.start_date}
+        eligible={item.eligible}
+      />
+    );
+  };
 
   // REF: https://www.reddit.com/r/reactnative/comments/g1y0s8/loading_data_from_api_best_practice/
+
+  console.log(listings.length);
 
   // TODO: Make a bookmark to save listings
   // TODO: Move the bookmarked listings to top of the flatlist
@@ -69,7 +70,7 @@ const DashboardScreen = () => {
       <FlatList
         data={listings}
         renderItem={renderItem}
-        keyExtractor={(item, idx) => idx.toString()}
+        keyExtractor={(item) => item.id.toString()}
         onRefresh={onRefresh}
         refreshing={isRefreshing}
         ItemSeparatorComponent={ListSeparator}

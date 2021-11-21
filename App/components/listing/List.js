@@ -1,27 +1,29 @@
 import React from 'react';
-import {Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
+import {Card, Paragraph, Avatar} from 'react-native-paper';
+import {format} from 'date-fns';
 
 import {Routes} from '../../config';
 
 const StyledView = styled.View`
-  background-color: ${({eligible}) => (eligible ? 'green' : 'red')};
-  color: ${({eligible}) => (eligible ? 'red' : 'green')};
-  justify-content: center;
-  align-items: center;
+  /* background-color: ${({eligible}) => (eligible ? 'green' : 'red')}; */
+  /* color: ${({eligible}) => (eligible ? 'red' : 'green')}; */
+  flex: 1;
 `;
 
+const Container = styled(TouchableOpacity)`
+  margin: 10px;
+  border-radius: 6px;
+  padding: 0 20px;
+`;
+
+const CheckIcon = (props) => <Avatar.Icon {...props} size={24} icon="check" />;
+const CloseIcon = (props) => <Avatar.Icon {...props} size={24} icon="close" />;
+
 // id, title, description, company_name, start_date, tenth_percentage, twelfth_percentage, grad_percentage, cgpa, active_backlog, backlog_history, created_on, updated_on
-const List = ({
-  id,
-  title,
-  description,
-  company_name,
-  start_date,
-  eligible,
-  updated_on,
-}) => {
+const List = ({id, title, company_name, start_date, eligible}) => {
   const navigation = useNavigation();
 
   const _onPress = () => {
@@ -30,26 +32,26 @@ const List = ({
     navigation.navigate(Routes.MODAL, {id});
   };
 
+  const dt = new Date(start_date);
+  const formatDate = format(dt, 'MMMM do, yyyy');
+
   return (
-    <TouchableOpacity onPress={_onPress} style={styles.container}>
-      <StyledView eligible={eligible}>
-        <Text>Title: {title}</Text>
-        <Text>Description: {description}</Text>
-        <Text>Company: {company_name}</Text>
-        <Text>Start Date: {start_date}</Text>
-        {/* <Text>{eligible ? 'Eligible' : 'Not Eligible'}</Text> */}
-        <Text>Updated On: {updated_on}</Text>
+    <Container onPress={_onPress}>
+      <StyledView>
+        <Card>
+          <Card.Title
+            title={title}
+            subtitle={formatDate}
+            right={() => (eligible ? <CheckIcon /> : <CloseIcon />)}
+          />
+
+          <Card.Content>
+            <Paragraph>{company_name}</Paragraph>
+          </Card.Content>
+        </Card>
       </StyledView>
-    </TouchableOpacity>
+    </Container>
   );
 };
 
 export default List;
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 10,
-    borderRadius: 6,
-    paddingHorizontal: 20,
-  },
-});

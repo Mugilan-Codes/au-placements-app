@@ -30,6 +30,8 @@ const RegisterScreen = ({navigation}) => {
     dispatch(register(data));
   };
 
+  // TODO: Display Label and Error Message
+  // TODO: Style the Button and Link to other screen
   return (
     <>
       <ScreenHeader title="Student Register" />

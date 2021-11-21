@@ -26,7 +26,7 @@ const ModalScreen = ({route, navigation}) => {
     navigation.goBack();
   };
 
-  console.log(listing);
+  // console.log(listing);
   // TODO: Style the View
   // TODO: Make the Modal not Transparent
   return (
@@ -36,18 +36,18 @@ const ModalScreen = ({route, navigation}) => {
       ) : (
         <View style={styles.modalView}>
           <Text style={styles.titleStyle}>
-            This is a modal! for {listing.title}
+            This is a modal! for {listing?.title}
           </Text>
-          <Text>{listing.description}</Text>
-          <Text>{listing.company_name}</Text>
-          <Text>{listing.start_date}</Text>
-          <Text>{listing.tenth_percentage}</Text>
-          <Text>{listing.twelfth_percentage}</Text>
-          <Text>{listing.grad_percentage}</Text>
-          <Text>{listing.cgpa}</Text>
-          <Text>{listing.active_backlog}</Text>
-          <Text>{listing.backlog_history}</Text>
-          <Text>{listing.eligible}</Text>
+          <Text>{listing?.description}</Text>
+          <Text>{listing?.company_name}</Text>
+          <Text>{listing?.start_date}</Text>
+          <Text>{listing?.tenth_percentage}</Text>
+          <Text>{listing?.twelfth_percentage}</Text>
+          <Text>{listing?.grad_percentage}</Text>
+          <Text>{listing?.cgpa}</Text>
+          <Text>{listing?.active_backlog}</Text>
+          <Text>{listing?.backlog_history}</Text>
+          <Text>{listing?.eligible}</Text>
           <Button onPress={dismissList} title="Dismiss" />
         </View>
       )}

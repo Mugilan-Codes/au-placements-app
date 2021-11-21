@@ -29,6 +29,8 @@ const LoginScreen = ({navigation}) => {
 
   // TODO: Add Server Side Validation
   //? https://www.carlrippon.com/react-hook-form-server-validation/
+  // TODO: Display Label and Error Message
+  // TODO: Style the Button and Link to other screen
   return (
     <>
       <ScreenHeader title="Student Login" />

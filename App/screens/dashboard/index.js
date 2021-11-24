@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, View, Text} from 'react-native';
+import {FlatList, Text} from 'react-native';
 
 import {List, ListSeparator, ScreenHeader} from '../../components';
 import {Student} from '../../api';
 import {Date} from '../../utils';
-import {ViewWithHeight} from './styles';
+import {ViewWithHeight, CenteredView} from './styles';
 
 // TODO: Store listings and lastUpdated values in AsyncStorage for Offline Viewing
 const DashboardScreen = () => {
@@ -16,13 +16,22 @@ const DashboardScreen = () => {
     getListings();
   }, []);
 
+  // TODO: get access token before making a API call
   const getListings = async () => {
-    const {data} = await Student.getAllListings();
-    if (data.error) {
-      console.log('data error');
-    } else {
-      setListings(data);
+    try {
+      const {data} = await Student.getAllListings();
+      if (data.error || data.msg) {
+        console.log('data error');
+        console.log(data?.msg);
+        setListings([]);
+      } else {
+        setListings(data);
+      }
+    } catch (error) {
+      console.log({error});
+      setListings([]);
     }
+
     const time = Date.getCurrentTime();
     setLastUpdated(time);
   };
@@ -33,12 +42,12 @@ const DashboardScreen = () => {
     setIsRefreshing(false);
   };
 
-  // TODO: Style the list empty component
+  // TODO: Show a empty state image if there are no listings
   const _ListEmptyComponent = () => {
     return (
-      <View>
+      <CenteredView>
         <Text>Empty</Text>
-      </View>
+      </CenteredView>
     );
   };
 
@@ -57,7 +66,7 @@ const DashboardScreen = () => {
 
   // REF: https://www.reddit.com/r/reactnative/comments/g1y0s8/loading_data_from_api_best_practice/
 
-  console.log(listings.length);
+  // console.log({listings});
 
   // TODO: Make a bookmark to save listings
   // TODO: Move the bookmarked listings to top of the flatlist

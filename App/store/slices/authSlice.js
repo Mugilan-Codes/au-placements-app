@@ -7,7 +7,7 @@ import {setAuthToken} from '../../config';
 
 export const login = createAsyncThunk(
   'auth/login',
-  async ({email, password}) => {
+  async ({email, password}, thunkAPI) => {
     const res = await Student.login(email, password);
     // setAuthToken(res.data.accessToken);
     return res.data;
@@ -16,7 +16,7 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
   'auth/register',
-  async ({register_no, name, email, password, confirm_password}) => {
+  async ({register_no, name, email, password, confirm_password}, thunkAPI) => {
     const res = await Student.register({
       register_no,
       name,
@@ -30,9 +30,25 @@ export const register = createAsyncThunk(
 );
 
 // TODO: Set auth token before loading auth data
-export const load = createAsyncThunk('auth/load', async () => {
+export const load = createAsyncThunk('auth/load', async (_, thunkAPI) => {
+  // console.log(thunkAPI.getState().auth.accessToken);
+  // try {
+  setAuthToken(thunkAPI.getState().auth.accessToken);
   const res = await Student.get();
+  console.log(res.data);
+  if (res.data.err_msg) {
+    console.log('Error', res.data.err_msg);
+    return thunkAPI.rejectWithValue();
+  }
   return res.data;
+  // } catch (error) {
+  //   const message =
+  //     (error.response && error.response.data && error.response.data.message) ||
+  //     error.message ||
+  //     error.toString();
+  //   console.log({message});
+  //   thunkAPI.dispatch(logout());
+  // }
 });
 
 const authSlice = createSlice({
@@ -43,6 +59,7 @@ const authSlice = createSlice({
     isAuthenticated: false,
     accessToken: null,
     refreshToken: null,
+    errorMessage: '',
   },
   reducers: {
     logout: (state) => {
@@ -60,8 +77,6 @@ const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(login.fulfilled, (state, action) => {
-      console.log('login slice action = ' + action);
-      console.log('login slice payload = ' + action.payload);
       state.isLoading = false;
       state.accessToken = action.payload.accessToken;
       setAuthToken(action.payload.accessToken);
@@ -76,8 +91,6 @@ const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(register.fulfilled, (state, action) => {
-      console.log('register slice action = ' + action);
-      console.log('register slice payload = ' + action.payload);
       state.isLoading = false;
       state.accessToken = action.payload.accessToken;
       setAuthToken(action.payload.accessToken);
@@ -85,23 +98,17 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
     });
     builder.addCase(register.rejected, (state, action) => {
-      console.log('register error = ' + action);
-      console.log('register error payload = ' + action.payload);
       state.isLoading = false;
     });
     builder.addCase(load.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(load.fulfilled, (state, action) => {
-      console.log('load slice action = ' + action);
-      console.log('load slice payload = ' + action.payload);
       state.isLoading = false;
       state.user = action.payload;
       state.isAuthenticated = true;
     });
     builder.addCase(load.rejected, (state, action) => {
-      console.log('load error = ' + action);
-      console.log('load error payload = ' + action.payload);
       state.isLoading = true;
     });
   },
@@ -114,5 +121,6 @@ export const selectUser = (state) => state.auth.user;
 export const selectIsAuthenticated = (state) => state.auth.isAuthenticated;
 export const selectAccessToken = (state) => state.auth.accessToken;
 export const selectRefreshToken = (state) => state.auth.refreshToken;
+export const selectErrorMessage = (state) => state.auth.errorMessage;
 
 export default authSlice.reducer;

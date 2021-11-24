@@ -18,18 +18,18 @@ import {
   Portal,
   DataTable,
 } from 'react-native-paper';
-import {useDispatch, useSelector} from 'react-redux';
 import {useForm, Controller} from 'react-hook-form';
 import {Picker} from '@react-native-picker/picker';
 
 import {FormInput, ScreenHeader} from '../../components';
 import {load, logout, selectUser} from '../../store/slices/authSlice';
+import {useReduxDispatch, useReduxSelector} from '../../store';
 import {validators} from '../../utils';
 import {Student} from '../../api';
 
 const ProfleScreen = ({navigation}) => {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const dispatch = useReduxDispatch();
+  const user = useReduxSelector(selectUser);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [eduModal, setEduModal] = useState(false);
@@ -39,6 +39,7 @@ const ProfleScreen = ({navigation}) => {
   const [selectedVal, setSelectedVal] = useState('');
   const [courses, setCourses] = useState([]);
 
+  // TODO: move to separate slice
   const getCourses = async () => {
     const res = await Student.getCourses();
 

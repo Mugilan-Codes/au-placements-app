@@ -3,7 +3,6 @@
 ## TODO
 
 - implement redux toolkit
-- complete basic workflow
 - proper authentication
   - check whether the user is already logged in
   - log out
@@ -23,7 +22,6 @@
   - [react-native login screen - error when login button is pressed with empty login fields](https://stackoverflow.com/questions/53787767/react-native-login-screen-error-when-login-button-is-pressed-with-empty-login)
 - Add a bookmark feature to save listings
 - Reduce Load Time and add Loading Screens.
-- Make the Listing Screen work properly.
 - [Create global loader using context API in react native](https://medium.com/@jaythummar85/create-global-loader-using-context-api-in-react-native-4f5875c96472)
 - [Create Color Palletes](https://coolors.co/)
 - Styled Components

@@ -1,46 +1,36 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, Text} from 'react-native';
 
 import {List, ListSeparator, ScreenHeader} from '../../components';
-import {Student} from '../../api';
 import {Date} from '../../utils';
 import {ViewWithHeight, CenteredView} from './styles';
+import {useReduxSelector, useReduxDispatch} from '../../store';
+import {
+  fetchListings,
+  selectListings,
+  selectLoading,
+  selectError,
+} from '../../store/slices/listingSlice';
 
-// TODO: Store listings and lastUpdated values in AsyncStorage for Offline Viewing
+// TODO: sort by date
 const DashboardScreen = () => {
-  const [listings, setListings] = useState([]);
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState(null);
+
+  const dispatch = useReduxDispatch();
+  const listings = useReduxSelector(selectListings);
+  const isLoading = useReduxSelector(selectLoading);
+  const errorState = useReduxSelector(selectError);
 
   useEffect(() => {
     getListings();
-  }, []);
+  }, [getListings]);
 
-  // TODO: get access token before making a API call
-  const getListings = async () => {
-    try {
-      const {data} = await Student.getAllListings();
-      if (data.error || data.msg) {
-        console.log('data error');
-        console.log(data?.msg);
-        setListings([]);
-      } else {
-        setListings(data);
-      }
-    } catch (error) {
-      console.log({error});
-      setListings([]);
-    }
+  const getListings = useCallback(() => {
+    dispatch(fetchListings());
 
     const time = Date.getCurrentTime();
     setLastUpdated(time);
-  };
-
-  const onRefresh = () => {
-    setIsRefreshing(true);
-    getListings();
-    setIsRefreshing(false);
-  };
+  }, [dispatch]);
 
   // TODO: Show a empty state image if there are no listings
   const _ListEmptyComponent = () => {
@@ -50,6 +40,8 @@ const DashboardScreen = () => {
       </CenteredView>
     );
   };
+
+  console.log('errorState', errorState);
 
   // REF: https://reactnavigation.org/docs/params
   const renderItem = ({item}) => {
@@ -64,10 +56,6 @@ const DashboardScreen = () => {
     );
   };
 
-  // REF: https://www.reddit.com/r/reactnative/comments/g1y0s8/loading_data_from_api_best_practice/
-
-  // console.log({listings});
-
   // TODO: Make a bookmark to save listings
   // TODO: Move the bookmarked listings to top of the flatlist
   return (
@@ -80,8 +68,8 @@ const DashboardScreen = () => {
         data={listings}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
-        onRefresh={onRefresh}
-        refreshing={isRefreshing}
+        onRefresh={getListings}
+        refreshing={isLoading}
         ItemSeparatorComponent={ListSeparator}
         ListEmptyComponent={_ListEmptyComponent}
         ListHeaderComponent={() => <ViewWithHeight />}

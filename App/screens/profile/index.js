@@ -22,7 +22,8 @@ import {useForm, Controller} from 'react-hook-form';
 import {Picker} from '@react-native-picker/picker';
 
 import {FormInput, ScreenHeader} from '../../components';
-import {load, logout, selectUser} from '../../store/slices/authSlice';
+import {logout} from '../../store/slices/authSlice';
+import {load, selectUser} from '../../store/slices/userSlice';
 import {useReduxDispatch, useReduxSelector} from '../../store';
 import {validators} from '../../utils';
 import {Student} from '../../api';

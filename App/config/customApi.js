@@ -1,10 +1,12 @@
 import axios from 'axios';
 
 // import {storage} from '../utils';
+// import {store} from '../store/store';
 
 // const BASE_URL = 'http://192.168.0.104:5000/api';
 // const BASE_URL = 'https://fathomless-earth-59931.herokuapp.com/api';
-const BASE_URL = 'http://localhost:3000/api';
+// const BASE_URL = 'http://localhost:3000/api'; // local docker to external
+const BASE_URL = 'http://192.168.0.101:3000/api'; // local docker to emulator
 
 const TOKEN_KEY = 'x-auth-token';
 
@@ -15,7 +17,7 @@ const instance = axios.create({
     'Content-Type': 'application/json',
   },
   validateStatus: (status) => {
-    console.log('instance validateStatus status =', status);
+    // console.log('instance validateStatus status =', status);
     return status < 500;
   },
 });
@@ -42,7 +44,8 @@ export const setAuthToken = (token) => {
 //   async (config) => {
 //     console.log('axios instance interceptors request');
 
-//     const accessToken = await storage.accessToken.get();
+//     // const accessToken = await storage.accessToken.get();
+//     const accessToken = store.getState().auth.accessToken;
 //     if (accessToken) {
 //       config.headers.common[TOKEN_KEY] = accessToken;
 //     }

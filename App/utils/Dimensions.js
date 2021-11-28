@@ -10,3 +10,6 @@ const Window = {
 };
 
 export default Window;
+
+export const deviceWidth = Math.round(Dimensions.get('window').width);
+export const deviceHeight = Math.round(Dimensions.get('window').height);

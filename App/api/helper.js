@@ -1,6 +1,6 @@
 import {Api} from '../config';
 
-import {Auth, Listing} from './constants';
+import {Auth, Course, Listing, Other} from './constants';
 
 export const Student = {
   // TODO: login with register_no
@@ -25,12 +25,22 @@ export const Student = {
     return await Api.get(Auth.GET);
   },
   getCourses: async () => {
-    return await Api.get(Auth.COURSES);
+    return await Api.get(Course.GET);
   },
   getAllListings: async () => {
     return await Api.get(Listing.GET_ALL);
   },
   getOneListing: async (list_id) => {
     return list_id && (await Api.get(Listing.GET(list_id)));
+  },
+  // TODO: update student, add mark & education
+  update: async (data) => {
+    return await Api.put(Auth.UPDATE, data);
+  },
+  mark: async (data) => {
+    return await Api.post(Other.MARK, data);
+  },
+  education: async (data) => {
+    return await Api.post(Other.EDUCATION, data);
   },
 };

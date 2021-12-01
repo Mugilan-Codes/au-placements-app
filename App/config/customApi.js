@@ -25,6 +25,7 @@ const instance = axios.create({
 export default instance;
 
 // TODO: Remove setAuthToken as tokens are attached on each api call
+// TODO: get accesstoken from storage
 export const setAuthToken = (token) => {
   console.log(`setAuthToken token = ${token}`);
   if (token) {

@@ -24,6 +24,31 @@ export const load = createAsyncThunk('user/load', async (_, thunkAPI) => {
   }
 });
 
+// TODO: work on this
+export const updateMarks = createAsyncThunk(
+  'user/updateMarks',
+  async (marks, thunkAPI) => {
+    try {
+      const res = await Student.mark(marks);
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        return thunkAPI.rejectWithValue(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log({message});
+      return thunkAPI.rejectWithValue(message);
+    }
+  },
+);
+
 // TODO: updateMarks(), updateEducation()
 // TODO: mark state, education state
 const userSlice = createSlice({

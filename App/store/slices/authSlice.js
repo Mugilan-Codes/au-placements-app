@@ -5,26 +5,35 @@ import {setAuthToken} from '../../config';
 
 // TODO: Persist auth tokens to prevent from logging out
 
-// TODO: wrap in try/catch
 export const login = createAsyncThunk(
   'auth/login',
   async ({email, password}, thunkAPI) => {
-    const res = await Student.login(email, password);
-    return res.data;
+    try {
+      const res = await Student.login(email, password);
+      return res.data;
+    } catch (error) {
+      console.log('auth/login error');
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   },
 );
 
 export const register = createAsyncThunk(
   'auth/register',
   async ({register_no, name, email, password, confirm_password}, thunkAPI) => {
-    const res = await Student.register({
-      register_no,
-      name,
-      email,
-      password,
-      confirm_password,
-    });
-    return res.data;
+    try {
+      const res = await Student.register({
+        register_no,
+        name,
+        email,
+        password,
+        confirm_password,
+      });
+      return res.data;
+    } catch (error) {
+      console.log('auth/register error');
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   },
 );
 
@@ -68,6 +77,7 @@ const authSlice = createSlice({
       state.refreshToken = action.payload.refreshToken;
     });
     builder.addCase(register.rejected, (state, action) => {
+      console.log(action.error);
       state.isLoading = false;
     });
   },

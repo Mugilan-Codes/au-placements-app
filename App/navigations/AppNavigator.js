@@ -34,7 +34,7 @@ const AppNavigator = () => {
   return (
     <NavigationContainer theme={theme}>
       <Main.Navigator screenOptions={{headerShown: false}}>
-        {isAuthenticated ? (
+        {accessToken && isAuthenticated ? (
           <Main.Screen name={Routes.HOME} component={HomeNavigator} />
         ) : (
           <Main.Screen name={Routes.AUTH} component={AuthNavigator} />

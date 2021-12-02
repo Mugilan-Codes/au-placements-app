@@ -50,9 +50,9 @@ store.subscribe(() => {
   let previousState = currentState;
   currentState = store.getState();
 
-  if (previousState.auth.accessToken !== currentState.auth.accessToken) {
+  if (previousState?.auth?.accessToken !== currentState?.auth?.accessToken) {
     console.log('subscribe to store accessToken');
-    const token = currentState.auth.accessToken;
+    const token = currentState?.auth?.accessToken;
     setAuthToken(token);
   }
 });

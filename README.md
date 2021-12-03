@@ -2,11 +2,8 @@
 
 ## TODO
 
-- implement redux toolkit
 - proper authentication
-  - check whether the user is already logged in
   - log out
-  - store the tokens
   - use refresh tokens to get new access tokens in expiry
 - Use Modal to add Marks and Education.
 - Use Refresh Tokens to stop logging out often

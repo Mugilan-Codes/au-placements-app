@@ -5,4 +5,13 @@ module.exports = {
       plugins: ['react-native-paper/babel', 'transform-remove-console'],
     },
   },
+  plugins: [
+    [
+      'module-resolver',
+      {
+        root: ['./App'],
+        extensions: ['.ios.js', '.android.js', '.js', '.json'],
+      },
+    ],
+  ],
 };

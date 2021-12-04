@@ -8,9 +8,10 @@ import React, {
 } from 'react';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {ThemeProvider as StyleProvider} from 'styled-components/native';
+import {ThemeProvider as ElementsProvider} from 'react-native-elements';
 import {Appearance} from 'react-native';
 
-import {DarkTheme, LightTheme} from '../../styles';
+import {DarkTheme, LightTheme} from 'styles';
 
 const systemColorScheme = Appearance.getColorScheme() || 'light';
 console.log('theme provider.js systemColorScheme =', systemColorScheme);
@@ -52,9 +53,13 @@ const ThemeProvider = ({children}) => {
 
   return (
     <ThemeContext.Provider value={preferences}>
-      <PaperProvider theme={theme}>
-        <StyleProvider theme={theme}>{children}</StyleProvider>
-      </PaperProvider>
+      {/* <ElementsProvider theme={theme} useDark={isDark}> */}
+      {/* <ElementsProvider theme={theme}> */}
+      <ElementsProvider useDark={isDark}>
+        <PaperProvider theme={theme}>
+          <StyleProvider theme={theme}>{children}</StyleProvider>
+        </PaperProvider>
+      </ElementsProvider>
     </ThemeContext.Provider>
   );
 };

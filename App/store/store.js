@@ -17,11 +17,13 @@ import {setAuthToken} from '../config';
 import authSlice from './slices/authSlice';
 import listingSlice from './slices/listingSlice';
 import userSlice from './slices/userSlice';
+import courseSlice from './slices/courseSlice';
 
 const rootReducer = combineReducers({
   auth: authSlice,
   listing: listingSlice,
   user: userSlice,
+  course: courseSlice,
 });
 
 const persistConfig = {
@@ -50,9 +52,9 @@ store.subscribe(() => {
   let previousState = currentState;
   currentState = store.getState();
 
-  if (previousState?.auth?.accessToken !== currentState?.auth?.accessToken) {
+  if (previousState.auth.accessToken !== currentState.auth.accessToken) {
     console.log('subscribe to store accessToken');
-    const token = currentState?.auth?.accessToken;
+    const token = currentState.auth.accessToken;
     setAuthToken(token);
   }
 });

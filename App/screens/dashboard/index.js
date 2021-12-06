@@ -1,16 +1,17 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList, Text} from 'react-native';
+import {Button} from 'react-native-elements';
 
-import {List, ListSeparator, ScreenHeader} from '../../components';
-import {Date} from '../../utils';
-import {ViewWithHeight, CenteredView} from './styles';
-import {useReduxSelector, useReduxDispatch} from '../../store';
+import {List, ListSeparator, ScreenHeader} from 'components';
+import {Date} from 'utils';
+import {useReduxSelector, useReduxDispatch} from 'store';
 import {
   fetchListings,
   selectListings,
   selectLoading,
-  selectError,
-} from '../../store/slices/listingSlice';
+} from 'store/slices/listingSlice';
+import {logout} from 'store/slices/authSlice';
+import {ViewWithHeight, CenteredView} from './styles';
 
 // TODO: sort by date
 const DashboardScreen = () => {
@@ -19,7 +20,6 @@ const DashboardScreen = () => {
   const dispatch = useReduxDispatch();
   const listings = useReduxSelector(selectListings);
   const isLoading = useReduxSelector(selectLoading);
-  const errorState = useReduxSelector(selectError);
 
   useEffect(() => {
     getListings();
@@ -40,8 +40,6 @@ const DashboardScreen = () => {
       </CenteredView>
     );
   };
-
-  console.log('errorState', errorState);
 
   // REF: https://reactnavigation.org/docs/params
   const renderItem = ({item}) => {
@@ -64,6 +62,7 @@ const DashboardScreen = () => {
         title="Dashboard"
         subText={`Last Updated: ${lastUpdated}`}
       />
+      <Button onPress={() => dispatch(logout())} title="Logout" />
       <FlatList
         data={listings}
         renderItem={renderItem}

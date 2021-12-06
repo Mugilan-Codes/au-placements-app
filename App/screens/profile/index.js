@@ -1,11 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-  RefreshControl,
-} from 'react-native';
+import {ScrollView, StyleSheet, View, RefreshControl} from 'react-native';
 import {
   Card,
   Divider,
@@ -19,50 +13,44 @@ import {
   DataTable,
 } from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
-import {Picker} from '@react-native-picker/picker';
+import RNPickerSelect from 'react-native-picker-select';
 
-import {FormInput, ScreenHeader} from '../../components';
-import {logout} from '../../store/slices/authSlice';
-import {load, selectUser} from '../../store/slices/userSlice';
-import {useReduxDispatch, useReduxSelector} from '../../store';
-import {validators} from '../../utils';
-import {Student} from '../../api';
+import {FormInput, ScreenHeader} from 'components';
+import {logout} from 'store/slices/authSlice';
+import {load, selectUser} from 'store/slices/userSlice';
+import {fetchCourses, selectCourses} from 'store/slices/courseSlice';
+import {useReduxDispatch, useReduxSelector} from 'store';
+import {validators} from 'utils';
 
 const ProfleScreen = ({navigation}) => {
   const dispatch = useReduxDispatch();
   const user = useReduxSelector(selectUser);
+  const courses = useReduxSelector(selectCourses);
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [markModal, setMarkModal] = useState(false);
   const [eduModal, setEduModal] = useState(false);
   const [studModal, setStudModal] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  const [selectedVal, setSelectedVal] = useState('');
-  const [courses, setCourses] = useState([]);
+  const [items, setItems] = useState([]);
 
-  // TODO: move to separate slice
   const getCourses = async () => {
-    const res = await Student.getCourses();
+    dispatch(fetchCourses());
 
-    const data = await res.data;
-
-    setCourses(data.courses);
-
-    console.log(data.total);
-  };
-
-  useEffect(() => {
-    getCourses();
-  }, []);
-
-  const loadPicker = () => {
-    // getCourses();
-
-    return courses.map((course, idx) => {
-      return (
-        <Picker.Item key={idx} label={course.course_name} value={course.id} />
-      );
-    });
+    setItems(
+      courses
+        .map((item) => ({label: item.course_name, value: item.id}))
+        // .sort((item) => (item.label === user?.course?.course_name ? -1 : 1)),
+        .sort((a, b) => {
+          if (a.label === user?.course?.course_name) {
+            return -1;
+          }
+          if (b.label === user?.course?.course_name) {
+            return 1;
+          }
+          return a.label < b.label ? -1 : 1;
+        }),
+    );
   };
 
   const {
@@ -71,16 +59,19 @@ const ProfleScreen = ({navigation}) => {
     formState: {errors},
   } = useForm();
 
-  const handleModal = () => {
-    setIsModalVisible(!isModalVisible);
+  const showMarkModal = () => setMarkModal(true);
+  const hideMarkModal = () => setMarkModal(false);
+
+  const showEduModal = () => setEduModal(true);
+  const hideEduModal = () => setEduModal(false);
+
+  const showStudModal = () => {
+    getCourses();
+    setStudModal(true);
   };
-  const handleEduModal = () => {
-    setEduModal(!eduModal);
-  };
-  const handleStudModal = () => {
-    setStudModal(!studModal);
-  };
-  const containerStyle = {backgroundColor: 'white', padding: 20};
+  const hideStudModal = () => setStudModal(false);
+
+  const containerStyle = {backgroundColor: 'white', padding: 20, margin: 10};
 
   // TODO: Add/Edit Marks & Education
   // TODO: close modal after submit and refresh profile screen for changes to take effect
@@ -92,6 +83,10 @@ const ProfleScreen = ({navigation}) => {
     console.log('Education OnEduSubmit');
     console.log({data});
   };
+  const onStudSubmit = (data) => {
+    console.log('Student OnStudSubmit');
+    console.log({data});
+  };
 
   const reloadData = useCallback(() => {
     console.log('reloading...');
@@ -100,17 +95,16 @@ const ProfleScreen = ({navigation}) => {
     setRefreshing(false);
   }, [dispatch]);
 
-  useEffect(() => {
-    reloadData();
-  }, [reloadData]);
+  // useEffect(() => {
+  //   reloadData();
+  //   dispatch(fetchCourses());
+  // }, [dispatch, reloadData]);
 
   const onLogout = async () => {
     // TODO: Present a Loading
     console.log('logging out...');
     dispatch(logout());
   };
-
-  // TODO: add course by updating student. (present all the courses in a dropdown)
 
   return (
     <>
@@ -138,7 +132,7 @@ const ProfleScreen = ({navigation}) => {
 
             <Text>Degree: {user?.course?.course_name}</Text>
 
-            <Button onPress={handleStudModal}>Edit</Button>
+            <Button onPress={showStudModal}>Edit</Button>
           </Card.Content>
         </Card>
 
@@ -173,7 +167,9 @@ const ProfleScreen = ({navigation}) => {
           )}
 
           <Card.Actions>
-            <Button onPress={handleModal}>{user?.mark ? 'Edit' : 'Add'}</Button>
+            <Button onPress={showMarkModal}>
+              {user?.mark ? 'Edit' : 'Add'}
+            </Button>
           </Card.Actions>
         </Card>
 
@@ -222,26 +218,26 @@ const ProfleScreen = ({navigation}) => {
           )}
 
           <Card.Actions>
-            <Button onPress={handleEduModal}>
+            <Button onPress={showEduModal}>
               {user?.education ? 'Edit' : 'Add'}
             </Button>
           </Card.Actions>
         </Card>
 
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
           <Button onPress={onLogout}>Logout</Button>
-        </SafeAreaView>
+        </View>
 
         <Portal>
           <Modal
-            visible={isModalVisible}
-            onDismiss={handleModal}
+            visible={markModal}
+            onDismiss={hideMarkModal}
             contentContainerStyle={containerStyle}>
             <Title>Marks</Title>
 
             <View>
               <Controller
-                defaultValue={user?.mark?.cgpa.toString()}
+                defaultValue={user?.mark?.cgpa.toString() || ''}
                 name="cgpa"
                 control={control}
                 rules={{
@@ -265,7 +261,7 @@ const ProfleScreen = ({navigation}) => {
               />
 
               <Controller
-                defaultValue={user?.mark?.active_backlog.toString()}
+                defaultValue={user?.mark?.active_backlog.toString() || ''}
                 name="backlog"
                 control={control}
                 rules={{
@@ -286,7 +282,7 @@ const ProfleScreen = ({navigation}) => {
               />
 
               <Controller
-                defaultValue={user?.mark?.backlog_history.toString()}
+                defaultValue={user?.mark?.backlog_history.toString() || ''}
                 name="history"
                 control={control}
                 rules={{
@@ -309,18 +305,20 @@ const ProfleScreen = ({navigation}) => {
               <Button onPress={handleSubmit(onSubmit)}>Update Marks</Button>
             </View>
 
-            <Button onPress={handleModal}>Close Modal</Button>
+            <Button onPress={hideMarkModal}>Close Modal</Button>
           </Modal>
 
           <Modal
             visible={eduModal}
-            onDismiss={handleEduModal}
+            onDismiss={hideEduModal}
             contentContainerStyle={containerStyle}>
             <Title>Education</Title>
 
             <View>
               <Controller
-                defaultValue={user?.education?.tenth_percentage.toString()}
+                defaultValue={
+                  user?.education?.tenth_percentage.toString() || ''
+                }
                 name="tenth"
                 control={control}
                 rules={{
@@ -344,7 +342,9 @@ const ProfleScreen = ({navigation}) => {
               />
 
               <Controller
-                defaultValue={user?.education?.twelfth_percentage.toString()}
+                defaultValue={
+                  user?.education?.twelfth_percentage.toString() || ''
+                }
                 name="twelfth"
                 control={control}
                 rules={{
@@ -368,7 +368,7 @@ const ProfleScreen = ({navigation}) => {
               />
 
               <Controller
-                defaultValue={user?.education?.grad_percentage.toString()}
+                defaultValue={user?.education?.grad_percentage.toString() || ''}
                 name="grad"
                 control={control}
                 rules={{
@@ -396,23 +396,40 @@ const ProfleScreen = ({navigation}) => {
               </Button>
             </View>
 
-            <Button onPress={handleEduModal}>Close Modal</Button>
+            <Button onPress={hideEduModal}>Close Modal</Button>
           </Modal>
 
           <Modal
             visible={studModal}
-            onDismiss={handleStudModal}
+            onDismiss={hideStudModal}
             contentContainerStyle={containerStyle}>
             <Title>Update Student</Title>
 
-            <Picker
-              selectedValue={selectedVal}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedVal(itemValue)
-              }>
-              {loadPicker()}
-            </Picker>
-            {/* <View></View> */}
+            <View>
+              <Controller
+                name="course"
+                control={control}
+                render={({onChange, ...props}) => (
+                  <RNPickerSelect
+                    {...props}
+                    items={items}
+                    onValueChange={(value) => onChange(value)}
+                    // placeholder={{
+                    //   ...(!user.course && {
+                    //     label: 'Select Course',
+                    //     value: null,
+                    //   }),
+                    // }}
+                    value="pg-mca-r"
+                  />
+                )}
+                defaultValue=""
+              />
+
+              <Button onPress={handleSubmit(onStudSubmit)}>Update</Button>
+            </View>
+
+            <Button onPress={hideStudModal}>Close Modal</Button>
           </Modal>
         </Portal>
       </ScrollView>

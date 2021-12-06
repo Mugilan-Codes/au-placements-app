@@ -17,7 +17,7 @@ const instance = axios.create({
     'Content-Type': 'application/json',
   },
   validateStatus: (status) => {
-    // console.log('instance validateStatus status =', status);
+    console.log('instance validateStatus status =', status);
     return status < 500;
   },
 });

@@ -28,6 +28,11 @@ const listingSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
+    clearListings: (state) => {
+      state.listings = [];
+      state.loading = false;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchListings.pending, (state, action) => {
@@ -46,7 +51,7 @@ const listingSlice = createSlice({
   },
 });
 
-export const {getListings} = listingSlice.actions;
+export const {getListings, clearListings} = listingSlice.actions;
 
 export const selectListings = (state) => state.listing.listings;
 export const selectLoading = (state) => state.listing.loading;

@@ -36,6 +36,12 @@ const courseSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
+    clearCourses: (state) => {
+      state.courses = [];
+      state.noOfCourses = 0;
+      state.loading = false;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCourses.pending, (state, action) => {
@@ -55,7 +61,7 @@ const courseSlice = createSlice({
   },
 });
 
-export const {getCourses} = courseSlice.actions;
+export const {getCourses, clearCourses} = courseSlice.actions;
 
 export const selectCourses = (state) => state.course.courses;
 export const selectLoading = (state) => state.course.loading;

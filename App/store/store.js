@@ -12,8 +12,6 @@ import {
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {setAuthToken} from '../config';
-
 import authSlice from './slices/authSlice';
 import listingSlice from './slices/listingSlice';
 import userSlice from './slices/userSlice';
@@ -48,6 +46,7 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
+// REVIEW: Only for viewing purposes
 let currentState = store.getState();
 store.subscribe(() => {
   let previousState = currentState;
@@ -55,7 +54,7 @@ store.subscribe(() => {
 
   if (previousState.auth.accessToken !== currentState.auth.accessToken) {
     console.log('subscribe to store accessToken');
-    const token = currentState.auth.accessToken;
-    setAuthToken(token);
+    const token = currentState?.auth?.accessToken;
+    console.log({token});
   }
 });

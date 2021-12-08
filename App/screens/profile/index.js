@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {ScrollView, StyleSheet, View, RefreshControl} from 'react-native';
 import {
   Card,
@@ -94,11 +94,6 @@ const ProfleScreen = ({navigation}) => {
     dispatch(load());
     setRefreshing(false);
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   reloadData();
-  //   dispatch(fetchCourses());
-  // }, [dispatch, reloadData]);
 
   const onLogout = async () => {
     // TODO: Present a Loading

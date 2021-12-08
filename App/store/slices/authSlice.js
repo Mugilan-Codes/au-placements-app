@@ -1,7 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
 import {Student} from '../../api';
-import {setAuthToken} from '../../config';
 
 // TODO: Persist auth tokens to prevent from logging out
 
@@ -56,7 +55,6 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.isLoading = true;
-      setAuthToken();
       state.accessToken = null;
       state.refreshToken = null;
       state.isLoading = false;

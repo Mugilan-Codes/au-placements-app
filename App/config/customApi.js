@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// import {storage} from '../utils';
-// import {store} from '../store/store';
+import {store} from '../store/store';
 
 // const BASE_URL = 'http://192.168.0.104:5000/api';
 // const BASE_URL = 'https://fathomless-earth-59931.herokuapp.com/api';
@@ -24,55 +23,37 @@ const instance = axios.create({
 
 export default instance;
 
-// TODO: Remove setAuthToken as tokens are attached on each api call
-// TODO: get accesstoken from storage
-export const setAuthToken = (token) => {
-  console.log(`setAuthToken token = ${token}`);
-  if (token) {
-    // Set JSON Web Token in Client to be included in all calls
-    instance.interceptors.request.use((config) => {
-      config.headers.common[TOKEN_KEY] = token;
-      return config;
-    });
-    console.log('AuthToken is set');
-  } else {
-    delete instance.defaults.headers.common[TOKEN_KEY];
-    console.log('AuthToken is removed');
-  }
-};
+instance.interceptors.request.use(
+  async (config) => {
+    console.log('axios instance interceptors request');
 
-// instance.interceptors.request.use(
-//   async (config) => {
-//     console.log('axios instance interceptors request');
+    const accessToken = store.getState().auth.accessToken;
+    if (accessToken) {
+      config.headers.common[TOKEN_KEY] = accessToken;
+    }
 
-//     // const accessToken = await storage.accessToken.get();
-//     const accessToken = store.getState().auth.accessToken;
-//     if (accessToken) {
-//       config.headers.common[TOKEN_KEY] = accessToken;
-//     }
+    return config;
+  },
+  (error) => {
+    console.log('axios instance interceptors request error =', error);
+    return Promise.reject(error);
+  },
+);
 
-//     return config;
-//   },
-//   (error) => {
-//     console.log('axios instance interceptors request error =', error);
-//     return Promise.reject(error);
-//   },
-// );
-
-// instance.interceptors.response.use(
-//   (response) => {
-//     console.log('axios instance interceptors response');
-//     // Any status code that lie within the range of 2xx cause this function to trigger
-//     // console.log('axios instance interceptors response =', response);
-//     return response;
-//   },
-//   (error) => {
-//     // Any status codes that falls outside the range of 2xx cause this function to trigger
-//     console.log('axios instance interceptors response error =', error);
-//     // TODO: Remove Token if error occurs
-//     return Promise.reject(error);
-//   },
-// );
+instance.interceptors.response.use(
+  (response) => {
+    console.log('axios instance interceptors response');
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // console.log('axios instance interceptors response =', response);
+    return response;
+  },
+  (error) => {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    console.log('axios instance interceptors response error =', error);
+    // TODO: Remove Token if error occurs
+    return Promise.reject(error);
+  },
+);
 
 // Global Axios Config
 // axios.interceptors.request.use(

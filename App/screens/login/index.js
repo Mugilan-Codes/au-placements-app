@@ -8,8 +8,8 @@ import {
   Pressable,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
-import {useDispatch} from 'react-redux';
 import {TextInput, Subheading, Button, HelperText} from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 
 import {Routes} from 'constants/routes';
 import {
@@ -20,7 +20,8 @@ import {
   AuthTitle,
 } from 'components';
 import {validators} from 'utils';
-import {login} from 'store/slices/authSlice';
+import {useReduxDispatch, useReduxSelector} from 'store';
+import {login, selectErrorMessage} from 'store/slices/authSlice';
 
 const LoginScreen = ({navigation}) => {
   const {
@@ -28,14 +29,24 @@ const LoginScreen = ({navigation}) => {
     control,
     formState: {errors},
   } = useForm();
-  const dispatch = useDispatch();
+  const dispatch = useReduxDispatch();
+
+  const serverError = useReduxSelector(selectErrorMessage);
 
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
 
+  // TODO: display toast error and clear that errror after some time
   const onSubmit = (data) => {
     // TODO: Present a Loading while logging in. Use global loader context
     dispatch(login({email: data.email, password: data.password}));
+    serverError &&
+      Toast.show({
+        type: 'error',
+        text1: `${serverError}`,
+        text2: 'Try Again',
+        duration: 3000,
+      });
   };
 
   const handleOnSubmit = handleSubmit(onSubmit);
@@ -57,6 +68,8 @@ const LoginScreen = ({navigation}) => {
             <SizedBox height={8} />
 
             <Subheading>Sign In to your account</Subheading>
+
+            <Toast />
 
             <SizedBox height={32} />
 

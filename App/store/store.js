@@ -31,6 +31,7 @@ const persistConfig = {
   stateReconciler: autoMergeLevel2,
   storage: AsyncStorage,
   whitelist: ['auth'],
+  blacklist: ['listing', 'user', 'course'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

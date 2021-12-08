@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -21,7 +21,7 @@ import {
 } from 'components';
 import {validators} from 'utils';
 import {useReduxDispatch, useReduxSelector} from 'store';
-import {login, selectErrorMessage} from 'store/slices/authSlice';
+import {login, selectErrorMessage, clearError} from 'store/slices/authSlice';
 
 const LoginScreen = ({navigation}) => {
   const {
@@ -36,9 +36,15 @@ const LoginScreen = ({navigation}) => {
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
 
-  // TODO: display toast error and clear that errror after some time
+  const [secureTextExntry, setSecureTextExntry] = useState(true);
+  const togglePasswordVisibility = () => {
+    setSecureTextExntry(!secureTextExntry);
+  };
+
   const onSubmit = (data) => {
     // TODO: Present a Loading while logging in. Use global loader context
+    // TODO: clear error after displaying toast to avoid showing old error
+    dispatch(clearError());
     dispatch(login({email: data.email, password: data.password}));
     serverError &&
       Toast.show({
@@ -135,12 +141,17 @@ const LoginScreen = ({navigation}) => {
                       autoCapitalize="none"
                       autoCompleteType="password"
                       autoCorrect={false}
-                      secureTextEntry
+                      secureTextEntry={secureTextExntry}
                       ref={passwordInput}
                       returnKeyType="done"
                       onSubmitEditing={handleOnSubmit}
                       label="Password"
-                      right={<TextInput.Icon name="eye" />} // TODO: add show password on icon click
+                      right={
+                        <TextInput.Icon
+                          name={secureTextExntry ? 'eye' : 'eye-off'}
+                          onPress={togglePasswordVisibility}
+                        />
+                      }
                       error={!!errors.password}
                       style={styles.formText}
                     />

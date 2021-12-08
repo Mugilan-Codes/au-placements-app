@@ -10,10 +10,14 @@ export const login = createAsyncThunk(
   async ({email, password}, thunkAPI) => {
     try {
       const res = await Student.login(email, password);
-      return res.data;
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        return thunkAPI.rejectWithValue(res.data.error.message);
+      }
     } catch (error) {
       console.log('auth/login error');
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
@@ -29,10 +33,14 @@ export const register = createAsyncThunk(
         password,
         confirm_password,
       });
-      return res.data;
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        return thunkAPI.rejectWithValue(res.data.error.message);
+      }
     } catch (error) {
       console.log('auth/register error');
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
@@ -54,6 +62,15 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.errorMessage = '';
     },
+    clearAuth: (state) => {
+      state.accessToken = null;
+      state.refreshToken = null;
+      state.isLoading = false;
+      state.errorMessage = '';
+    },
+    clearError: (state) => {
+      state.errorMessage = '';
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
@@ -65,8 +82,9 @@ const authSlice = createSlice({
       state.refreshToken = action.payload.refreshToken;
     });
     builder.addCase(login.rejected, (state, action) => {
-      console.log(action.error);
+      state.errorMessage = '';
       state.isLoading = false;
+      state.errorMessage = action.payload || action.error.message;
     });
     builder.addCase(register.pending, (state) => {
       state.isLoading = true;
@@ -77,13 +95,14 @@ const authSlice = createSlice({
       state.refreshToken = action.payload.refreshToken;
     });
     builder.addCase(register.rejected, (state, action) => {
-      console.log(action.error);
+      state.errorMessage = '';
       state.isLoading = false;
+      state.errorMessage = action.payload || action.error.message;
     });
   },
 });
 
-export const {logout} = authSlice.actions;
+export const {logout, clearAuth, clearError} = authSlice.actions;
 
 export const selectIsLoading = (state) => state.auth.isLoading;
 export const selectAccessToken = (state) => state.auth.accessToken;

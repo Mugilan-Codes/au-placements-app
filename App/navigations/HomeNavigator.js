@@ -3,9 +3,9 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {Routes} from '../config';
-import {DashboardScreen, ProfileScreen, ModalScreen} from '../screens';
-import {useTheme} from '../contexts';
+import {Routes} from 'constants/routes';
+import {DashboardScreen, ProfileScreen, ModalScreen} from 'screens';
+import {useTheme} from 'contexts';
 
 const HomeStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();

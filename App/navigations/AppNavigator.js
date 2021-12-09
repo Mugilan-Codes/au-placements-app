@@ -2,13 +2,13 @@ import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {Routes} from '../config';
+import {Routes} from 'constants/routes';
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
-import {useTheme} from '../contexts';
-import {selectAccessToken, selectIsLoading} from '../store/slices/authSlice';
-import {selectIsAuthenticated, load} from '../store/slices/userSlice';
-import {useReduxDispatch, useReduxSelector} from '../store';
+import {useTheme} from 'contexts';
+import {selectAccessToken, selectIsLoading} from 'store/slices/authSlice';
+import {selectIsAuthenticated, load} from 'store/slices/userSlice';
+import {useReduxDispatch, useReduxSelector} from 'store';
 
 const Main = createStackNavigator();
 

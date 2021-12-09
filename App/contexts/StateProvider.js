@@ -1,24 +1,14 @@
-// Inspired by [Phone-Store by trujic1000](https://github.com/trujic1000/phone-store/blob/master/src/global-state/state.js)
-
-import React, {cloneElement} from 'react';
+import React from 'react';
 
 import {ThemeProvider} from './theme';
 
-// reduceRight works in reverse as opposed to reduce
-// kids = accumulator, parent = currentValue
-const ProviderComposer = ({contexts, children}) => {
-  return contexts.reduceRight(
-    (kids, parent) => cloneElement(parent, {children: kids}),
-    children,
-  );
-};
-
-const StateProvider = ({children}) => {
-  return (
-    <ProviderComposer contexts={[<ThemeProvider />]}>
-      {children}
-    </ProviderComposer>
-  );
-};
+const combineProviders = (providers) =>
+  providers.reduce((Combined, Provider) => ({children}) => (
+    <Combined>
+      <Provider>{children}</Provider>
+    </Combined>
+  ));
+// const Providers = combineProviders([ThemeProvider]);
+const StateProvider = combineProviders([ThemeProvider]);
 
 export default StateProvider;

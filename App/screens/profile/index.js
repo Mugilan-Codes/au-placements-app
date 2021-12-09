@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View, RefreshControl} from 'react-native';
 import {
   Card,
@@ -11,18 +11,25 @@ import {
   Modal,
   Portal,
   DataTable,
+  TextInput,
+  HelperText,
 } from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
 import RNPickerSelect from 'react-native-picker-select';
 
-import {FormInput, ScreenHeader} from 'components';
+import {ScreenHeader} from 'components';
 import {logout} from 'store/slices/authSlice';
 import {load, selectUser} from 'store/slices/userSlice';
 import {fetchCourses, selectCourses} from 'store/slices/courseSlice';
+import {useTheme} from 'contexts';
 import {useReduxDispatch, useReduxSelector} from 'store';
 import {validators} from 'utils';
 
 const ProfleScreen = ({navigation}) => {
+  const {
+    theme: {colors},
+  } = useTheme();
+
   const dispatch = useReduxDispatch();
   const user = useReduxSelector(selectUser);
   const courses = useReduxSelector(selectCourses);
@@ -59,41 +66,50 @@ const ProfleScreen = ({navigation}) => {
     formState: {errors},
   } = useForm();
 
+  // TODO: close modal after submit and refresh profile screen for changes to take effect
+
   const showMarkModal = () => setMarkModal(true);
   const hideMarkModal = () => setMarkModal(false);
+  const onMarkSubmit = (data) => {
+    console.log('Mark OnMarkSubmit');
+    console.log({data});
+  };
+  const handleOnMarkSubmit = handleSubmit(onMarkSubmit);
 
   const showEduModal = () => setEduModal(true);
   const hideEduModal = () => setEduModal(false);
+  const onEduSubmit = (data) => {
+    console.log('Education OnEduSubmit');
+    console.log({data});
+  };
+  const handleOnEduSubmit = handleSubmit(onEduSubmit);
 
   const showStudModal = () => {
     getCourses();
     setStudModal(true);
   };
   const hideStudModal = () => setStudModal(false);
-
-  const containerStyle = {backgroundColor: 'white', padding: 20, margin: 10};
-
-  // TODO: Add/Edit Marks & Education
-  // TODO: close modal after submit and refresh profile screen for changes to take effect
-  const onSubmit = (data) => {
-    console.log('Mark OnSubmit');
-    console.log({data});
-  };
-  const onEduSubmit = (data) => {
-    console.log('Education OnEduSubmit');
-    console.log({data});
-  };
   const onStudSubmit = (data) => {
     console.log('Student OnStudSubmit');
     console.log({data});
   };
+  const handleOnStudSubmit = handleSubmit(onStudSubmit);
 
-  const reloadData = useCallback(() => {
+  const containerStyle = {
+    backgroundColor: `${colors.background}`,
+    color: `${colors.text}`,
+    padding: 20,
+    margin: 10,
+    borderRadius: 10,
+  };
+
+  const reloadData = () => {
     console.log('reloading...');
     setRefreshing(true);
     dispatch(load());
+    getCourses();
     setRefreshing(false);
-  }, [dispatch]);
+  };
 
   const onLogout = async () => {
     // TODO: Present a Loading
@@ -123,9 +139,13 @@ const ProfleScreen = ({navigation}) => {
 
             <Text>Register Number: {user?.register_no}</Text>
 
-            <Text>Level: {user?.course?.degree}</Text>
+            {user?.course && (
+              <>
+                <Text>Level: {user?.course?.degree}</Text>
 
-            <Text>Degree: {user?.course?.course_name}</Text>
+                <Text>Degree: {user?.course?.course_name}</Text>
+              </>
+            )}
 
             <Button onPress={showStudModal}>Edit</Button>
           </Card.Content>
@@ -232,9 +252,9 @@ const ProfleScreen = ({navigation}) => {
 
             <View>
               <Controller
-                defaultValue={user?.mark?.cgpa.toString() || ''}
                 name="cgpa"
                 control={control}
+                defaultValue={user?.mark?.cgpa.toString() || ''}
                 rules={{
                   pattern: {
                     value: validators.ZERO_TO_TEN,
@@ -242,62 +262,82 @@ const ProfleScreen = ({navigation}) => {
                   },
                 }}
                 render={({onChange, onBlur, value}) => (
-                  <FormInput
-                    placeholder="Current CGPA"
-                    type="number"
-                    error={errors.cgpa}
-                    errorText={errors?.cgpa?.message}
-                    onBlur={onBlur}
-                    onChangeText={(text) => onChange(text)}
-                    value={value}
-                    keyboardType="decimal-pad"
-                  />
+                  <View style={styles.wrapper}>
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      label="Current CGPA"
+                      placeholder={user?.mark?.cgpa.toString() || ''}
+                      keyboardType="decimal-pad"
+                      error={!!errors?.cgpa}
+                      style={styles.formText}
+                    />
+
+                    <HelperText type="error" visible={!!errors?.cgpa}>
+                      {errors?.cgpa?.message}
+                    </HelperText>
+                  </View>
                 )}
               />
 
               <Controller
-                defaultValue={user?.mark?.active_backlog.toString() || ''}
                 name="backlog"
                 control={control}
+                defaultValue={user?.mark?.active_backlog.toString() || ''}
                 rules={{
                   min: 0,
                 }}
                 render={({onChange, onBlur, value}) => (
-                  <FormInput
-                    placeholder="Active Backlog"
-                    type="number"
-                    error={errors.backlog}
-                    errorText={errors?.backlog?.message}
-                    onBlur={onBlur}
-                    onChangeText={(text) => onChange(text)}
-                    value={value}
-                    keyboardType="number-pad"
-                  />
+                  <View style={styles.wrapper}>
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      label="Active Backlog"
+                      placeholder={user?.mark?.active_backlog.toString() || ''}
+                      keyboardType="number-pad"
+                      error={!!errors?.backlog}
+                      style={styles.formText}
+                    />
+
+                    <HelperText type="error" visible={!!errors?.backlog}>
+                      {errors?.backlog?.message}
+                    </HelperText>
+                  </View>
                 )}
               />
 
               <Controller
-                defaultValue={user?.mark?.backlog_history.toString() || ''}
                 name="history"
                 control={control}
+                defaultValue={user?.mark?.backlog_history.toString() || ''}
                 rules={{
                   min: 0,
                 }}
                 render={({onChange, onBlur, value}) => (
-                  <FormInput
-                    placeholder="Backlog History"
-                    type="number"
-                    error={errors.history}
-                    errorText={errors?.history?.message}
-                    onBlur={onBlur}
-                    onChangeText={(text) => onChange(text)}
-                    value={value}
-                    keyboardType="number-pad"
-                  />
+                  <View style={styles.wrapper}>
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      label="Backlog History"
+                      placeholder={user?.mark?.backlog_history.toString() || ''}
+                      keyboardType="number-pad"
+                      error={!!errors?.history}
+                      style={styles.formText}
+                    />
+
+                    <HelperText type="error" visible={!!errors?.history}>
+                      {errors?.history?.message}
+                    </HelperText>
+                  </View>
                 )}
               />
 
-              <Button onPress={handleSubmit(onSubmit)}>Update Marks</Button>
+              <Button mode="contained" onPress={handleOnMarkSubmit}>
+                Update Marks
+              </Button>
             </View>
 
             <Button onPress={hideMarkModal}>Close Modal</Button>
@@ -311,11 +351,11 @@ const ProfleScreen = ({navigation}) => {
 
             <View>
               <Controller
+                name="tenth"
+                control={control}
                 defaultValue={
                   user?.education?.tenth_percentage.toString() || ''
                 }
-                name="tenth"
-                control={control}
                 rules={{
                   pattern: {
                     value: validators.ZERO_TO_HUNDRED,
@@ -323,25 +363,33 @@ const ProfleScreen = ({navigation}) => {
                   },
                 }}
                 render={({onChange, onBlur, value}) => (
-                  <FormInput
-                    placeholder="Tenth Percentage"
-                    type="number"
-                    error={errors.tenth}
-                    errorText={errors?.tenth?.message}
-                    onBlur={onBlur}
-                    onChangeText={(text) => onChange(text)}
-                    value={value}
-                    keyboardType="decimal-pad"
-                  />
+                  <View style={styles.wrapper}>
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      label="Tenth Percentage"
+                      placeholder={
+                        user?.education?.tenth_percentage.toString() || ''
+                      }
+                      keyboardType="decimal-pad"
+                      error={!!errors?.tenth}
+                      style={styles.formText}
+                    />
+
+                    <HelperText type="error" visible={!!errors?.tenth}>
+                      {errors?.tenth?.message}
+                    </HelperText>
+                  </View>
                 )}
               />
 
               <Controller
+                name="twelfth"
+                control={control}
                 defaultValue={
                   user?.education?.twelfth_percentage.toString() || ''
                 }
-                name="twelfth"
-                control={control}
                 rules={{
                   pattern: {
                     value: validators.ZERO_TO_HUNDRED,
@@ -349,23 +397,31 @@ const ProfleScreen = ({navigation}) => {
                   },
                 }}
                 render={({onChange, onBlur, value}) => (
-                  <FormInput
-                    placeholder="Twelfth Percentage"
-                    type="number"
-                    error={errors.twelfth}
-                    errorText={errors?.twelfth?.message}
-                    onBlur={onBlur}
-                    onChangeText={(text) => onChange(text)}
-                    value={value}
-                    keyboardType="decimal-pad"
-                  />
+                  <View style={styles.wrapper}>
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      label="Twelfth Percentage"
+                      placeholder={
+                        user?.education?.twelfth_percentage.toString() || ''
+                      }
+                      keyboardType="decimal-pad"
+                      error={!!errors?.twelfth}
+                      style={styles.formText}
+                    />
+
+                    <HelperText type="error" visible={!!errors?.twelfth}>
+                      {errors?.twelfth?.message}
+                    </HelperText>
+                  </View>
                 )}
               />
 
               <Controller
-                defaultValue={user?.education?.grad_percentage.toString() || ''}
                 name="grad"
                 control={control}
+                defaultValue={user?.education?.grad_percentage.toString() || ''}
                 rules={{
                   pattern: {
                     value: validators.ZERO_TO_HUNDRED,
@@ -373,20 +429,28 @@ const ProfleScreen = ({navigation}) => {
                   },
                 }}
                 render={({onChange, onBlur, value}) => (
-                  <FormInput
-                    placeholder="Grad Percentage"
-                    type="number"
-                    error={errors.grad}
-                    errorText={errors?.grad?.message}
-                    onBlur={onBlur}
-                    onChangeText={(text) => onChange(text)}
-                    value={value}
-                    keyboardType="decimal-pad"
-                  />
+                  <View style={styles.wrapper}>
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      label="Grad Percentage"
+                      placeholder={
+                        user?.education?.grad_percentage.toString() || ''
+                      }
+                      keyboardType="decimal-pad"
+                      error={!!errors?.grad}
+                      style={styles.formText}
+                    />
+
+                    <HelperText type="error" visible={!!errors?.grad}>
+                      {errors?.grad?.message}
+                    </HelperText>
+                  </View>
                 )}
               />
 
-              <Button onPress={handleSubmit(onEduSubmit)}>
+              <Button mode="contained" onPress={handleOnEduSubmit}>
                 Update Education
               </Button>
             </View>
@@ -415,13 +479,15 @@ const ProfleScreen = ({navigation}) => {
                     //     value: null,
                     //   }),
                     // }}
+                    placeholder={{}}
                     value="pg-mca-r"
+                    style={{inputAndroid: {color: `${colors.text}`}}}
                   />
                 )}
                 defaultValue=""
               />
 
-              <Button onPress={handleSubmit(onStudSubmit)}>Update</Button>
+              <Button onPress={handleOnStudSubmit}>Update</Button>
             </View>
 
             <Button onPress={hideStudModal}>Close Modal</Button>
@@ -437,6 +503,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  wrapper: {
+    marginBottom: 15,
+  },
+  formText: {
+    borderRadius: 8,
+    paddingHorizontal: 16,
   },
 });
 

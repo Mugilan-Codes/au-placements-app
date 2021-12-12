@@ -1,8 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
-import {Student} from '../../api';
-
-// TODO: Persist auth tokens to prevent from logging out
+import {Student} from 'api';
 
 export const login = createAsyncThunk(
   'auth/login',

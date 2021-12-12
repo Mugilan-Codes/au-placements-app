@@ -28,6 +28,10 @@ instance.interceptors.request.use(
     console.log('axios instance interceptors request');
 
     const accessToken = store.getState().auth.accessToken;
+    console.log(
+      'axios instance interceptors request accessToken =',
+      accessToken,
+    );
     if (accessToken) {
       config.headers.common[TOKEN_KEY] = accessToken;
     }

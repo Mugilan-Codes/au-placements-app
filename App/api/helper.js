@@ -33,14 +33,27 @@ export const Student = {
   getOneListing: async (list_id) => {
     return list_id && (await Api.get(Listing.GET(list_id)));
   },
-  // TODO: update student, add mark & education
-  update: async (data) => {
-    return await Api.put(Auth.UPDATE, data);
+  update: async ({name, email, course_id}) => {
+    return await Api.put(Auth.UPDATE, {name, email, course_id});
   },
-  mark: async (data) => {
-    return await Api.post(Other.MARK, data);
+  mark: async ({cgpa, active_backlog, backlog_history}) => {
+    return await Api.post(Other.MARK, {cgpa, active_backlog, backlog_history});
   },
-  education: async (data) => {
-    return await Api.post(Other.EDUCATION, data);
+  education: async ({
+    tenth_board,
+    tenth_percentage,
+    twelfth_board,
+    twelfth_percentage,
+    grad_course,
+    grad_percentage,
+  }) => {
+    return await Api.post(Other.EDUCATION, {
+      tenth_board,
+      tenth_percentage,
+      twelfth_board,
+      twelfth_percentage,
+      grad_course,
+      grad_percentage,
+    });
   },
 };

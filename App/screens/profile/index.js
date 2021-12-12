@@ -16,10 +16,17 @@ import {
 } from 'react-native-paper';
 import {useForm, Controller} from 'react-hook-form';
 import RNPickerSelect from 'react-native-picker-select';
+import isEmpty from 'lodash/isEmpty';
 
 import {ScreenHeader} from 'components';
 import {logout} from 'store/slices/authSlice';
-import {load, selectUser} from 'store/slices/userSlice';
+import {
+  load,
+  selectUser,
+  update,
+  updateMarks,
+  updateEducation,
+} from 'store/slices/userSlice';
 import {fetchCourses, selectCourses} from 'store/slices/courseSlice';
 import {useTheme} from 'contexts';
 import {useReduxDispatch, useReduxSelector} from 'store';
@@ -66,34 +73,61 @@ const ProfleScreen = ({navigation}) => {
     formState: {errors},
   } = useForm();
 
-  // TODO: close modal after submit and refresh profile screen for changes to take effect
-
-  const showMarkModal = () => setMarkModal(true);
-  const hideMarkModal = () => setMarkModal(false);
-  const onMarkSubmit = (data) => {
-    console.log('Mark OnMarkSubmit');
-    console.log({data});
-  };
-  const handleOnMarkSubmit = handleSubmit(onMarkSubmit);
-
-  const showEduModal = () => setEduModal(true);
-  const hideEduModal = () => setEduModal(false);
-  const onEduSubmit = (data) => {
-    console.log('Education OnEduSubmit');
-    console.log({data});
-  };
-  const handleOnEduSubmit = handleSubmit(onEduSubmit);
-
+  // Student Modal
   const showStudModal = () => {
     getCourses();
     setStudModal(true);
   };
-  const hideStudModal = () => setStudModal(false);
+  const hideStudModal = () => {
+    setStudModal(false);
+  };
   const onStudSubmit = (data) => {
     console.log('Student OnStudSubmit');
     console.log({data});
+    dispatch(update(data));
+    if (!isEmpty(errors)) {
+      console.log('Student OnStudSubmit Error');
+    } else {
+      hideStudModal();
+    }
   };
   const handleOnStudSubmit = handleSubmit(onStudSubmit);
+
+  // MARKS MODAL
+  const showMarkModal = () => setMarkModal(true);
+  const hideMarkModal = () => {
+    reloadData();
+    setMarkModal(false);
+  };
+  const onMarkSubmit = (data) => {
+    console.log('Mark OnMarkSubmit');
+    console.log({data});
+    dispatch(updateMarks(data));
+    if (!isEmpty(errors)) {
+      console.log('Mark OnMarkSubmit Error');
+    } else {
+      hideMarkModal();
+    }
+  };
+  const handleOnMarkSubmit = handleSubmit(onMarkSubmit);
+
+  // Education Modal
+  const showEduModal = () => setEduModal(true);
+  const hideEduModal = () => {
+    setEduModal(false);
+    reloadData();
+  };
+  const onEduSubmit = (data) => {
+    console.log('Education OnEduSubmit');
+    console.log({data});
+    dispatch(updateEducation(data));
+    if (!isEmpty(errors)) {
+      console.log('Education OnEduSubmit Error');
+    } else {
+      hideEduModal();
+    }
+  };
+  const handleOnEduSubmit = handleSubmit(onEduSubmit);
 
   const containerStyle = {
     backgroundColor: `${colors.background}`,
@@ -351,12 +385,39 @@ const ProfleScreen = ({navigation}) => {
 
             <View>
               <Controller
-                name="tenth"
+                name="tenth_board"
+                control={control}
+                defaultValue={user?.education?.tenth_board.toString() || ''}
+                rules={{required: 'Tenth Board is required'}}
+                render={({onChange, onBlur, value}) => (
+                  <View style={styles.wrapper}>
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      label="Tenth Board"
+                      placeholder={
+                        user?.education?.tenth_board.toString() || ''
+                      }
+                      autoCompleteType="off"
+                      error={!!errors?.tenth_board}
+                      style={styles.formText}
+                    />
+                    <HelperText type="error" visible={!!errors?.tenth_board}>
+                      {errors?.tenth_board?.message}
+                    </HelperText>
+                  </View>
+                )}
+              />
+
+              <Controller
+                name="tenth_percentage"
                 control={control}
                 defaultValue={
                   user?.education?.tenth_percentage.toString() || ''
                 }
                 rules={{
+                  required: 'Tenth Percentage is required',
                   pattern: {
                     value: validators.ZERO_TO_HUNDRED,
                     message: 'must be between 0 & 100',
@@ -373,24 +434,53 @@ const ProfleScreen = ({navigation}) => {
                         user?.education?.tenth_percentage.toString() || ''
                       }
                       keyboardType="decimal-pad"
-                      error={!!errors?.tenth}
+                      error={!!errors?.tenth_percentage}
                       style={styles.formText}
                     />
 
-                    <HelperText type="error" visible={!!errors?.tenth}>
-                      {errors?.tenth?.message}
+                    <HelperText
+                      type="error"
+                      visible={!!errors?.tenth_percentage}>
+                      {errors?.tenth_percentage?.message}
                     </HelperText>
                   </View>
                 )}
               />
 
               <Controller
-                name="twelfth"
+                name="twelfth_board"
+                control={control}
+                defaultValue={user?.education?.twelfth_board.toString() || ''}
+                rules={{required: 'Twelfth Board is required'}}
+                render={({onChange, onBlur, value}) => (
+                  <View style={styles.wrapper}>
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      label="Twelfth Board"
+                      placeholder={
+                        user?.education?.twelfth_board.toString() || ''
+                      }
+                      autoCompleteType="off"
+                      error={!!errors?.twelfth_board}
+                      style={styles.formText}
+                    />
+                    <HelperText type="error" visible={!!errors?.twelfth_board}>
+                      {errors?.twelfth_board?.message}
+                    </HelperText>
+                  </View>
+                )}
+              />
+
+              <Controller
+                name="twelfth_percentage"
                 control={control}
                 defaultValue={
                   user?.education?.twelfth_percentage.toString() || ''
                 }
                 rules={{
+                  required: 'Twelfth Percentage is required',
                   pattern: {
                     value: validators.ZERO_TO_HUNDRED,
                     message: 'must be between 0 & 100',
@@ -407,19 +497,46 @@ const ProfleScreen = ({navigation}) => {
                         user?.education?.twelfth_percentage.toString() || ''
                       }
                       keyboardType="decimal-pad"
-                      error={!!errors?.twelfth}
+                      error={!!errors?.twelfth_percentage}
                       style={styles.formText}
                     />
 
-                    <HelperText type="error" visible={!!errors?.twelfth}>
-                      {errors?.twelfth?.message}
+                    <HelperText
+                      type="error"
+                      visible={!!errors?.twelfth_percentage}>
+                      {errors?.twelfth_percentage?.message}
                     </HelperText>
                   </View>
                 )}
               />
 
               <Controller
-                name="grad"
+                name="grad_course"
+                control={control}
+                defaultValue={user?.education?.grad_course.toString() || ''}
+                render={({onChange, onBlur, value}) => (
+                  <View style={styles.wrapper}>
+                    <TextInput
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      label="Grad Course"
+                      placeholder={
+                        user?.education?.grad_course.toString() || ''
+                      }
+                      autoCompleteType="off"
+                      error={!!errors?.grad_course}
+                      style={styles.formText}
+                    />
+                    <HelperText type="error" visible={!!errors?.grad_course}>
+                      {errors?.grad_course?.message}
+                    </HelperText>
+                  </View>
+                )}
+              />
+
+              <Controller
+                name="grad_percentage"
                 control={control}
                 defaultValue={user?.education?.grad_percentage.toString() || ''}
                 rules={{
@@ -439,12 +556,14 @@ const ProfleScreen = ({navigation}) => {
                         user?.education?.grad_percentage.toString() || ''
                       }
                       keyboardType="decimal-pad"
-                      error={!!errors?.grad}
+                      error={!!errors?.grad_percentage}
                       style={styles.formText}
                     />
 
-                    <HelperText type="error" visible={!!errors?.grad}>
-                      {errors?.grad?.message}
+                    <HelperText
+                      type="error"
+                      visible={!!errors?.grad_percentage}>
+                      {errors?.grad_percentage?.message}
                     </HelperText>
                   </View>
                 )}
@@ -466,21 +585,18 @@ const ProfleScreen = ({navigation}) => {
 
             <View>
               <Controller
-                name="course"
+                name="course_id"
                 control={control}
                 render={({onChange, ...props}) => (
                   <RNPickerSelect
                     {...props}
                     items={items}
                     onValueChange={(value) => onChange(value)}
-                    // placeholder={{
-                    //   ...(!user.course && {
-                    //     label: 'Select Course',
-                    //     value: null,
-                    //   }),
-                    // }}
-                    placeholder={{}}
-                    value="pg-mca-r"
+                    placeholder={{
+                      label: user?.course?.course_name ? '' : 'Select Course',
+                      value: user?.course?.id ? '' : null,
+                    }}
+                    value={user?.course?.id || ''}
                     style={{inputAndroid: {color: `${colors.text}`}}}
                   />
                 )}
@@ -505,7 +621,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   wrapper: {
-    marginBottom: 15,
+    marginBottom: 5,
   },
   formText: {
     borderRadius: 8,

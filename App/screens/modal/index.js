@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
 
-import {Student} from '../../api';
-import {Loading} from '../../components';
+import {Student} from 'api';
+import {Loading} from 'components';
 
-// TODO: Build this to get ID and call API to fetch listings.
 const ModalScreen = ({route, navigation}) => {
   const {id} = route.params;
   const [listing, setListing] = useState({});
@@ -22,13 +21,9 @@ const ModalScreen = ({route, navigation}) => {
   };
 
   const dismissList = () => {
-    // setListing({});
     navigation.goBack();
   };
 
-  // console.log(listing);
-  // TODO: Style the View
-  // TODO: Make the Modal not Transparent
   return (
     <>
       {loading ? (

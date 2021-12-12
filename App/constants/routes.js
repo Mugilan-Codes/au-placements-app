@@ -6,6 +6,7 @@ export const DASHBOARD = 'Dashboard';
 export const PROFILE = 'Profile';
 export const MAIN = 'Main';
 export const MODAL = 'MyModal';
+export const LISTING = 'Listing';
 
 export const Routes = {
   AUTH: 'Auth',
@@ -16,4 +17,5 @@ export const Routes = {
   PROFILE: 'Profile',
   MAIN: 'Main',
   MODAL: 'MyModal',
+  LISTING: 'Listing',
 };

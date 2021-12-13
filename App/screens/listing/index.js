@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
 import {
   Text,
@@ -11,7 +11,13 @@ import {
   ActivityIndicator,
 } from 'react-native-paper';
 
-import {useTheme} from 'contexts';
+// import {useTheme} from 'contexts';
+import {useReduxDispatch, useReduxSelector} from 'store';
+import {
+  selectListing,
+  fetchOneListing,
+  selectLoading,
+} from 'store/slices/listingSlice';
 
 const Container = styled.View`
   flex: 1;
@@ -21,8 +27,10 @@ const Container = styled.View`
 
 const Row = styled.View`
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+  /* margin: 10px; */
+  flex-wrap: wrap;
 `;
 
 const StyledParagraph = styled(Paragraph)`
@@ -32,37 +40,49 @@ const StyledParagraph = styled(Paragraph)`
 
 const Loading = () => <ActivityIndicator animating size="large" />;
 
+// TODO: show tick icon for chip if eligible else show cross icon for ineligible criteria chip
+// TODO: provide link for appication and open it in webview
 const ListingScreen = ({route, navigation}) => {
   const {id} = route.params;
-  const {
-    theme: {colors},
-  } = useTheme();
+  const dispatch = useReduxDispatch();
+  // const {
+  //   theme: {colors},
+  // } = useTheme();
 
-  console.log('Listing', id);
+  const listing = useReduxSelector(selectListing);
+  const isLoading = useReduxSelector(selectLoading);
+
+  console.log('Listing id', id);
+  console.log('Listing', listing);
+  console.log('isLoading', isLoading);
+
+  useEffect(() => {
+    dispatch(fetchOneListing(id));
+  }, [dispatch, id]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Container>
-      <Title>Listing Title</Title>
-      <Subheading>Company Name</Subheading>
-      <StyledParagraph>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deleniti porro
-        quam fuga. Distinctio repellat architecto doloribus ipsa adipisci,
-        dolore facere nam sit rem dicta beatae eos omnis, amet excepturi eaque!
-      </StyledParagraph>
+      <Title>{listing?.title}</Title>
+      <Subheading>{listing?.company_name}</Subheading>
+      <StyledParagraph>{listing?.description}</StyledParagraph>
       <Headline>Start Date: 16th Nov, 2021</Headline>
       <Text>Eligiblity Criteria</Text>
       <Row>
-        <Chip>10th: 80%</Chip>
-        <Chip>12th: 80%</Chip>
-        <Chip>Grad: 70%</Chip>
+        <Chip>10th: {listing?.tenth_percentage}%</Chip>
+        <Chip>12th: {listing?.twelfth_percentage}%</Chip>
+        <Chip>Grad: {listing?.grad_percentage}%</Chip>
       </Row>
       <Row>
-        <Chip mode="outlined">Current CGPA: 8.5</Chip>
-        <Chip mode="outlined">Backlogs: 1</Chip>
-        <Chip mode="outlined">History of Backlogs: 2</Chip>
+        <Chip mode="outlined">CGPA: {listing?.cgpa}</Chip>
+        <Chip mode="outlined">Active Backlogs: {listing?.active_backlog}</Chip>
+        <Chip mode="outlined">Backlog History: {listing?.backlog_history}</Chip>
       </Row>
-      <Button mode="contained" color="green">
-        Eligible
+      <Button mode="contained" color={listing?.eligible ? 'green' : 'red'}>
+        {listing?.eligible ? '' : 'Not '}Eligible
       </Button>
     </Container>
   );

@@ -6,16 +6,14 @@ import {Card, Paragraph, Avatar} from 'react-native-paper';
 import {format} from 'date-fns';
 
 import {Routes} from 'constants/routes';
-
-const StyledView = styled.View`
-  flex: 1;
-`;
+import {useReduxDispatch} from 'store';
+import {clearListing} from 'store/slices/listingSlice';
 
 const Container = styled(TouchableOpacity)`
   margin: 10px;
   border-radius: 6px;
   padding: 0 20px;
-  /* flex: 1; */
+  flex: 1;
 `;
 
 const CheckIcon = (props) => (
@@ -28,8 +26,10 @@ const CloseIcon = (props) => (
 // id, title, description, company_name, start_date, tenth_percentage, twelfth_percentage, grad_percentage, cgpa, active_backlog, backlog_history, created_on, updated_on
 const List = ({id, title, company_name, start_date, eligible}) => {
   const navigation = useNavigation();
+  const dispatch = useReduxDispatch();
 
   const _onPress = () => {
+    dispatch(clearListing());
     navigation.navigate(Routes.LISTING, {id});
   };
 
@@ -38,7 +38,6 @@ const List = ({id, title, company_name, start_date, eligible}) => {
 
   return (
     <Container onPress={_onPress}>
-      {/* <StyledView> */}
       <Card>
         <Card.Title
           title={title}
@@ -50,7 +49,6 @@ const List = ({id, title, company_name, start_date, eligible}) => {
           <Paragraph>{company_name}</Paragraph>
         </Card.Content>
       </Card>
-      {/* </StyledView> */}
     </Container>
   );
 };

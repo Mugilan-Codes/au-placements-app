@@ -18,7 +18,7 @@ import {
   ViewAreaSafe,
   ViewAvoidingKeyboard,
 } from 'components';
-import {Routes} from 'config';
+import {Routes} from 'constants/routes';
 import {validators} from 'utils';
 import {useReduxDispatch, useReduxSelector} from 'store';
 import {register, selectErrorMessage, clearError} from 'store/slices/authSlice';

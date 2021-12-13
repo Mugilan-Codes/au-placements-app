@@ -52,10 +52,6 @@ const ListingScreen = ({route, navigation}) => {
   const listing = useReduxSelector(selectListing);
   const isLoading = useReduxSelector(selectLoading);
 
-  console.log('Listing id', id);
-  console.log('Listing', listing);
-  console.log('isLoading', isLoading);
-
   useEffect(() => {
     dispatch(fetchOneListing(id));
   }, [dispatch, id]);

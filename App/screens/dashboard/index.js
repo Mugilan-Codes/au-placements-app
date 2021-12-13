@@ -3,7 +3,7 @@ import {FlatList, Text} from 'react-native';
 import {Button} from 'react-native-elements';
 
 import {List, ListSeparator, ScreenHeader} from 'components';
-import {Date} from 'utils';
+import {getCurrentTime} from 'utils/date';
 import {useReduxSelector, useReduxDispatch} from 'store';
 import {
   fetchListings,
@@ -28,7 +28,7 @@ const DashboardScreen = () => {
   const getListings = useCallback(() => {
     dispatch(fetchListings());
 
-    const time = Date.getCurrentTime();
+    const time = getCurrentTime();
     setLastUpdated(time);
   }, [dispatch]);
 

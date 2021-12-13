@@ -3,11 +3,11 @@ import {TouchableOpacity, StyleSheet} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
 import {Card, Paragraph, Avatar} from 'react-native-paper';
-import {format} from 'date-fns';
 
 import {Routes} from 'constants/routes';
 import {useReduxDispatch} from 'store';
 import {clearListing} from 'store/slices/listingSlice';
+import {getDisplayDate} from 'utils/date';
 
 const Container = styled(TouchableOpacity)`
   margin: 10px;
@@ -33,8 +33,7 @@ const List = ({id, title, company_name, start_date, eligible}) => {
     navigation.navigate(Routes.LISTING, {id});
   };
 
-  const dt = new Date(start_date);
-  const formatDate = format(dt, 'MMMM do, yyyy');
+  const formatDate = getDisplayDate(start_date);
 
   return (
     <Container onPress={_onPress}>

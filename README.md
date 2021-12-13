@@ -1,6 +1,10 @@
 # Placements App
 
-## TODO
+## React Native App
+
+- [Backend API](https://github.com/Mugilan-Codes/placements-api)
+
+### TODO
 
 - proper authentication
   - log out
@@ -12,10 +16,10 @@
   - [react-native-make](https://github.com/bamlab/react-native-make)
   - [Designing Adaptive Icons](https://medium.com/google-design/designing-adaptive-icons-515af294c783)
   - [Building a splash screen in React Native](https://blog.logrocket.com/building-a-splash-screen-in-react-native/)
+  - [How to add an app icon in a React Native Android app](https://amanhimself.dev/blog/app-icon-react-native-android/)
+  - [Build Icon App](https://buildicon.netlify.app/)
+  - [Make App Icon](https://makeappicon.com/) - Not Working
   - [App icon Generator](https://appicon.co/)
-- Display Error Messages properly from the Backend
-  - [AirBnB Clone with React Native Part 4: Login error notifications](https://heartbeat.fritz.ai/airbnb-clone-with-react-native-part-4-login-error-notifications-580beb4fc03c)
-  - [react-native login screen - error when login button is pressed with empty login fields](https://stackoverflow.com/questions/53787767/react-native-login-screen-error-when-login-button-is-pressed-with-empty-login)
 - Add a bookmark feature to save listings
 - Reduce Load Time and add Loading Screens.
 - [Create global loader using context API in react native](https://medium.com/@jaythummar85/create-global-loader-using-context-api-in-react-native-4f5875c96472)
@@ -26,7 +30,7 @@
   - [Styling your React Native App with Styled-Components](https://javascript.plainenglish.io/styling-your-react-native-app-with-styled-components-6939afde3d2f)
   - [A Comparison of Three Methods for Styling Components in React Native](https://blog.echobind.com/a-comparison-of-three-methods-for-styling-components-in-react-native-88ece2fdcdea)
 
-### DOCS
+#### DOCS
 
 - [About React.cloneElement](https://medium.com/trabe/advanced-composition-in-react-cloneelement-hocs-and-renderprops-a20971aec50e)
 - [Styled Components Basics](https://styled-components.com/docs/basics)
@@ -36,5 +40,4 @@
   - [Designing a UI with custom theming using react-native-paper](https://blog.logrocket.com/designing-a-ui-with-custom-theming-using-react-native-paper/)
   - [Theming](https://callstack.github.io/react-native-paper/theming.html)
   - [Theming with React Navigation](https://callstack.github.io/react-native-paper/theming-with-react-navigation.html)
-- [Backend API](https://github.com/Mugilan-Codes/placements-api)
-- To use local instance of node api from docker. `adb -s <device_name> reverse tcp:8081 tcp:8081`
+- To use local instance of node api from docker. `adb -s <device_name> reverse tcp:3000 tcp:3000`

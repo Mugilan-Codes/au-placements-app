@@ -11,7 +11,7 @@ import {getDisplayDate} from 'utils/date';
 
 const Container = styled(TouchableOpacity)`
   margin: 10px;
-  border-radius: 6px;
+  border-radius: 10px;
   padding: 0 20px;
   flex: 1;
 `;

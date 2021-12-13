@@ -1,56 +1,33 @@
 import React, {useEffect} from 'react';
-import styled from 'styled-components/native';
 import {
   Text,
   Title,
   Chip,
   Button,
-  Paragraph,
   Subheading,
   Headline,
-  ActivityIndicator,
 } from 'react-native-paper';
 
-// import {useTheme} from 'contexts';
 import {useReduxDispatch, useReduxSelector} from 'store';
 import {
   selectListing,
   fetchOneListing,
   selectLoading,
 } from 'store/slices/listingSlice';
-
-const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  /* align-items: center; */
-`;
-
-const Row = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  /* margin: 10px; */
-  flex-wrap: wrap;
-`;
-
-const StyledParagraph = styled(Paragraph)`
-  text-align: center;
-  padding: 20px;
-`;
-
-const Loading = () => <ActivityIndicator animating size="large" />;
+import {getDisplayDate} from 'utils/date';
+import {Container, Row, StyledParagraph} from './styles';
+import {Loading} from 'components';
 
 // TODO: show tick icon for chip if eligible else show cross icon for ineligible criteria chip
 // TODO: provide link for appication and open it in webview
 const ListingScreen = ({route, navigation}) => {
   const {id} = route.params;
   const dispatch = useReduxDispatch();
-  // const {
-  //   theme: {colors},
-  // } = useTheme();
 
   const listing = useReduxSelector(selectListing);
   const isLoading = useReduxSelector(selectLoading);
+
+  const start_date = getDisplayDate(listing?.start_date);
 
   useEffect(() => {
     dispatch(fetchOneListing(id));
@@ -62,10 +39,13 @@ const ListingScreen = ({route, navigation}) => {
 
   return (
     <Container>
-      <Title>{listing?.title}</Title>
+      {/* <Title>{listing?.title}</Title> */}
+      <Headline>{listing?.title}</Headline>
       <Subheading>{listing?.company_name}</Subheading>
       <StyledParagraph>{listing?.description}</StyledParagraph>
-      <Headline>Start Date: 16th Nov, 2021</Headline>
+
+      {/* <Headline>Start Date: {start_date}</Headline> */}
+      <Title>Start Date: {start_date}</Title>
       <Text>Eligiblity Criteria</Text>
       <Row>
         <Chip>10th: {listing?.tenth_percentage}%</Chip>
@@ -74,7 +54,7 @@ const ListingScreen = ({route, navigation}) => {
       </Row>
       <Row>
         <Chip mode="outlined">CGPA: {listing?.cgpa}</Chip>
-        <Chip mode="outlined">Active Backlogs: {listing?.active_backlog}</Chip>
+        <Chip mode="outlined">Backlogs: {listing?.active_backlog}</Chip>
         <Chip mode="outlined">Backlog History: {listing?.backlog_history}</Chip>
       </Row>
       <Button mode="contained" color={listing?.eligible ? 'green' : 'red'}>

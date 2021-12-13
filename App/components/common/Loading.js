@@ -1,12 +1,19 @@
 import React from 'react';
-import {View, ActivityIndicator, StyleSheet} from 'react-native';
+import {ActivityIndicator, Colors} from 'react-native-paper';
 import PropTypes from 'prop-types';
+import styled from 'styled-components/native';
+
+const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Loading = ({size, color}) => {
   return (
-    <View style={styles.loadingContainer}>
-      <ActivityIndicator size={size} color={color} />
-    </View>
+    <Container>
+      <ActivityIndicator animating size={size} color={color} />
+    </Container>
   );
 };
 
@@ -17,15 +24,8 @@ Loading.propTypes = {
 
 Loading.defaultProps = {
   size: 'large',
-  color: '#6646ee',
+  // color: '#6646ee',
+  color: Colors.purpleA700,
 };
-
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default Loading;

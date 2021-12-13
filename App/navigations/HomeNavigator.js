@@ -4,12 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {Routes} from 'constants/routes';
-import {
-  DashboardScreen,
-  ProfileScreen,
-  // ModalScreen,
-  ListingScreen,
-} from 'screens';
+import {DashboardScreen, ProfileScreen, ListingScreen} from 'screens';
 import {useTheme} from 'contexts';
 
 const HomeStack = createStackNavigator();
@@ -60,43 +55,6 @@ const MainStackNavigator = () => {
   );
 };
 
-// const transitonConfig = {
-//   animation: 'spring',
-//   config: {
-//     stiffness: 1000,
-//     damping: 500,
-//     mass: 3,
-//     overshootClamping: true,
-//     restDisplacementThreshold: 0.01,
-//     restSpeedThreshold: 0.01,
-//   },
-// };
-
-// const screenOptions = {
-//   headerShown: false,
-//   cardStyle: {backgroundColor: 'rgba(52, 52, 52, 0.9)'},
-//   cardOverlayEnabled: true,
-//   cardStyleInterpolator: ({current: {progress}}) => ({
-//     cardStyle: {
-//       opacity: progress.interpolate({
-//         inputRange: [0, 0.5, 0.9, 1],
-//         outputRange: [0, 0.25, 0.7, 1],
-//       }),
-//     },
-//     overlayStyle: {
-//       opacity: progress.interpolate({
-//         inputRange: [0, 1],
-//         outputRange: [0, 0.5],
-//         extrapolate: 'clamp',
-//       }),
-//     },
-//   }),
-//   gestureEnabled: true,
-//   gestureResponseDistance: {horizontal: 150, vertical: 150},
-//   gestureDirection: 'vertical-inverted',
-//   transitionSpec: {open: transitonConfig, close: transitonConfig},
-// };
-
 const HomeNavigator = () => {
   return (
     <HomeStack.Navigator>
@@ -106,12 +64,6 @@ const HomeNavigator = () => {
         options={{headerShown: false}}
       />
       <HomeStack.Screen name={Routes.LISTING} component={ListingScreen} />
-      {/* <HomeStack.Screen
-        mode="modal"
-        options={screenOptions}
-        name={Routes.MODAL}
-        component={ModalScreen}
-      /> */}
     </HomeStack.Navigator>
   );
 };

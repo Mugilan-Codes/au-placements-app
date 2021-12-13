@@ -5,7 +5,6 @@
 - proper authentication
   - log out
   - use refresh tokens to get new access tokens in expiry
-- Use Modal to add Marks and Education.
 - Use Refresh Tokens to stop logging out often
 - Add App Icon and Splash Screen
   - [react-native-splash-screen](https://www.npmjs.com/package/react-native-splash-screen)

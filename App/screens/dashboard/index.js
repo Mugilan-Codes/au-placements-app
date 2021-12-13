@@ -13,7 +13,7 @@ import {
 import {logout} from 'store/slices/authSlice';
 import {ViewWithHeight, CenteredView} from './styles';
 
-// TODO: sort by date
+// TODO: sort by date and disable older listings
 const DashboardScreen = () => {
   const [lastUpdated, setLastUpdated] = useState(null);
 

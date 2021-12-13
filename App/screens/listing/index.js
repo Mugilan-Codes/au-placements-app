@@ -19,7 +19,7 @@ import {Container, Row, StyledParagraph} from './styles';
 import {Loading} from 'components';
 
 // TODO: show tick icon for chip if eligible else show cross icon for ineligible criteria chip
-// TODO: provide link for appication and open it in webview
+// TODO: provide link for appication and open it in webview if eligible
 const ListingScreen = ({route, navigation}) => {
   const {id} = route.params;
   const dispatch = useReduxDispatch();

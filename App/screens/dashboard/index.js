@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList, Text} from 'react-native';
-import {Button} from 'react-native-elements';
+import {FlatList} from 'react-native';
+import {Text, Headline} from 'react-native-paper';
 
 import {List, ListSeparator, ScreenHeader} from 'components';
 import {getCurrentTime} from 'utils/date';
@@ -10,7 +10,6 @@ import {
   selectListings,
   selectLoading,
 } from 'store/slices/listingSlice';
-import {logout} from 'store/slices/authSlice';
 import {ViewWithHeight, CenteredView} from './styles';
 
 // TODO: sort by date and disable older listings
@@ -19,6 +18,7 @@ const DashboardScreen = () => {
 
   const dispatch = useReduxDispatch();
   const listings = useReduxSelector(selectListings);
+  // const listings = [];
   const isLoading = useReduxSelector(selectLoading);
 
   useEffect(() => {
@@ -36,7 +36,8 @@ const DashboardScreen = () => {
   const _ListEmptyComponent = () => {
     return (
       <CenteredView>
-        <Text>Empty</Text>
+        <Headline>No listings found</Headline>
+        <Text>Try Again</Text>
       </CenteredView>
     );
   };
@@ -62,7 +63,7 @@ const DashboardScreen = () => {
         title="Dashboard"
         subText={`Last Updated: ${lastUpdated}`}
       />
-      <Button onPress={() => dispatch(logout())} title="Logout" />
+
       <FlatList
         data={listings}
         renderItem={renderItem}
@@ -73,6 +74,7 @@ const DashboardScreen = () => {
         ListEmptyComponent={_ListEmptyComponent}
         ListHeaderComponent={() => <ViewWithHeight />}
         ListFooterComponent={() => <ViewWithHeight />}
+        contentContainerStyle={{flexGrow: 1}}
       />
     </>
   );

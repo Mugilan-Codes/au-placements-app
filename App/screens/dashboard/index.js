@@ -32,7 +32,6 @@ const DashboardScreen = () => {
     setLastUpdated(time);
   }, [dispatch]);
 
-  // TODO: Show a empty state image if there are no listings
   const _ListEmptyComponent = () => {
     return (
       <CenteredView>

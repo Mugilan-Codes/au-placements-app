@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   Title,
@@ -7,6 +7,7 @@ import {
   Subheading,
   Headline,
 } from 'react-native-paper';
+import {WebView} from 'react-native-webview';
 
 import {useReduxDispatch, useReduxSelector} from 'store';
 import {
@@ -19,10 +20,11 @@ import {Container, Row, StyledParagraph} from './styles';
 import {Loading} from 'components';
 
 // TODO: show tick icon for chip if eligible else show cross icon for ineligible criteria chip
-// TODO: provide link for appication and open it in webview if eligible
+// REF: How to close a React-Native Webview? - https://stackoverflow.com/a/46175014/12381908
 const ListingScreen = ({route, navigation}) => {
   const {id} = route.params;
   const dispatch = useReduxDispatch();
+  const [isWebView, setIsWebView] = useState(false);
 
   const listing = useReduxSelector(selectListing);
   const isLoading = useReduxSelector(selectLoading);
@@ -37,14 +39,25 @@ const ListingScreen = ({route, navigation}) => {
     return <Loading />;
   }
 
+  if (isWebView) {
+    // return <WebView source={{uri: listing?.application_url}} />;
+    // return <WebView source={{uri: 'https://www.google.com/'}} />;
+    return (
+      <>
+        <Button mode="contained" onPress={() => setIsWebView(false)}>
+          Close
+        </Button>
+        <WebView source={{uri: 'https://www.google.com/'}} />
+      </>
+    );
+  }
+
   return (
     <Container>
-      {/* <Title>{listing?.title}</Title> */}
       <Headline>{listing?.title}</Headline>
       <Subheading>{listing?.company_name}</Subheading>
       <StyledParagraph>{listing?.description}</StyledParagraph>
 
-      {/* <Headline>Start Date: {start_date}</Headline> */}
       <Title>Start Date: {start_date}</Title>
       <Text>Eligiblity Criteria</Text>
       <Row>
@@ -57,7 +70,10 @@ const ListingScreen = ({route, navigation}) => {
         <Chip mode="outlined">Backlogs: {listing?.active_backlog}</Chip>
         <Chip mode="outlined">Backlog History: {listing?.backlog_history}</Chip>
       </Row>
-      <Button mode="contained" color={listing?.eligible ? 'green' : 'red'}>
+      <Button
+        mode="contained"
+        color={listing?.eligible ? 'green' : 'red'}
+        onPress={() => (listing?.eligible ? setIsWebView(true) : null)}>
         {listing?.eligible ? '' : 'Not '}Eligible
       </Button>
     </Container>

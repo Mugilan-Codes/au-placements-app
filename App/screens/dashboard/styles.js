@@ -9,3 +9,7 @@ export const CenteredView = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+export const Container = styled.View`
+  flex: 1;
+`;

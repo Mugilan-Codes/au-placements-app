@@ -5,14 +5,19 @@ import {Student} from 'api';
 export const fetchListings = createAsyncThunk(
   'listing/fetchListings',
   async (_, thunkAPI) => {
-    const {data} = await Student.getAllListings();
+    try {
+      const {data, status} = await Student.getAllListings();
 
-    if (data.msg) {
-      console.log('listing/fetchListings data.msg');
-      console.log(data.msg);
-      return thunkAPI.rejectWithValue(data.msg);
+      if (status === 200) {
+        return data;
+      } else {
+        return thunkAPI.rejectWithValue(data.error.message);
+      }
+    } catch (err) {
+      console.log('listing/fetchListings err');
+      console.log(err);
+      return thunkAPI.rejectWithValue(err);
     }
-    return data;
   },
 );
 
@@ -21,6 +26,7 @@ export const fetchOneListing = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const {data, status} = await Student.getOneListing(id);
+
       if (status === 200) {
         return data;
       } else {
@@ -78,14 +84,14 @@ const listingSlice = createSlice({
     });
     builder.addCase(fetchOneListing.fulfilled, (state, action) => {
       console.log('listing/fetchOneListing.fulfilled');
-      console.log(action.payload);
+      // console.log(action.payload);
       state.listing = action.payload;
       state.loading = false;
       state.error = null;
     });
     builder.addCase(fetchOneListing.rejected, (state, action) => {
       console.log('listing/fetchOneListing.rejected');
-      console.log(action.payload);
+      // console.log(action.payload);
       state.loading = false;
       state.error = action.payload;
     });

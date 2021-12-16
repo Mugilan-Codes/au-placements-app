@@ -10,7 +10,7 @@ import {
   selectListings,
   selectLoading,
 } from 'store/slices/listingSlice';
-import {ViewWithHeight, CenteredView} from './styles';
+import {ViewWithHeight, CenteredView, Container} from './styles';
 
 // TODO: sort by date and disable older listings
 const DashboardScreen = () => {
@@ -18,7 +18,6 @@ const DashboardScreen = () => {
 
   const dispatch = useReduxDispatch();
   const listings = useReduxSelector(selectListings);
-  // const listings = [];
   const isLoading = useReduxSelector(selectLoading);
 
   useEffect(() => {
@@ -54,10 +53,12 @@ const DashboardScreen = () => {
     );
   };
 
+  const contentContainerStyle = {flexGrow: 1};
+
   // TODO: Make a bookmark to save listings
   // TODO: Move the bookmarked listings to top of the flatlist
   return (
-    <>
+    <Container>
       <ScreenHeader
         title="Dashboard"
         subText={`Last Updated: ${lastUpdated}`}
@@ -73,9 +74,9 @@ const DashboardScreen = () => {
         ListEmptyComponent={_ListEmptyComponent}
         ListHeaderComponent={() => <ViewWithHeight />}
         ListFooterComponent={() => <ViewWithHeight />}
-        contentContainerStyle={{flexGrow: 1}}
+        contentContainerStyle={contentContainerStyle}
       />
-    </>
+    </Container>
   );
 };
 

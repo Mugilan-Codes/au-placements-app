@@ -146,7 +146,6 @@ const ProfleScreen = ({navigation}) => {
   };
 
   const onLogout = async () => {
-    // TODO: Present a Loading
     console.log('logging out...');
     dispatch(logout());
   };

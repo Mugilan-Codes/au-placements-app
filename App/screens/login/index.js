@@ -42,7 +42,6 @@ const LoginScreen = ({navigation}) => {
   };
 
   const onSubmit = (data) => {
-    // TODO: Present a Loading while logging in. Use global loader context
     // TODO: clear error after displaying toast to avoid showing old error
     dispatch(clearError());
     dispatch(login({email: data.email, password: data.password}));
@@ -61,8 +60,6 @@ const LoginScreen = ({navigation}) => {
     navigation.navigate(Routes.REGISTER);
   };
 
-  // TODO: Add Server Side Validation
-  // REF: https://www.carlrippon.com/react-hook-form-server-validation/
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>

@@ -44,7 +44,6 @@ const RegisterScreen = ({navigation}) => {
   };
 
   const onSubmit = (data) => {
-    // TODO: Present a Loading
     // TODO: clear error after displaying toast to avoid showing old error
     dispatch(register(data));
     serverError &&

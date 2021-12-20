@@ -1,4 +1,4 @@
-// ? https://stackoverflow.com/questions/63134848/create-a-theme-provider-component-in-react-native
+// REF: https://stackoverflow.com/questions/63134848/create-a-theme-provider-component-in-react-native
 
 // export const PRIMARY = '#1779ba';
 export const PRIMARY = '#C4FFFF';

@@ -14,7 +14,7 @@ import {Appearance} from 'react-native';
 import {DarkTheme, LightTheme} from 'styles';
 
 const systemColorScheme = Appearance.getColorScheme() || 'light';
-console.log('theme provider.js systemColorScheme =', systemColorScheme);
+// console.log('theme provider.js systemColorScheme =', systemColorScheme);
 
 const ThemeContext = createContext();
 
@@ -24,10 +24,10 @@ const ThemeProvider = ({children}) => {
 
   let theme = isDark ? DarkTheme : LightTheme;
 
-  console.log(`ThemeProvider isDark = ${isDark}`);
+  // console.log(`ThemeProvider isDark = ${isDark}`);
 
   const onThemeChange = ({colorScheme}) => {
-    console.log('ThemeProvider OnThemeChange colorScheme =', colorScheme);
+    // console.log('ThemeProvider OnThemeChange colorScheme =', colorScheme);
     setIsDark(colorScheme === 'dark');
   };
 
@@ -54,7 +54,6 @@ const ThemeProvider = ({children}) => {
   return (
     <ThemeContext.Provider value={preferences}>
       {/* <ElementsProvider theme={theme} useDark={isDark}> */}
-      {/* <ElementsProvider theme={theme}> */}
       <ElementsProvider useDark={isDark}>
         <PaperProvider theme={theme}>
           <StyleProvider theme={theme}>{children}</StyleProvider>

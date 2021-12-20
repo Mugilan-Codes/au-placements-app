@@ -1,5 +1,4 @@
-// TODO: responsive design
-// ? https://reactnative.dev/docs/usewindowdimensions
+// REF: https://reactnative.dev/docs/usewindowdimensions
 import {Dimensions} from 'react-native';
 
 const Window = {

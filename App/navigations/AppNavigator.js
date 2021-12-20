@@ -6,24 +6,21 @@ import {Routes} from 'constants/routes';
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
 import {useTheme} from 'contexts';
-import {selectAccessToken, selectIsLoading} from 'store/slices/authSlice';
+import {selectAccessToken} from 'store/slices/authSlice';
 import {selectIsAuthenticated, load} from 'store/slices/userSlice';
 import {useReduxDispatch, useReduxSelector} from 'store';
 
 const Main = createStackNavigator();
 
-// TODO: Setup automatic signin
 const AppNavigator = () => {
   const {theme} = useTheme();
   const dispatch = useReduxDispatch();
 
   const isAuthenticated = useReduxSelector(selectIsAuthenticated);
   const accessToken = useReduxSelector(selectAccessToken);
-  const isLoading = useReduxSelector(selectIsLoading);
 
-  console.log({isAuthenticated});
-  console.log({accessToken});
-  console.log({isLoading});
+  // console.log({isAuthenticated});
+  // console.log({accessToken});
 
   useEffect(() => {
     if (accessToken) {

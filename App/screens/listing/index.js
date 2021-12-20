@@ -40,21 +40,19 @@ const ListingScreen = ({route, navigation}) => {
   }
 
   if (isWebView) {
-    // return <WebView source={{uri: listing?.application_url}} />;
-    // return <WebView source={{uri: 'https://www.google.com/'}} />;
     return (
       <>
         <Button mode="contained" onPress={() => setIsWebView(false)}>
           Close
         </Button>
-        <WebView source={{uri: 'https://www.google.com/'}} />
+        <WebView source={{uri: listing?.listing_url}} />
       </>
     );
   }
 
   return (
     <Container>
-      <Headline>{listing?.title}</Headline>
+      <Headline style={{textAlign: 'center'}}>{listing?.title}</Headline>
       <Subheading>{listing?.company_name}</Subheading>
       <StyledParagraph>{listing?.description}</StyledParagraph>
 

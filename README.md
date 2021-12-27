@@ -6,6 +6,7 @@
 
 ### TODO
 
+- clear this warning --> Require cycle: App/config/index.js -> App/config/customApi.js -> App/store/store.js -> App/store/slices/authSlice.js -> App/api/index.js -> App/api/helper.js -> App/config/index.js
 - proper authentication
   - log out
   - use refresh tokens to get new access tokens in expiry
